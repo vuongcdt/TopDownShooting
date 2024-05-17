@@ -260,11 +260,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshHold: 0.2
-  velocityPlayer: 0.2
   mainCamera: {fileID: 519420031}
   anim: {fileID: 3053316729690103473}
-  minVelcity: -2
-  maxVelcity: 2
+  velocityLimit: 5
 --- !u!1 &840347476
 GameObject:
   m_ObjectHideFlags: 0
