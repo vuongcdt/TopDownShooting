@@ -14,7 +14,6 @@ namespace Scritps
         {
             if (col.CompareTag("Enemy"))
             {
-                Debug.Log("bullet va cham enemy");
                 DestroyBullet();
             }
         }

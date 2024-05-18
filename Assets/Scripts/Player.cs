@@ -17,13 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask layerEnemy;
     [SerializeField] private float enemyDectionRadius = 5;
 
-    private bool _isShooting;
     private float _timeDelayShooting;
-
-    private void Start()
-    {
-        _timeDelayShooting = timeDelayShooting;
-    }
 
     private void Update()
     {
@@ -36,6 +30,8 @@ public class Player : MonoBehaviour
 
         if (!enemyNearest)
         {
+            weapon.transform.rotation = Quaternion.identity;
+            muzzle.SetActive(false);
             return;
         }
 
@@ -56,26 +52,26 @@ public class Player : MonoBehaviour
 
     private void Shooting(Quaternion transformRotation, Vector2 velocity)
     {
-        _timeDelayShooting -= Time.deltaTime;
-
-        if (_timeDelayShooting > 0) return;
-
-        if (_timeDelayShooting < -timeShooting)
+        if (_timeDelayShooting == 0)
         {
-            _timeDelayShooting = timeDelayShooting;
-            muzzle.SetActive(false);
-            _isShooting = false;
-            return;
+            muzzle.SetActive(true);
+
+            var bulletObjectGame = Instantiate(bullet, shootingPoint.position, transformRotation);
+
+            var rigibody2dBullet = bulletObjectGame.GetComponent<Rigidbody2D>();
+            rigibody2dBullet.velocity = velocity;
         }
 
-        if (_isShooting) return;
+        _timeDelayShooting += Time.deltaTime;
 
-        muzzle.SetActive(true);
+        if (_timeDelayShooting > timeShooting)
+        {
+            muzzle.SetActive(false);
+        }
 
-        var bulletObjectGame = Instantiate(bullet, shootingPoint.position, transformRotation);
-        _isShooting = true;
-
-        var rigibody2dBullet = bulletObjectGame.GetComponent<Rigidbody2D>();
-        rigibody2dBullet.velocity = velocity;
+        if (_timeDelayShooting > timeDelayShooting)
+        {
+            _timeDelayShooting = 0;
+        }
     }
 }

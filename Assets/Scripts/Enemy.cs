@@ -9,7 +9,7 @@ namespace Scritps
         [SerializeField] private GameObject enemy;
         [SerializeField] private float velocityLimit = 1.5f;
         [SerializeField] private float hpEnemy = 10f;
-        [FormerlySerializedAs("damage")] [SerializeField] private float damageBullet = 4f;
+        [SerializeField] private float damageBullet = 4f;
 
         private Rigidbody2D _rigidbody2DEnemy;
 
@@ -40,7 +40,6 @@ namespace Scritps
             if (col.CompareTag("Bullet"))
             {
                 hpEnemy -= damageBullet;
-                Debug.Log("bullet va cham enemy 222222");
                 if(hpEnemy < 0 )
                 {
                     DestroyEnemy();
