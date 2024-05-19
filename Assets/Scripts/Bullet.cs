@@ -1,5 +1,4 @@
-﻿using System;
-using Common;
+﻿using Common;
 using UnityEngine;
 
 namespace Scritps
@@ -23,7 +22,7 @@ namespace Scritps
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.CompareTag(Constans.Tags.Enemy))
+            if (col.CompareTag(Constants.Tags.ENEMY))
             {
                 DestroyBullet();
             }

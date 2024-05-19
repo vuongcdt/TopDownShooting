@@ -14,8 +14,8 @@ namespace Scritps
         private Rigidbody2D _rigidbody2DPlayer;
         private Animator _animatorPlayer;
         private float _timeHold;
-        private static readonly int Run = Animator.StringToHash(Constans.Animator.Run);
-        private static readonly int Idle = Animator.StringToHash(Constans.Animator.Idle);
+        private static readonly int RUN = Animator.StringToHash(Constants.Animator.RUN);
+        private static readonly int IDLE = Animator.StringToHash(Constants.Animator.IDLE);
 
         private void Start()
         {
@@ -29,8 +29,8 @@ namespace Scritps
             {
                 _timeHold = 0;
                 _rigidbody2DPlayer.velocity = Vector2.zero;
-                _animatorPlayer.ResetTrigger(Run);
-                _animatorPlayer.SetTrigger(Idle);
+                _animatorPlayer.ResetTrigger(RUN);
+                _animatorPlayer.SetTrigger(IDLE);
             }
 
             if (!Input.GetMouseButton(0)) return;
@@ -45,42 +45,16 @@ namespace Scritps
 
         private void MoveToMousePoint()
         {
-            _animatorPlayer.SetTrigger(Run);
+            _animatorPlayer.SetTrigger(RUN);
             var positionAnimator = animatorPlayer.transform.position;
 
             var mousePosition = Input.mousePosition;
             var worldPosition = mainCamera.ScreenToWorldPoint(mousePosition);
 
-            var velocity = GetVelocity(worldPosition, positionAnimator, velocityLimit);
+            var velocity = Utils.GetVelocity(worldPosition, positionAnimator, velocityLimit);
 
-            _animatorPlayer.transform.localScale = SetFlipAmation(velocity);
+            _animatorPlayer.transform.localScale = Utils.SetFlipAmation(velocity);
             _rigidbody2DPlayer.velocity = velocity;
-        }
-
-        public static Vector3 SetFlipAmation(Vector2 velocity)
-        {
-            return velocity.x < 0 ? new Vector3(-1, 1) : new Vector3(1, 1);
-        }
-
-        public static Vector2 GetVelocity(Vector3 positionFirst, Vector3 positionLast, float velocityLimit)
-        {
-            var distanceToMousePoint = Vector2.Distance(positionFirst, positionLast);
-            
-            // var scaleVelocity = distanceToMouse > 0.2 ? velocityLimit / distanceToMouse : 1;
-            // Vector2 velocity = (positionFirst - positionLast) * scaleVelocity;
-            Vector2 velocity = (positionFirst - positionLast);
-            // if(distanceToMousePoint > 0.2)
-            // {
-            //     velocity.Normalize();
-            // }
-            velocity.Normalize();
-
-            velocity *= velocityLimit;
-            
-            // velocity.x = Mathf.Clamp(velocity.x, -velocityLimit, velocityLimit);
-            // velocity.y = Mathf.Clamp(velocity.y, -velocityLimit, velocityLimit);
-
-            return velocity;
         }
     }
 }

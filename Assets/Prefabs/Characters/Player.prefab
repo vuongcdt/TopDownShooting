@@ -116,11 +116,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4171572517201484091}
   - component: {fileID: 6244859020894180975}
-  - component: {fileID: 2478922945365176722}
   - component: {fileID: 5273619476702302697}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,29 +168,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2478922945365176722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2887280923194430663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2511f9b609a2d0a4f889c13859b0b70e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  muzzle: {fileID: 3344654907659877094}
-  bullet: {fileID: 7584997470391568916, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
-  weapon: {fileID: 2449039421493112299}
-  shootingPoint: {fileID: 6581986579707645234}
-  timeShooting: 0.1
-  timeDelayShooting: 1
-  speedBullet: 20
-  layerEnemy:
-    serializedVersion: 2
-    m_Bits: 256
-  enemyDectionRadius: 10
 --- !u!61 &5273619476702302697
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -293,6 +269,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2490957834554194432, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: layerEnemy.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 3591803506357901072, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalScale.z
       value: 0
@@ -320,13 +300,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5970680722962167642, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6028194122336709508}
   m_SourcePrefab: {fileID: 100100000, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
---- !u!1 &2449039421493112299 stripped
+--- !u!1 &2022331545718459535 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8012011250474374718, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5970680722962167642, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
   m_PrefabInstance: {fileID: 5678156947051985877}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6028194122336709508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022331545718459535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc7cbdc5c0b454d8c01d4aa4f725095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzle: {fileID: 3344654907659877094}
+  bullet: {fileID: 7584997470391568916, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
+  shootingPoint: {fileID: 6581986579707645234}
+  timeShooting: 0.1
+  timeDelayShooting: 1
+  layerEnemy:
+    serializedVersion: 2
+    m_Bits: 256
+  enemyDectionRadius: 5
 --- !u!1 &3344654907659877094 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6964328925319545139, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}

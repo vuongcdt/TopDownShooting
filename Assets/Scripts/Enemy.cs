@@ -8,9 +8,17 @@ namespace Scritps
         [SerializeField] private float velocityLimit = 1.5f;
         [SerializeField] private float hpEnemy = 10f;
         [SerializeField] private float damageBullet = 4f;
+        [SerializeField] private Animator animatorEnemy;
 
         private Rigidbody2D _rigidbody2DEnemy;
-        private Player _player;
+        private bool _isDeath;
+        private GameObject _player;
+        private static readonly int DEATH = Animator.StringToHash(Constants.Animator.DEATH);
+
+        public void ReBorn()
+        {
+            _isDeath = false;
+        }
 
         private void Start()
         {
@@ -20,11 +28,11 @@ namespace Scritps
 
         private void Update()
         {
-            if (!gameObject.activeSelf)
+            if (_isDeath)
             {
-                Debug.Log(gameObject.activeSelf);
                 return;
             }
+
             MoveToPlayer();
         }
 
@@ -32,29 +40,49 @@ namespace Scritps
         {
             var positionPlayer = _player.transform.position;
             var positionEnemy = gameObject.transform.position;
-            
-            var velocity = TouchController.GetVelocity(positionPlayer, positionEnemy, velocityLimit);
 
-            gameObject.transform.localScale = TouchController.SetFlipAmation(velocity);
+            var velocity = Utils.GetVelocity(positionPlayer, positionEnemy, velocityLimit);
+
+            gameObject.transform.localScale = Utils.SetFlipAmation(velocity);
 
             _rigidbody2DEnemy.velocity = velocity;
         }
-        
+
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.CompareTag(Constans.Tags.Bullet))
+            if (col.CompareTag(Constants.Tags.BULLET))
             {
-                hpEnemy -= damageBullet;
-                if(hpEnemy < 0 )
-                {
-                    DestroyEnemy();
-                }
+                ShootEnemy(col);
+            }
+
+            if (col.CompareTag(Constants.Tags.PLAYER))
+            {
+                //TODO
+                Debug.Log("111 player va cham enemy " + gameObject.name);
+                HitPlayer();
             }
         }
 
-        private void DestroyEnemy()
+        private void HitPlayer()
         {
-            // Destroy(gameObject);
+            //TODO Monsters collide with players
+        }
+
+        private void ShootEnemy(Collider2D col)
+        {
+            hpEnemy -= damageBullet;
+            if (hpEnemy < 0)
+            {
+                animatorEnemy.SetTrigger(DEATH);
+                _isDeath = true;
+                _rigidbody2DEnemy.velocity = new Vector2();
+                
+                Invoke(nameof(SetDeathEnemy),0.5f);
+            }
+        }
+
+        private void SetDeathEnemy()
+        {
             gameObject.SetActive(false);
         }
     }
