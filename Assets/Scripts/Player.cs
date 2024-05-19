@@ -1,9 +1,6 @@
-using System;
 using System.Linq;
 using Scritps;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -38,8 +35,14 @@ public class Player : MonoBehaviour
         var velocity = TouchController.GetVelocity(enemyNearest.transform.position, positionPlayer, speedBullet);
         var rad2Deg = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
 
+        Debug.Log($"rad2Deg: {rad2Deg}");
+        
         Quaternion transformRotation = Quaternion.AngleAxis(rad2Deg, Vector3.forward);
         weapon.transform.rotation = transformRotation;
+
+        var angle = Mathf.Atan2(velocity.y, velocity.x);
+        var transformRotation2 = Quaternion.Euler(0f, 0f, angle);
+        // weapon.transform.rotation = transformRotation2;
 
         Shooting(transformRotation, velocity);
     }
@@ -57,9 +60,9 @@ public class Player : MonoBehaviour
             muzzle.SetActive(true);
 
             var bulletObjectGame = Instantiate(bullet, shootingPoint.position, transformRotation);
-
-            var rigibody2dBullet = bulletObjectGame.GetComponent<Rigidbody2D>();
-            rigibody2dBullet.velocity = velocity;
+            
+            // var rigibody2dBullet = bulletObjectGame.GetComponent<Rigidbody2D>();
+            // rigibody2dBullet.velocity = velocity;
         }
 
         _timeDelayShooting += Time.deltaTime;

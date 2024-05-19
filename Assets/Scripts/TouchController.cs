@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 
 namespace Scritps
 {
@@ -13,8 +14,8 @@ namespace Scritps
         private Rigidbody2D _rigidbody2DPlayer;
         private Animator _animatorPlayer;
         private float _timeHold;
-        private static readonly int Run = Animator.StringToHash("run");
-        private static readonly int Idle = Animator.StringToHash("idle");
+        private static readonly int Run = Animator.StringToHash(Constans.Animator.Run);
+        private static readonly int Idle = Animator.StringToHash(Constans.Animator.Idle);
 
         private void Start()
         {

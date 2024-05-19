@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using Common;
+using UnityEngine;
 
 namespace Scritps
 {
@@ -37,7 +37,7 @@ namespace Scritps
         
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.CompareTag("Bullet"))
+            if (col.CompareTag(Constans.Tags.Bullet))
             {
                 hpEnemy -= damageBullet;
                 if(hpEnemy < 0 )
