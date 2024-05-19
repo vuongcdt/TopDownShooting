@@ -1,4 +1,5 @@
 using System.Linq;
+using Common;
 using Scritps;
 using UnityEngine;
 
@@ -33,18 +34,15 @@ public class Player : MonoBehaviour
         }
 
         var velocity = TouchController.GetVelocity(enemyNearest.transform.position, positionPlayer, speedBullet);
-        var rad2Deg = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-
-        Debug.Log($"rad2Deg: {rad2Deg}");
         
-        Quaternion transformRotation = Quaternion.AngleAxis(rad2Deg, Vector3.forward);
+        Quaternion transformRotation = MathHelpers.Vector2ToQuaternion(velocity);
         weapon.transform.rotation = transformRotation;
 
-        var angle = Mathf.Atan2(velocity.y, velocity.x);
-        var transformRotation2 = Quaternion.Euler(0f, 0f, angle);
+        // var angle = Mathf.Atan2(velocity.y, velocity.x);
+        // var transformRotation2 = Quaternion.Euler(0f, 0f, angle);
         // weapon.transform.rotation = transformRotation2;
 
-        Shooting(transformRotation, velocity);
+        Shooting(transformRotation);
     }
 
     private void OnDrawGizmos()
@@ -53,16 +51,13 @@ public class Player : MonoBehaviour
         Gizmos.DrawSphere(gameObject.transform.position, enemyDectionRadius);
     }
 
-    private void Shooting(Quaternion transformRotation, Vector2 velocity)
+    private void Shooting(Quaternion transformRotation)
     {
         if (_timeDelayShooting == 0)
         {
             muzzle.SetActive(true);
 
-            var bulletObjectGame = Instantiate(bullet, shootingPoint.position, transformRotation);
-            
-            // var rigibody2dBullet = bulletObjectGame.GetComponent<Rigidbody2D>();
-            // rigibody2dBullet.velocity = velocity;
+            Instantiate(bullet, shootingPoint.position, transformRotation);
         }
 
         _timeDelayShooting += Time.deltaTime;

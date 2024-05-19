@@ -69,10 +69,12 @@ namespace Scritps
             // var scaleVelocity = distanceToMouse > 0.2 ? velocityLimit / distanceToMouse : 1;
             // Vector2 velocity = (positionFirst - positionLast) * scaleVelocity;
             Vector2 velocity = (positionFirst - positionLast);
-            if(distanceToMousePoint > 0.2)
-            {
-                velocity.Normalize();
-            }
+            // if(distanceToMousePoint > 0.2)
+            // {
+            //     velocity.Normalize();
+            // }
+            velocity.Normalize();
+
             velocity *= velocityLimit;
             
             // velocity.x = Mathf.Clamp(velocity.x, -velocityLimit, velocityLimit);
