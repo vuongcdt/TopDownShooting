@@ -2,15 +2,15 @@
 
 namespace Scritps
 {
-    [CreateAssetMenu(fileName = "EnemyStats",menuName = "Create Stats/Create Enemy Stats")]
+    [CreateAssetMenu(fileName = "Enemy Stats")]
     public class EnemyStats: ActorStats
     {
-        [field: Header("Xp Bonus:")] 
-        public float MinXpBonus { get; set; }
-        public float MaxXpBonus { get; set; }
+        [Header("Xp Bonus:")] 
+        public float minXpBonus ;
+        public float maxXpBonus ;
         
-        [field: Header("Level Up:")] 
-        public float DamageUp { get; set; }
-        public float HpUp { get; set; }
+        [Header("Level Up:")] 
+        public float damageUp ;
+        public float hpUp ;
     }
 }

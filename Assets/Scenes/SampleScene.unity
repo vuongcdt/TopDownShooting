@@ -572,6 +572,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b878ca4d4273fb5448d49516b0425d6f, type: 3}
+--- !u!1 &1738652263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1738652265}
+  - component: {fileID: 1738652264}
+  m_Layer: 0
+  m_Name: CollectableManage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1738652264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738652263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846a7ebf917e44bc85e8a1e2ca73b1a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectableItems:
+  - SpawnRate: 0.01
+    CollectablePrefab: {fileID: 49627496049748167, guid: bfe0eb93342e578438a0641fa7103a4d, type: 3}
+  - SpawnRate: 0.06
+    CollectablePrefab: {fileID: -3435732751033391902, guid: 70c09cb2b899138408c97a431e619d5c, type: 3}
+  - SpawnRate: 0.1
+    CollectablePrefab: {fileID: -1328494905671782568, guid: 125df93d770bc164f92f7cc294cdd5e4, type: 3}
+  - SpawnRate: 0.6
+    CollectablePrefab: {fileID: -3044660858914948250, guid: c32bf78b286e5ea4bb1653fbbb1d20c1, type: 3}
+--- !u!4 &1738652265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738652263}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39608157, y: 0.091453046, z: -0.035438444}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3053316729690103473 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2293120478536106493, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
@@ -629,6 +682,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6028194122336709508, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
+      propertyPath: timeDelayShooting
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -645,3 +702,4 @@ SceneRoots:
   - {fileID: 999517855}
   - {fileID: 906897252}
   - {fileID: 1162853146}
+  - {fileID: 1738652265}

@@ -1,18 +1,21 @@
 ﻿using System;
+using Common;
 using UnityEngine;
 
 namespace Scritps
 {
-    [CreateAssetMenu(fileName = "PlayerStats", menuName = "Create Stats/Create Player Stats")]
+    [CreateAssetMenu(fileName = "Player Stats")]
     public class PlayerStats : ActorStats
     {
-        [field: Header("Level Up Base:")] public int Level { get; set; }
-        public int MaxLevel { get; set; }
-        public float Xp { get; set; }
-        public float LevelUpXpRequire { get; set; }
+        [field: Header("Level Up Base:")] 
+        public int level ;
+        public int maxLevel ;
+        public float xp ;
+        public float levelUpXpRequire ;
 
-        [field: Header("Level Up:")] public float LevelUpXpRequireUp { get; set; }
-        public float HpUp { get; set; }
+        [field: Header("Level Up:")] 
+        public float levelUpXpRequireUp ;
+        public float hpUp ;
 
         public override void Save()
         {
@@ -29,18 +32,17 @@ namespace Scritps
 
         public override void Upgrade(Action OnSuccess = null, Action OnFailed = null)
         {
-            float upgradeFormula = (Level / 2 - 0.5f) * 0.5f;
-            while (Xp >= LevelUpXpRequire && !IsMaxLevel())
+            while (xp >= levelUpXpRequire && !IsMaxLevel())
             {
-                Level++;
-                Xp -= LevelUpXpRequire;
-                Hp += HpUp * upgradeFormula;
-                LevelUpXpRequire += LevelUpXpRequireUp * upgradeFormula;
+                level++;
+                xp -= levelUpXpRequire;
+                hp += hpUp * Utils.GetUpgradeFormula(level);
+                levelUpXpRequire += levelUpXpRequireUp * Utils.GetUpgradeFormula(level);
                 Save();
                 OnSuccess?.Invoke();
             }
 
-            if (Xp <= LevelUpXpRequire || IsMaxLevel())
+            if (xp <= levelUpXpRequire || IsMaxLevel())
             {
                 OnFailed?.Invoke();
             }
@@ -48,7 +50,7 @@ namespace Scritps
 
         public override bool IsMaxLevel()
         {
-            return Level >= MaxLevel;
+            return level >= maxLevel;
         }
     }
 }

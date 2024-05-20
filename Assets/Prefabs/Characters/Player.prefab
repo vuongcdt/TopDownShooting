@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 4171572517201484091}
   - component: {fileID: 6244859020894180975}
   - component: {fileID: 5273619476702302697}
+  - component: {fileID: 4148223219595973428}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -213,6 +214,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4064312, y: 0.64404273}
   m_EdgeRadius: 0
+--- !u!114 &4148223219595973428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2887280923194430663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2511f9b609a2d0a4f889c13859b0b70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerCollectable:
+    serializedVersion: 2
+    m_Bits: 512
+  collectableDectionRadius: 1
 --- !u!1001 &5678156947051985877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -290,8 +307,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6964328925319545139, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: m_Name
+      value: MuzzleFlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964328925319545139, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8012011250474374718, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_Name
@@ -304,6 +325,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5970680722962167642, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6028194122336709508}
+    - targetCorrespondingSourceObject: {fileID: 6964328925319545139, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7865796559198252504}
   m_SourcePrefab: {fileID: 100100000, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
 --- !u!1 &2022331545718459535 stripped
 GameObject:
@@ -322,11 +346,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc7cbdc5c0b454d8c01d4aa4f725095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzle: {fileID: 3344654907659877094}
-  bullet: {fileID: 7584997470391568916, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
+  _muzzleFlash: {fileID: 7865796559198252504}
+  bullet: {fileID: 8102338804337959184, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
   shootingPoint: {fileID: 6581986579707645234}
-  timeShooting: 0.1
-  timeDelayShooting: 1
+  timeDelayShooting: 0.3
   layerEnemy:
     serializedVersion: 2
     m_Bits: 256
@@ -336,6 +359,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6964328925319545139, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
   m_PrefabInstance: {fileID: 5678156947051985877}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7865796559198252504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3344654907659877094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36d90ee15514c989dd9a216b864b607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeShooting: 0.1
 --- !u!4 &5817232899808389910 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}

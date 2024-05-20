@@ -9,6 +9,8 @@ namespace Scritps
         [SerializeField] private float hpEnemy = 10f;
         [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
+        [SerializeField] private GameObject wound;
+        [SerializeField] private LayerMask enemyLayer;
 
         private Rigidbody2D _rigidbody2DEnemy;
         private bool _isDeath;
@@ -18,12 +20,16 @@ namespace Scritps
         public void ReBorn()
         {
             _isDeath = false;
+            hpEnemy = 10f;
+            wound.SetActive(false);
+            // if (gameObject.layer == 0) gameObject.layer = enemyLayer;
         }
 
         private void Start()
         {
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
+            wound.SetActive(false);
         }
 
         private void Update()
@@ -52,7 +58,7 @@ namespace Scritps
         {
             if (col.CompareTag(Constants.Tags.BULLET))
             {
-                ShootEnemy(col);
+                ShootEnemy(col.transform.position);
             }
 
             if (col.CompareTag(Constants.Tags.PLAYER))
@@ -68,17 +74,30 @@ namespace Scritps
             //TODO Monsters collide with players
         }
 
-        private void ShootEnemy(Collider2D col)
+        private void ShootEnemy(Vector2 positionBullet)
         {
             hpEnemy -= damageBullet;
-            if (hpEnemy < 0)
+
+            if (hpEnemy > 0)
             {
-                animatorEnemy.SetTrigger(DEATH);
-                _isDeath = true;
-                _rigidbody2DEnemy.velocity = new Vector2();
-                
-                Invoke(nameof(SetDeathEnemy),0.5f);
+                wound.SetActive(true);
+                Invoke(nameof(HiddenWound), 0.3f);
+                return;
             }
+
+            animatorEnemy.SetTrigger(DEATH);
+            _isDeath = true;
+            _rigidbody2DEnemy.velocity = new Vector2();
+
+            CollectableManage.Ins.Spawn(transform.position);
+
+            // gameObject.layer = 0;
+            Invoke(nameof(SetDeathEnemy), 0.5f);
+        }
+
+        private void HiddenWound()
+        {
+            wound.SetActive(false);
         }
 
         private void SetDeathEnemy()

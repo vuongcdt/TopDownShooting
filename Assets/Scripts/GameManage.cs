@@ -6,11 +6,6 @@ namespace Scritps
     {
         [SerializeField] private GameObject player;
         public GameObject Player => player;
-        // public Player Player
-        // {
-        //     get => player;
-        //     private set => player = value;
-        // }
 
         protected override void Awake()
         {

@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class ActorStats:StatsBase
+    public class ActorStats : StatsBase
     {
         [field: Header("Base Stats")] 
-        public float Hp { get; set; }
-        public float Damage { get; set; }
-        public float MoveSpeed { get; set; }
-        
+        public float hp ;
+        public float damage ;
+        public float moveSpeed ;
+
         public override void Save()
         {
         }

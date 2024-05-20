@@ -21,7 +21,7 @@ namespace Scritps
             _timeSpawn += Time.deltaTime;
 
             var isLimitEnemies = _enemies.Count(e => e.gameObject.activeSelf) > enemiesLimit;
-            
+
             if (isLimitEnemies)
             {
                 return;
@@ -36,29 +36,11 @@ namespace Scritps
 
         private void SpawnEnemyByPoint()
         {
-            var spawnPoint = GetRandomSpawnPoint();
-            
-            var enemyIns =  Utils.SetActiveObject(enemy,spawnPoint,_enemies);
-            enemyIns.ReBorn();
-            
-            // var enemyUnavailable = _enemies.Find(e => !e.isActiveAndEnabled);
-            //
-            // if (!enemyUnavailable)
-            // {
-            //     var enemyIns = Instantiate(enemy, spawnPoint, Quaternion.identity);
-            //     _enemies.Add(enemyIns);
-            // }
-            // else
-            // {
-            //     enemyUnavailable.gameObject.SetActive(true);
-            //     enemyUnavailable.transform.position = spawnPoint;
-            // }
-        }
-
-        private Vector3 GetRandomSpawnPoint()
-        {
             var random = Random.Range(0, spawnPoints.Length);
-            return spawnPoints[random].position;
+            var spawnPoint = spawnPoints[random].position;
+
+            var enemyIns = Utils.Instantiate(enemy, spawnPoint, _enemies);
+            enemyIns.ReBorn();
         }
     }
 }
