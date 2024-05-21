@@ -22,7 +22,7 @@ namespace Common
             return velocity;
         }
         
-        public static T Instantiate<T>(T obj, Vector2 spawnPoint, List<T> objList) where T : ObjectBase
+        public static T Instantiate<T>(T obj, Vector2 spawnPoint, List<T> objList) where T : GameObjectBase
         {
             var objectUnavailable = objList.Find(e => !e.isActiveAndEnabled && e.ObjectType == obj.ObjectType);
 
@@ -38,7 +38,7 @@ namespace Common
             return objectUnavailable;
         } 
         
-        public static void ObjectDisappear(this GameObject objectGame) 
+        public static void HiddenGameObject(this GameObject objectGame) 
         {
             objectGame.SetActive(false);
         }

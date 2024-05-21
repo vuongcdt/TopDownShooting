@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 901533257315865619}
   - component: {fileID: -4475718401190160769}
   - component: {fileID: 4712638563664125231}
-  - component: {fileID: -779957578329518095}
   - component: {fileID: -1328494905671782568}
+  - component: {fileID: -4258773175758933767}
   m_Layer: 9
   m_Name: Diamond
   m_TagString: Untagged
@@ -144,13 +144,28 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0014906228, y: 0}
   serializedVersion: 2
   m_Radius: 0.39205155
---- !u!95 &-779957578329518095
+--- !u!114 &-1328494905671782568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047962909517913075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4751b0331ad9469c856588f91e5d3cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 1
+  timeHidden: 10
+  endTimeHidden: 5
+--- !u!95 &-4258773175758933767
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -171,16 +186,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-1328494905671782568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8047962909517913075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4751b0331ad9469c856588f91e5d3cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectType: 4

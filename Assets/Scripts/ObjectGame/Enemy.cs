@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Scritps
 {
-    public class Enemy : ObjectBase
+    public class Enemy : GameObjectBase
     {
         [SerializeField] private float velocityLimit = 1.5f;
         [SerializeField] private float hpEnemy = 10f;
@@ -12,23 +12,32 @@ namespace Scritps
         [SerializeField] private Animator animatorEnemy;
         [SerializeField] private GameObject bloodSplatter;
         [SerializeField] private LayerMask enemyLayer;
+        [SerializeField] private float timeHitPlayer = 0.2f;
+        [SerializeField] private float timeHiddenBloodSplatter = 0.3f;
+        [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
 
         private Rigidbody2D _rigidbody2DEnemy;
         private bool _isDeath;
         private GameObject _player;
-        private static readonly int DEATH = Animator.StringToHash(Constants.Animator.DEATH);
+        private float _hpEnemy;
+
+        private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
 
         public void ReBorn()
         {
             _isDeath = false;
-            hpEnemy = 10f;
+            _hpEnemy = hpEnemy;
             bloodSplatter.SetActive(false);
             //TODO
-            // if (gameObject.layer == 0) gameObject.layer = enemyLayer;
+            if (gameObject.layer == LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER))
+            {
+                gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.ENEMY_LAYER);
+            }
         }
 
         private void Start()
         {
+            _hpEnemy = hpEnemy;
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
             bloodSplatter.SetActive(false);
@@ -58,32 +67,34 @@ namespace Scritps
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.CompareTag(Constants.Tags.BULLET))
+            if (col.CompareTag(Constants.TagsConsts.BULLET))
             {
-                ShootEnemy(col.transform.position);
+                ShootEnemy();
             }
 
-            if (col.CompareTag(Constants.Tags.PLAYER))
+            if (col.CompareTag(Constants.TagsConsts.PLAYER))
             {
                 //TODO
-                Debug.Log("111 player va cham enemy " + gameObject.name);
-                HitPlayer();
+
+                Invoke(nameof(HitPlayer), timeHitPlayer);
             }
         }
 
         private void HitPlayer()
         {
+            Debug.Log("111 player va cham enemy " + gameObject.name);
+
             //TODO Monsters collide with players
         }
 
-        private void ShootEnemy(Vector2 positionBullet)
+        private void ShootEnemy()
         {
-            hpEnemy -= damageBullet;
+            _hpEnemy -= damageBullet;
 
-            if (hpEnemy > 0)
+            if (_hpEnemy > 0)
             {
                 bloodSplatter.SetActive(true);
-                Invoke(nameof(HiddenWound), 0.3f);
+                Invoke(nameof(HiddenBloodSplatter), timeHiddenBloodSplatter);
                 return;
             }
 
@@ -94,18 +105,18 @@ namespace Scritps
             CollectableManage.Ins.Spawn(transform.position);
 
             //TODO
-            // gameObject.layer = 0;
-            Invoke(nameof(SetDeathEnemy), 0.5f);
+            gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
+            Invoke(nameof(SetDeathEnemy), timeHiddenBodyEnemy);
         }
 
-        private void HiddenWound()
+        private void HiddenBloodSplatter()
         {
-            bloodSplatter.SetActive(false);
+            bloodSplatter.HiddenGameObject();
         }
 
         private void SetDeathEnemy()
         {
-            gameObject.ObjectDisappear();
+            gameObject.HiddenGameObject();
         }
     }
 }

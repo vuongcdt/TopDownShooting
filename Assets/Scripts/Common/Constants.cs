@@ -2,17 +2,19 @@
 {
     public class Constants
     {
-        public class Tags
+        public class TagsConsts
         {
             public const string ENEMY = "Enemy";
             public const string PLAYER = "Player";
             public const string BULLET = "Bullet";
         }  
-        public class Animator
+        public class AnimatorConsts
         {
             public const string IDLE = "idle";
             public const string RUN = "run";
             public const string DEATH = "death";
+            public const string FLASH = "flash";
+            public const string FLIP = "flip";
         }
         public class PrefConsts
         {
@@ -20,6 +22,13 @@
             public const string PLAYER_DATA_KEY = "PlayerData";
             public const string ENEMY_DATA_KEY = "EnemyData";
             public const string WEAPON_DATA_KEY = "WeaponData";
+        }
+        public class LayerConsts
+        {
+            public const string DEFAULT_LAYER = "Default";
+            public const string PLAYER_LAYER = "Player";
+            public const string ENEMY_LAYER = "Enemy";
+            public const string COLLECTABLE_LAYER = "Collectable";
         }
     }
 }

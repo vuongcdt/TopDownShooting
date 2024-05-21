@@ -20,7 +20,8 @@ namespace Scritps
                     continue;
                 }
                 
-                Utils.Instantiate(collectable.CollectablePrefab, position, _collectables);
+                var collectableGameObject = Utils.Instantiate(collectable.CollectablePrefab, position, _collectables);
+                collectableGameObject.AutoHiddenByTime();
                 return;
             }
         }

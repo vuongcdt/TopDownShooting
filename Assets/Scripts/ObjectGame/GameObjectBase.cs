@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class ObjectBase : MonoBehaviour
+    public class GameObjectBase : MonoBehaviour
     {
         [SerializeField] private Enums.ObjectType objectType;
 

@@ -14,8 +14,8 @@ namespace Scritps
         private Rigidbody2D _rigidbody2DPlayer;
         private Animator _animatorPlayer;
         private float _timeHold;
-        private static readonly int RUN = Animator.StringToHash(Constants.Animator.RUN);
-        private static readonly int IDLE = Animator.StringToHash(Constants.Animator.IDLE);
+        private static readonly int RUN = Animator.StringToHash(Constants.AnimatorConsts.RUN);
+        private static readonly int IDLE = Animator.StringToHash(Constants.AnimatorConsts.IDLE);
 
         private void Start()
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class Bullet : ObjectBase
+    public class Bullet : GameObjectBase
     {
         [SerializeField] private float speedBullet = 30;
 
@@ -28,9 +28,9 @@ namespace Scritps
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.CompareTag(Constants.Tags.ENEMY))
+            if (col.CompareTag(Constants.TagsConsts.ENEMY))
             {
-                gameObject.ObjectDisappear();
+                gameObject.HiddenGameObject();
             }
         }
     }
