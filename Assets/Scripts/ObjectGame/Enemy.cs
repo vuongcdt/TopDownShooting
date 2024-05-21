@@ -1,15 +1,16 @@
 ﻿using Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scritps
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : ObjectBase
     {
         [SerializeField] private float velocityLimit = 1.5f;
         [SerializeField] private float hpEnemy = 10f;
         [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
-        [SerializeField] private GameObject wound;
+        [SerializeField] private GameObject bloodSplatter;
         [SerializeField] private LayerMask enemyLayer;
 
         private Rigidbody2D _rigidbody2DEnemy;
@@ -21,7 +22,8 @@ namespace Scritps
         {
             _isDeath = false;
             hpEnemy = 10f;
-            wound.SetActive(false);
+            bloodSplatter.SetActive(false);
+            //TODO
             // if (gameObject.layer == 0) gameObject.layer = enemyLayer;
         }
 
@@ -29,7 +31,7 @@ namespace Scritps
         {
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
-            wound.SetActive(false);
+            bloodSplatter.SetActive(false);
         }
 
         private void Update()
@@ -80,7 +82,7 @@ namespace Scritps
 
             if (hpEnemy > 0)
             {
-                wound.SetActive(true);
+                bloodSplatter.SetActive(true);
                 Invoke(nameof(HiddenWound), 0.3f);
                 return;
             }
@@ -91,18 +93,19 @@ namespace Scritps
 
             CollectableManage.Ins.Spawn(transform.position);
 
+            //TODO
             // gameObject.layer = 0;
             Invoke(nameof(SetDeathEnemy), 0.5f);
         }
 
         private void HiddenWound()
         {
-            wound.SetActive(false);
+            bloodSplatter.SetActive(false);
         }
 
         private void SetDeathEnemy()
         {
-            gameObject.SetActive(false);
+            gameObject.ObjectDisappear();
         }
     }
 }

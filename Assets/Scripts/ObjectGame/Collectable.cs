@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class Collectable : MonoBehaviour
+    public class Collectable : ObjectBase
     {
         private static readonly int SPEED_COLLECTABLE = 5;
         private Rigidbody2D _rigidbody2D;
@@ -26,7 +26,7 @@ namespace Scritps
         {
             if (col.CompareTag(Constants.Tags.PLAYER))
             {
-                gameObject.SetActive(false);
+                gameObject.ObjectDisappear();
                 _rigidbody2D.velocity = Vector2.zero;
                 SetPointPlayer();
             }

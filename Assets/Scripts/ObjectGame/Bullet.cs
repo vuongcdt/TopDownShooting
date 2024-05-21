@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : ObjectBase
     {
         [SerializeField] private float speedBullet = 30;
 
@@ -30,7 +30,7 @@ namespace Scritps
         {
             if (col.CompareTag(Constants.Tags.ENEMY))
             {
-                gameObject.SetActive(false);
+                gameObject.ObjectDisappear();
             }
         }
     }

@@ -8,7 +8,7 @@ namespace Scritps
     public class CollectableManage : Singleton<CollectableManage>
     {
         [SerializeField] private CollectableItem[] collectableItems;
-        private List<Collectable> _collectables = new();
+        private readonly List<Collectable> _collectables = new();
         public void Spawn(Vector2 position)
         {
             var randomValue = Random.value;
@@ -20,7 +20,6 @@ namespace Scritps
                     continue;
                 }
                 
-                // Instantiate(collectable.CollectablePrefab, position, Quaternion.identity);
                 Utils.Instantiate(collectable.CollectablePrefab, position, _collectables);
                 return;
             }

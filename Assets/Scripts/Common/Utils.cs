@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Scritps;
 using UnityEngine;
 
 namespace Common
@@ -19,10 +21,10 @@ namespace Common
 
             return velocity;
         }
-
-        public static T Instantiate<T>(T obj, Vector2 spawnPoint, List<T> objList) where T : MonoBehaviour
+        
+        public static T Instantiate<T>(T obj, Vector2 spawnPoint, List<T> objList) where T : ObjectBase
         {
-            var objectUnavailable = objList.Find(e => !e.isActiveAndEnabled);
+            var objectUnavailable = objList.Find(e => !e.isActiveAndEnabled && e.ObjectType == obj.ObjectType);
 
             if (!objectUnavailable)
             {
@@ -34,8 +36,13 @@ namespace Common
             objectUnavailable.gameObject.SetActive(true);
             objectUnavailable.transform.position = spawnPoint;
             return objectUnavailable;
+        } 
+        
+        public static void ObjectDisappear(this GameObject objectGame) 
+        {
+            objectGame.SetActive(false);
         }
-    
+        
         public static float GetUpgradeFormula(int level)
         {
             return (level / 2 - 0.5f) * 0.5f;

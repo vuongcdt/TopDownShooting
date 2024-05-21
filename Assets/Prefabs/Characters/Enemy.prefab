@@ -199,11 +199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631fbffec3a04ed2a0504f2934e6eec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectType: 0
   velocityLimit: 1
   hpEnemy: 10
   damageBullet: 5
   animatorEnemy: {fileID: 4292609321954057593}
-  wound: {fileID: 3419765498069798613}
+  bloodSplatter: {fileID: 3419765498069798613}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -244,7 +245,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1098789667339218950, guid: d6bdc9db1b507cc42902ef44d87e13d5, type: 3}
       propertyPath: m_Name
-      value: Wound
+      value: BloodSplatter
       objectReference: {fileID: 0}
     - target: {fileID: 1098789667339218950, guid: d6bdc9db1b507cc42902ef44d87e13d5, type: 3}
       propertyPath: m_IsActive

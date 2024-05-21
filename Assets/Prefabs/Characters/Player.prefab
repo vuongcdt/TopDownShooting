@@ -349,7 +349,7 @@ MonoBehaviour:
   _muzzleFlash: {fileID: 7865796559198252504}
   bullet: {fileID: 8102338804337959184, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
   shootingPoint: {fileID: 6581986579707645234}
-  timeDelayShooting: 0.3
+  timeDelayShooting: 0.2
   layerEnemy:
     serializedVersion: 2
     m_Bits: 256
