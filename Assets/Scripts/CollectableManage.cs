@@ -15,13 +15,14 @@ namespace Scritps
 
             foreach (var collectable in collectableItems)
             {
-                if(collectable.SpawnRate < randomValue)
+                if(collectable.spawnRate < randomValue)
                 {
                     continue;
                 }
                 
-                var collectableGameObject = Utils.Instantiate(collectable.CollectablePrefab, position, _collectables);
-                collectableGameObject.AutoHiddenByTime();
+                // Utils.Instantiate(collectable.CollectablePrefab, position, _collectables);
+                var collectableGameObject = Utils.Instantiate(collectable.collectablePrefab, position, _collectables);
+                collectableGameObject.ReBorn();
                 return;
             }
         }

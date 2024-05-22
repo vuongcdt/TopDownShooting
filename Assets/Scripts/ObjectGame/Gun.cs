@@ -2,12 +2,13 @@
 using System.Linq;
 using Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scritps
 {
     public class Gun : MonoBehaviour
     {
-        [SerializeField] private MuzzleFlash _muzzleFlash;
+        [FormerlySerializedAs("_muzzleFlash")] [SerializeField] private MuzzleFlash muzzleFlash;
         [SerializeField] private Bullet bullet;
         [SerializeField] private Transform shootingPoint;
         [SerializeField] private float timeDelayShooting = 1f;
@@ -42,7 +43,7 @@ namespace Scritps
             return enemyNearest;
         }
 
-        private void TargetAiming(Collider2D enemyNearest)
+        private void TargetAiming(Component enemyNearest)
         {
             var positionWeapon = gameObject.transform.position;
             var velocity = Utils.GetVelocity(enemyNearest.transform.position, positionWeapon, 1);
@@ -53,7 +54,7 @@ namespace Scritps
             Shooting(enemyNearest);
         }
 
-        private void Shooting(Collider2D enemyNearest)
+        private void Shooting(Component enemyNearest)
         {
             if (_timeDelayShooting == 0)
             {
@@ -62,7 +63,7 @@ namespace Scritps
                 var bulletIns = Utils.Instantiate(bullet, shootingPoint.position, _bullets);
                 bulletIns.WakeUp(position);
 
-                _muzzleFlash.Show();
+                muzzleFlash.Show();
             }
 
             _timeDelayShooting += Time.deltaTime;

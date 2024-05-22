@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class Bullet : GameObjectBase
+    public class Bullet : MyMonoBehaviour
     {
         [SerializeField] private float speedBullet = 30;
 
@@ -33,5 +33,9 @@ namespace Scritps
                 gameObject.HiddenGameObject();
             }
         }
+
+        // public override void ReBorn()
+        // {
+        // }
     }
 }

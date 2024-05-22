@@ -8,14 +8,14 @@ namespace Scritps
     public class PlayerStats : ActorStats
     {
         [field: Header("Level Up Base:")] 
-        public int level ;
-        public int maxLevel ;
-        public float xp ;
-        public float levelUpXpRequire ;
+        public int level = 1;
+        public int maxLevel = 100;
+        public float xp = 0;
+        public float levelUpXpRequire = 10;
 
         [field: Header("Level Up:")] 
-        public float levelUpXpRequireUp ;
-        public float hpUp ;
+        public float levelUpXpRequireUp = 10;
+        public float hpUp = 10;
 
         public override void Save()
         {

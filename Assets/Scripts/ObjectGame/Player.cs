@@ -1,15 +1,10 @@
-using System;
-using System.Linq;
-using Common;
 using Scritps;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private LayerMask layerCollectable;
     [SerializeField] private float collectableDectionRadius = 1;
-
 
     private void Update()
     {
@@ -23,7 +18,7 @@ public class Player : MonoBehaviour
 
         foreach (var collider2d in col2DCollectables)
         {
-            Collectable.MoveToPlayer(positionPlayer,collider2d.transform);
+            Collectable.MoveToPlayer(positionPlayer,collider2d);       
         }
     }
 }

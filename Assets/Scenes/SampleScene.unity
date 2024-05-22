@@ -563,14 +563,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
-    - target: {fileID: 7364166208661071090, guid: b878ca4d4273fb5448d49516b0425d6f, type: 3}
-      propertyPath: timeSpawn
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7364166208661071090, guid: b878ca4d4273fb5448d49516b0425d6f, type: 3}
-      propertyPath: timeSpawnLimit
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -646,10 +638,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4148223219595973428, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: collectableDectionRadius
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4171572517201484091, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.07
@@ -689,10 +677,6 @@ PrefabInstance:
     - target: {fileID: 4171572517201484091, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6028194122336709508, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: timeDelayShooting
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

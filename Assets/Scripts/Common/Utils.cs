@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Scritps;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Common
 {
@@ -22,16 +22,17 @@ namespace Common
             return velocity;
         }
         
-        public static T Instantiate<T>(T obj, Vector2 spawnPoint, List<T> objList) where T : GameObjectBase
+        public static T Instantiate<T>(T obj, Vector2 spawnPoint, List<T> objList) where T : MyMonoBehaviour
         {
             var objectUnavailable = objList.Find(e => !e.isActiveAndEnabled && e.ObjectType == obj.ObjectType);
 
             if (!objectUnavailable)
             {
-                var objectIns = Object.Instantiate(obj, spawnPoint, Quaternion.identity);
-                objList.Add(objectIns);
-                return objectIns;
-            }
+                var newObject = Object.Instantiate(obj, spawnPoint, Quaternion.identity);
+                // newObject.ReBorn();
+                objList.Add(newObject);
+                return newObject;
+            }                
 
             objectUnavailable.gameObject.SetActive(true);
             objectUnavailable.transform.position = spawnPoint;
@@ -41,7 +42,7 @@ namespace Common
         public static void HiddenGameObject(this GameObject objectGame) 
         {
             objectGame.SetActive(false);
-        }
+        }      
         
         public static float GetUpgradeFormula(int level)
         {

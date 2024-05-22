@@ -40,7 +40,8 @@ namespace Scritps
             var spawnPoint = spawnPoints[random].position;
 
             var enemyIns = Utils.Instantiate(enemy, spawnPoint, _enemies);
-            enemyIns.ReBorn();
+            enemyIns.AutoHiddenByTime();
+            // enemyIns.ReBorn();
         }
     }
 }

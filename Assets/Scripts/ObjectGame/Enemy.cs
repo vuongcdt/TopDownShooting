@@ -4,16 +4,14 @@ using UnityEngine.Serialization;
 
 namespace Scritps
 {
-    public class Enemy : GameObjectBase
+    public class Enemy : MyMonoBehaviour
     {
         [SerializeField] private float velocityLimit = 1.5f;
         [SerializeField] private float hpEnemy = 10f;
         [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
-        [SerializeField] private GameObject bloodSplatter;
-        [SerializeField] private LayerMask enemyLayer;
+        [SerializeField] private GameObject bloodHit;
         [SerializeField] private float timeHitPlayer = 0.2f;
-        [SerializeField] private float timeHiddenBloodSplatter = 0.3f;
         [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
 
         private Rigidbody2D _rigidbody2DEnemy;
@@ -23,12 +21,16 @@ namespace Scritps
 
         private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
 
-        public void ReBorn()
+        public void AutoHiddenByTime()
         {
             _isDeath = false;
             _hpEnemy = hpEnemy;
-            bloodSplatter.SetActive(false);
-            //TODO
+            
+            if (bloodHit)
+            {
+                bloodHit.SetActive(false);
+            }
+            
             if (gameObject.layer == LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER))
             {
                 gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.ENEMY_LAYER);
@@ -40,7 +42,7 @@ namespace Scritps
             _hpEnemy = hpEnemy;
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
-            bloodSplatter.SetActive(false);
+            bloodHit.SetActive(false);
         }
 
         private void Update()
@@ -76,7 +78,8 @@ namespace Scritps
             {
                 //TODO
 
-                Invoke(nameof(HitPlayer), timeHitPlayer);
+                // ActionWaitForSeconds(HitPlayer, timeHitPlayer);
+                HitPlayer();
             }
         }
 
@@ -93,8 +96,9 @@ namespace Scritps
 
             if (_hpEnemy > 0)
             {
-                bloodSplatter.SetActive(true);
-                Invoke(nameof(HiddenBloodSplatter), timeHiddenBloodSplatter);
+                if (bloodHit) bloodHit.SetActive(true);
+                // HiddenBloodHit();
+                // Invoke(nameof(HiddenBloodHit), timeHiddenBloodHit);
                 return;
             }
 
@@ -106,17 +110,11 @@ namespace Scritps
 
             //TODO
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
-            Invoke(nameof(SetDeathEnemy), timeHiddenBodyEnemy);
+            HiddenGameObjectWaitForSeconds(timeHiddenBodyEnemy);
         }
 
-        private void HiddenBloodSplatter()
-        {
-            bloodSplatter.HiddenGameObject();
-        }
-
-        private void SetDeathEnemy()
-        {
-            gameObject.HiddenGameObject();
-        }
+        // public override void ReBorn()
+        // {
+        // }
     }
 }

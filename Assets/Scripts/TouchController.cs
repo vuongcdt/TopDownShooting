@@ -14,8 +14,8 @@ namespace Scritps
         private Rigidbody2D _rigidbody2DPlayer;
         private Animator _animatorPlayer;
         private float _timeHold;
-        private static readonly int RUN = Animator.StringToHash(Constants.AnimatorConsts.RUN);
-        private static readonly int IDLE = Animator.StringToHash(Constants.AnimatorConsts.IDLE);
+        private static readonly int RUN_ANIMATOR = Animator.StringToHash(Constants.AnimatorConsts.RUN);
+        private static readonly int IDLE_ANIMATOR = Animator.StringToHash(Constants.AnimatorConsts.IDLE);
 
         private void Start()
         {
@@ -29,8 +29,9 @@ namespace Scritps
             {
                 _timeHold = 0;
                 _rigidbody2DPlayer.velocity = Vector2.zero;
-                _animatorPlayer.ResetTrigger(RUN);
-                _animatorPlayer.SetTrigger(IDLE);
+                
+                _animatorPlayer.ResetTrigger(RUN_ANIMATOR);
+                _animatorPlayer.SetTrigger(IDLE_ANIMATOR);
             }
 
             if (!Input.GetMouseButton(0)) return;
@@ -45,7 +46,7 @@ namespace Scritps
 
         private void MoveToMousePoint()
         {
-            _animatorPlayer.SetTrigger(RUN);
+            _animatorPlayer.SetTrigger(RUN_ANIMATOR);
             var positionAnimator = animatorPlayer.transform.position;
 
             var mousePosition = Input.mousePosition;
