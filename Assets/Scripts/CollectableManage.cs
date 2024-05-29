@@ -21,7 +21,7 @@ namespace Scritps
                 
                 // Utils.Instantiate(collectable.CollectablePrefab, position, _collectables);
                 var collectableGameObject = Utils.Instantiate(collectable.collectablePrefab, position, _collectables);
-                collectableGameObject.ReBorn();
+                // collectableGameObject.ReBorn();
                 return;
             }
         }

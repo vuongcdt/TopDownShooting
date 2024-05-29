@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Scritps
 {
@@ -12,5 +13,25 @@ namespace Scritps
         [Header("Level Up:")] 
         public float damageUp ;
         public float hpUp ;
+
+        public override void Save()
+        {
+            base.Save();
+        }
+
+        public override void Load()
+        {
+            base.Load();
+        }
+
+        public override void Upgrade(Action OnSuccess = null, Action OnFailed = null)
+        {
+            base.Upgrade(OnSuccess, OnFailed);
+        }
+
+        public override bool IsMaxLevel()
+        {
+            return base.IsMaxLevel();
+        }
     }
 }

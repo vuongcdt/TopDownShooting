@@ -39,11 +39,6 @@ namespace Common
             return objectUnavailable;
         } 
         
-        public static void HiddenGameObject(this GameObject objectGame) 
-        {
-            objectGame.SetActive(false);
-        }      
-        
         public static float GetUpgradeFormula(int level)
         {
             return (level / 2 - 0.5f) * 0.5f;

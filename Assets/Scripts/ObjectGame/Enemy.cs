@@ -1,17 +1,17 @@
 ﻿using Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scritps
 {
     public class Enemy : MyMonoBehaviour
     {
+        [Header("Enemy Settings")]
         [SerializeField] private float velocityLimit = 1.5f;
         [SerializeField] private float hpEnemy = 10f;
         [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
         [SerializeField] private GameObject bloodHit;
-        [SerializeField] private float timeHitPlayer = 0.2f;
+        // [SerializeField] private float timeHitPlayer = 0.2f;
         [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
 
         private Rigidbody2D _rigidbody2DEnemy;
@@ -76,9 +76,6 @@ namespace Scritps
 
             if (col.CompareTag(Constants.TagsConsts.PLAYER))
             {
-                //TODO
-
-                // ActionWaitForSeconds(HitPlayer, timeHitPlayer);
                 HitPlayer();
             }
         }
@@ -97,8 +94,6 @@ namespace Scritps
             if (_hpEnemy > 0)
             {
                 if (bloodHit) bloodHit.SetActive(true);
-                // HiddenBloodHit();
-                // Invoke(nameof(HiddenBloodHit), timeHiddenBloodHit);
                 return;
             }
 
@@ -112,9 +107,5 @@ namespace Scritps
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
             HiddenGameObjectWaitForSeconds(timeHiddenBodyEnemy);
         }
-
-        // public override void ReBorn()
-        // {
-        // }
     }
 }

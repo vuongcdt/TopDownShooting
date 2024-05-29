@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc7cbdc5c0b454d8c01d4aa4f725095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _muzzleFlash: {fileID: 7865796559198252504}
+  muzzleFlash: {fileID: 7865796559198252504}
   bullet: {fileID: 8102338804337959184, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
   shootingPoint: {fileID: 6581986579707645234}
   timeDelayShooting: 0.2
@@ -371,6 +371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36d90ee15514c989dd9a216b864b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectType: 0
+  isAutoHiddenObject: 0
+  timeDelayHiddenObject: 0
   timeShooting: 0.1
 --- !u!4 &5817232899808389910 stripped
 Transform:

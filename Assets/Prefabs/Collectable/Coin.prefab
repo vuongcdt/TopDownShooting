@@ -184,5 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 3
-  timeHidden: 30
+  isAutoHiddenObject: 1
+  timeDelayHiddenObject: 15
+  isAutoHidden: 0
   endTimeHidden: 5

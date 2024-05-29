@@ -4,12 +4,14 @@
     {
         public enum ObjectType
         {
-            Player = 1,
+            None,
+            Player,
             Enemy ,
             CoinCollectable,
             DiamondCollectable,
             HealthPotionCollectable,
-            LifeCollectable
+            LifeCollectable,
+            Bullet
         }
     }
 }

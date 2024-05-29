@@ -8,7 +8,7 @@ namespace Scritps
 {
     public class Gun : MonoBehaviour
     {
-        [FormerlySerializedAs("_muzzleFlash")] [SerializeField] private MuzzleFlash muzzleFlash;
+        [SerializeField] private MuzzleFlash muzzleFlash;
         [SerializeField] private Bullet bullet;
         [SerializeField] private Transform shootingPoint;
         [SerializeField] private float timeDelayShooting = 1f;

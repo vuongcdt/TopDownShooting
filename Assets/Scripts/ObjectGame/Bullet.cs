@@ -1,11 +1,11 @@
-﻿using System;
-using Common;
+﻿using Common;
 using UnityEngine;
 
 namespace Scritps
 {
     public class Bullet : MyMonoBehaviour
     {
+        [Header("Bullet Settings")]
         [SerializeField] private float speedBullet = 30;
 
         private Rigidbody2D _rigidbody2D;
@@ -21,8 +21,9 @@ namespace Scritps
             _rigidbody2D.velocity = velocity;
         }
 
-        private void Awake()
+        public override void Awake()
         {
+            base.Awake();
             _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         }
 
@@ -30,12 +31,9 @@ namespace Scritps
         {
             if (col.CompareTag(Constants.TagsConsts.ENEMY))
             {
-                gameObject.HiddenGameObject();
+                // gameObject.HiddenGameObject();
+                HiddenGameObject();
             }
         }
-
-        // public override void ReBorn()
-        // {
-        // }
     }
 }

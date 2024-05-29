@@ -1,46 +1,59 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Common;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Scritps
 {
     public abstract class MyMonoBehaviour : MonoBehaviour
     {
+        [Header("Base Settings")] 
         [SerializeField] private Enums.ObjectType objectType;
+        [SerializeField] private bool isAutoHiddenObject;
+        [ShowIf(ActionOnConditionFail.JustDisable, ConditionOperator.And, nameof(isAutoHiddenObject))]
+        [SerializeField] protected float timeDelayHiddenObject;
 
         public Enums.ObjectType ObjectType => objectType;
 
-        // public abstract void ReBorn();
-
-        // protected IEnumerator  ActionWaitForSeconds(Action onAction, float time)
-        // {
-        //     yield return StartCoroutine(ActionDelay(time));
-        //     onAction();
-        // }
-
-        protected void HiddenGameObjectWaitForSeconds(float time)
+        public virtual void OnEnable()
         {
-            StartCoroutine(ActionDelay(time));
+            AutoHiddenGameObject();
+        } 
+        public virtual void Awake()
+        {
+            AutoHiddenGameObject();
         }
 
-        protected void HiddenGameObjectWaitForSeconds(float time, [CanBeNull] GameObject gameObj )
+        private void AutoHiddenGameObject()
         {
-            StartCoroutine(ActionDelay(time,gameObj));
-        }
-
-        private IEnumerator ActionDelay(float time, GameObject gameObj = null)
-        {
-            yield return new WaitForSeconds(time);
-            if (gameObj)
+            if (!isAutoHiddenObject || !gameObject.activeSelf)
             {
-                gameObj.SetActive(false);
+                return;
+            }
+
+            if (timeDelayHiddenObject > 0)
+            {
+                HiddenGameObjectWaitForSeconds(timeDelayHiddenObject);
             }
             else
             {
                 gameObject.SetActive(false);
             }
+        }
+
+        protected void HiddenGameObjectWaitForSeconds(float time)
+        {
+            StartCoroutine(DelayHiddenGameObject(time));
+        }
+     
+
+        private IEnumerator DelayHiddenGameObject(float time)
+        {
+            yield return new WaitForSeconds(time);
+            HiddenGameObject();
+        }
+        protected void HiddenGameObject()
+        {
+            gameObject.SetActive(false);
         }
     }
 }
