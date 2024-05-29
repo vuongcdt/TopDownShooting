@@ -54,7 +54,8 @@ namespace Scritps
 
             var velocity = Utils.GetVelocity(worldPosition, positionAnimator, velocityLimit);
 
-            _animatorPlayer.transform.localScale = Utils.SetFlipAmation(velocity);
+            // Utils.SetFlipAmation(_animatorPlayer.transform,velocity);
+            _animatorPlayer.transform.rotation = Utils.GetFlipAmation(velocity);
             _rigidbody2DPlayer.velocity = velocity;
         }
     }

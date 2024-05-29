@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Scritps
 {
     [CreateAssetMenu(fileName = "Player Stats")]
+    [Serializable]
     public class PlayerStats : ActorStats
     {
         [field: Header("Level Up Base:")] 

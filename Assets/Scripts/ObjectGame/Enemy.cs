@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class Enemy : MyMonoBehaviour
+    public class Enemy : GameObjectBase
     {
         [Header("Enemy Settings")]
         [SerializeField] private float velocityLimit = 1.5f;
@@ -13,6 +13,7 @@ namespace Scritps
         [SerializeField] private GameObject bloodHit;
         // [SerializeField] private float timeHitPlayer = 0.2f;
         [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
+        [SerializeField] private ActorStats enemyStats;
 
         private Rigidbody2D _rigidbody2DEnemy;
         private bool _isDeath;
@@ -21,10 +22,25 @@ namespace Scritps
 
         private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
 
-        public void AutoHiddenByTime()
+        public override void OnEnable()
         {
-            _isDeath = false;
+            base.OnEnable();
+            OnInit();
+        }
+
+        // private void Start()
+        // {
+        //     _hpEnemy = hpEnemy;
+        //     _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
+        //     _player = GameManage.Ins.Player;
+        //     bloodHit.SetActive(false);
+        // }
+        private void OnInit()
+        {
+            _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
+            _player = GameManage.Ins.Player;
             _hpEnemy = hpEnemy;
+            _isDeath = false;
             
             if (bloodHit)
             {
@@ -37,15 +53,7 @@ namespace Scritps
             }
         }
 
-        private void Start()
-        {
-            _hpEnemy = hpEnemy;
-            _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
-            _player = GameManage.Ins.Player;
-            bloodHit.SetActive(false);
-        }
-
-        private void Update()
+        private void FixedUpdate()
         {
             if (_isDeath)
             {
@@ -58,11 +66,11 @@ namespace Scritps
         private void MoveToPlayer()
         {
             var positionPlayer = _player.transform.position;
-            var positionEnemy = gameObject.transform.position;
+            var positionEnemy = this.transform.position;
 
             var velocity = Utils.GetVelocity(positionPlayer, positionEnemy, velocityLimit);
 
-            gameObject.transform.localScale = Utils.SetFlipAmation(velocity);
+            this.transform.rotation = Utils.GetFlipAmation(velocity);
 
             _rigidbody2DEnemy.velocity = velocity;
         }
@@ -76,12 +84,14 @@ namespace Scritps
 
             if (col.CompareTag(Constants.TagsConsts.PLAYER))
             {
-                HitPlayer();
+                HitPlayer(col);
             }
         }
 
-        private void HitPlayer()
+        private void HitPlayer(Collider2D col)
         {
+            var player = col.GetComponent<Player>();
+            player.TakeDamage(enemyStats.damage);
             Debug.Log("111 player va cham enemy " + gameObject.name);
 
             //TODO Monsters collide with players
@@ -101,11 +111,12 @@ namespace Scritps
             _isDeath = true;
             _rigidbody2DEnemy.velocity = new Vector2();
 
-            CollectableManage.Ins.Spawn(transform.position);
+            CollectableManage.Ins.OnSpawn(transform.position);
 
             //TODO
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
-            HiddenGameObjectWaitForSeconds(timeHiddenBodyEnemy);
+            // HiddenGameObjectWaitForSeconds(timeDelayHiddenObject);
+            this.OnDespawn(timeHiddenBodyEnemy);
         }
     }
 }

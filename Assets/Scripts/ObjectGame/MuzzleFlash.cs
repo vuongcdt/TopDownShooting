@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Scritps
 {
-    public class MuzzleFlash : MyMonoBehaviour
+    public class MuzzleFlash : MonoBehaviour
     {
         [Header("MuzzleFlash Settings")]
         [SerializeField] private float timeShooting = 0.1f;
@@ -11,12 +10,7 @@ namespace Scritps
         public void Show()
         {
             gameObject.SetActive(true);
-            HiddenGameObjectWaitForSeconds(timeShooting);
         }
 
-        private void Start()
-        {
-            HiddenGameObjectWaitForSeconds(timeShooting);
-        }
     }
 }

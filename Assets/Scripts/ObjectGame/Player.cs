@@ -5,10 +5,17 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private LayerMask layerCollectable;
     [SerializeField] private float collectableDectionRadius = 1;
-
-    private void Update()
+    [SerializeField] private ActorStats playerStats;
+    [SerializeField] private float hpCurrent;
+    
+    public void TakeDamage(float damage)
+    {
+        playerStats.hp -= damage;
+    }
+    private void FixedUpdate()
     {
         FindCollectable();
+        hpCurrent = playerStats.hp;
     }
 
     private void FindCollectable()

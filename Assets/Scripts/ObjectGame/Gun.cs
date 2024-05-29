@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scritps
 {
@@ -16,52 +14,48 @@ namespace Scritps
         [SerializeField] private float enemyDectionRadius = 5;
 
         private float _timeDelayShooting;
-        private readonly List<Bullet> _bullets = new();
+        private Component _enemyNearest;
 
-        private void Update()
+        private void FixedUpdate()
         {
-            var enemyNearest = FindEnemy();
-
-            if (enemyNearest)
+            FindEnemy();
+            if (!_enemyNearest)
             {
-                TargetAiming(enemyNearest);
+                this.transform.rotation = Quaternion.identity;
                 return;
             }
-
-            gameObject.transform.rotation = Quaternion.identity;
+            TargetAiming();
+            Shooting();
         }
 
-        private Collider2D FindEnemy()
+        private void FindEnemy()
         {
-            var positionWeapon = gameObject.transform.position;
+            var positionWeapon = this.transform.position;
             var findEnemys = Physics2D.OverlapCircleAll(positionWeapon, enemyDectionRadius, layerEnemy);
 
-            var enemyNearest = findEnemys.AsEnumerable()
+            _enemyNearest = findEnemys.AsEnumerable()
                 .OrderBy(e => Vector2.Distance(positionWeapon, e.transform.position))
                 .FirstOrDefault(e => Vector2.Distance(positionWeapon, e.transform.position) < enemyDectionRadius);
-
-            return enemyNearest;
         }
 
-        private void TargetAiming(Component enemyNearest)
+        private void TargetAiming()
         {
-            var positionWeapon = gameObject.transform.position;
-            var velocity = Utils.GetVelocity(enemyNearest.transform.position, positionWeapon, 1);
+            var positionWeapon = this.transform.position;
+            var velocity = Utils.GetVelocity(_enemyNearest.transform.position, positionWeapon, 1);
 
             Quaternion transformRotation = MathHelpers.Vector2ToQuaternion(velocity);
-            gameObject.transform.rotation = transformRotation;
+            this.transform.rotation = transformRotation;
 
-            Shooting(enemyNearest);
         }
 
-        private void Shooting(Component enemyNearest)
+        private void Shooting()
         {
             if (_timeDelayShooting == 0)
             {
-                var position = enemyNearest.transform.position;
+                var position = _enemyNearest.transform.position;
 
-                var bulletIns = Utils.Instantiate(bullet, shootingPoint.position, _bullets);
-                bulletIns.WakeUp(position);
+                var bulletIns = Utils.Instantiate(bullet, shootingPoint.position);
+                bulletIns.OnInit(position);
 
                 muzzleFlash.Show();
             }
@@ -77,7 +71,7 @@ namespace Scritps
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(4, 4, 4, 0.1f);
-            Gizmos.DrawSphere(gameObject.transform.position, enemyDectionRadius);
+            Gizmos.DrawSphere(this.transform.position, enemyDectionRadius);
         }
     }
 }

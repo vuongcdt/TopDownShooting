@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Scritps;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -7,9 +7,15 @@ namespace Common
 {
     public static class Utils
     {
-        public static Vector3 SetFlipAmation(Vector2 velocity)
+        private static List<MonoBehaviour> _gameObjectsDespawn = new();
+
+        private static List<MonoBehaviour> _gameObjectsStore = new();
+        public static List<MonoBehaviour> GameObjectsStore => _gameObjectsStore;
+
+        public static Quaternion GetFlipAmation(Vector2 velocity)
         {
-            return velocity.x < 0 ? new Vector3(-1, 1) : new Vector3(1, 1);
+            var postion = new Vector3(0, velocity.x < 0 ? 180 : 0);
+            return Quaternion.Euler(postion);
         }
 
         public static Vector2 GetVelocity(Vector3 positionFirst, Vector3 positionLast, float velocityScale)
@@ -21,27 +27,33 @@ namespace Common
 
             return velocity;
         }
-        
-        public static T Instantiate<T>(T obj, Vector2 spawnPoint, List<T> objList) where T : MyMonoBehaviour
-        {
-            var objectUnavailable = objList.Find(e => !e.isActiveAndEnabled && e.ObjectType == obj.ObjectType);
 
-            if (!objectUnavailable)
+        public static T Instantiate<T>(T obj, Vector2 spawnPoint) where T : MonoBehaviour
+        {
+            var objectDespawn =
+                _gameObjectsDespawn.FirstOrDefault(e => !e.gameObject.activeSelf && e.name.Contains(obj.name));
+
+            if (!objectDespawn)
             {
                 var newObject = Object.Instantiate(obj, spawnPoint, Quaternion.identity);
-                // newObject.ReBorn();
-                objList.Add(newObject);
+                _gameObjectsStore.Add(newObject);
                 return newObject;
-            }                
+            }
 
-            objectUnavailable.gameObject.SetActive(true);
-            objectUnavailable.transform.position = spawnPoint;
-            return objectUnavailable;
-        } 
-        
+            objectDespawn.gameObject.SetActive(true);
+            objectDespawn.transform.position = spawnPoint;
+            return objectDespawn as T;
+        }
+
+        public static void OnDespawn(MonoBehaviour gameObject)
+        {
+            gameObject.gameObject.SetActive(false);
+            _gameObjectsDespawn.Add(gameObject);
+        }
+
         public static float GetUpgradeFormula(int level)
         {
-            return (level / 2 - 0.5f) * 0.5f;
+            return (level - 1) / 4f;
         }
     }
 }

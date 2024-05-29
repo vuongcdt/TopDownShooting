@@ -3,27 +3,28 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class Bullet : MyMonoBehaviour
+    public class Bullet : GameObjectBase
     {
         [Header("Bullet Settings")]
         [SerializeField] private float speedBullet = 30;
 
         private Rigidbody2D _rigidbody2D;
 
-        public void WakeUp(Vector2 positionTarget)
+        public void OnInit(Vector2 positionTarget)
         {
-            var positionBullet = gameObject.transform.position;
+            var positionBullet = this.transform.position;
             var velocity = Utils.GetVelocity(positionTarget, positionBullet, speedBullet);
 
             Quaternion transformRotation = MathHelpers.Vector2ToQuaternion(velocity);
-            gameObject.transform.rotation = transformRotation;
+            this.transform.rotation = transformRotation;
 
             _rigidbody2D.velocity = velocity;
         }
 
-        public override void Awake()
+        public override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
+            this.OnDespawn(2f);
             _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         }
 
@@ -31,8 +32,7 @@ namespace Scritps
         {
             if (col.CompareTag(Constants.TagsConsts.ENEMY))
             {
-                // gameObject.HiddenGameObject();
-                HiddenGameObject();
+                this.OnDespawn(0f);
             }
         }
     }

@@ -173,7 +173,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02274561, y: -0.0017323494}
+  m_Offset: {x: -0.010028958, y: -0.014448941}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -184,7 +184,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.219697, y: 0.36584568}
+  m_Size: {x: 0.11796498, y: 0.42942822}
   m_EdgeRadius: 0
 --- !u!114 &4478039973189363651
 MonoBehaviour:
@@ -206,8 +206,8 @@ MonoBehaviour:
   damageBullet: 5
   animatorEnemy: {fileID: 4292609321954057593}
   bloodHit: {fileID: 1676495797548180, guid: 751aa64f85a0ab94a9171678307499c5, type: 3}
-  timeHitPlayer: 0.2
   timeHiddenBodyEnemy: 0.5
+  enemyStats: {fileID: 11400000, guid: a76fbb73c95299145a841205d4f22a02, type: 2}
 --- !u!50 &4457999973714636173
 Rigidbody2D:
   serializedVersion: 4

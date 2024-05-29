@@ -1,55 +1,49 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Common;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Scritps
 {
-    public class Collectable : MyMonoBehaviour
+    public class Collectable : GameObjectBase
     {
-        [Header("Collectable Settings")]
-        [SerializeField] private float endTimeHidden = 5f;
+        [Header("Collectable Settings")] [SerializeField]
+        private float endTimeDespawn = 5f;
 
         private Animator _animatorCollectable;
-        private static readonly int SPEED_COLLECTABLE = 5;
         private Rigidbody2D _rigidbody2D;
-        
+        private static readonly int SPEED_COLLECTABLE = 5;
+
         public override void OnEnable()
         {
             base.OnEnable();
-            ReBorn();
+            OnInit();
         }
 
         public static void MoveToPlayer(Vector2 positionPlayer, Collider2D collider)
         {
             var positionCollectable = collider.transform.position;
 
-            var velocity = Utils.GetVelocity(positionPlayer, positionCollectable, SPEED_COLLECTABLE);
+            // var velocity = Utils.GetVelocity(positionPlayer, positionCollectable, SPEED_COLLECTABLE);
 
-            collider.attachedRigidbody.velocity = velocity;
+            // collider.attachedRigidbody.velocity = velocity;
+            collider.transform.position = Vector3
+                .MoveTowards(positionCollectable, positionPlayer, SPEED_COLLECTABLE * Time.fixedTime);
         }
 
-        private void ReBorn()
+        private void OnInit()
         {
+            _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+            _animatorCollectable = gameObject.GetComponent<Animator>();
             _animatorCollectable.SetTrigger(Constants.AnimatorConsts.FLIP);
-
-            HiddenGameObjectWaitForSeconds(timeDelayHiddenObject);
             StartCoroutine(EndTimeHiddenCollectable());
         }
 
+
         private IEnumerator EndTimeHiddenCollectable()
         {
-            yield return new WaitForSeconds(timeDelayHiddenObject - endTimeHidden);
+            yield return new WaitForSeconds(delayTimeDespawn - endTimeDespawn);
             _animatorCollectable.SetTrigger(Constants.AnimatorConsts.FLASH);
-        }
-
-        public override void Awake()
-        {
-            base.Awake();
-            _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-            _animatorCollectable = gameObject.GetComponent<Animator>();
-            ReBorn();
         }
 
         private void OnTriggerEnter2D(Collider2D col)
@@ -59,8 +53,7 @@ namespace Scritps
                 return;
             }
 
-            // gameObject.HiddenGameObject();
-            HiddenGameObject();
+            this.OnDespawn(0f);
             _rigidbody2D.velocity = Vector2.zero;
             SetPointPlayer();
         }
