@@ -46,8 +46,8 @@ namespace Scritps
                 Utils.OnDespawn(this);
             }
         }
-     
-        private IEnumerator IEDelayDespawn(Action action,float delayTime)
+
+        private static IEnumerator IEDelayDespawn(Action action,float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
             action();

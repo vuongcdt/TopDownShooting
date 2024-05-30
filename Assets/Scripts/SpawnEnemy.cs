@@ -14,8 +14,8 @@ namespace Scritps
 
         private void FixedUpdate()
         {
-            _timeSpawn += Time.deltaTime;
-
+            _timeSpawn += Time.fixedDeltaTime;
+            
             if (_timeSpawn > timeSpawn)
             {
                 SpawnEnemyByPoint();
