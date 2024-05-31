@@ -360,8 +360,8 @@ Canvas:
   m_GameObject: {fileID: 840347476}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -423,6 +423,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 953773227}
+  enemy: {fileID: 7223232785844985073, guid: d147e6bde8e2a4845a2a0f4b3700b90f, type: 3}
+  bullet: {fileID: 7584997470391568916, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
+  coinCollectable: {fileID: 8047962909517913075, guid: c32bf78b286e5ea4bb1653fbbb1d20c1, type: 3}
+  diamondCollectable: {fileID: 8047962909517913075, guid: 125df93d770bc164f92f7cc294cdd5e4, type: 3}
+  healthCollectable: {fileID: 8047962909517913075, guid: 70c09cb2b899138408c97a431e619d5c, type: 3}
+  lifeCollectable: {fileID: 8047962909517913075, guid: bfe0eb93342e578438a0641fa7103a4d, type: 3}
+  timeSave: 1
+  spawnWrap: {fileID: 1982917292}
+  gameState: 0
+  isClearData: 1
 --- !u!4 &906897252
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +442,7 @@ Transform:
   m_GameObject: {fileID: 906897250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.482206, y: -1.6658306, z: -0.02743293}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -643,7 +653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982917293}
   m_Layer: 0
-  m_Name: Spawn
+  m_Name: SpawnWrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,10 +690,6 @@ PrefabInstance:
     - target: {fileID: 2887280923194430663, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148223219595973428, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: hpCurrent
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4171572517201484091, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -724,30 +730,6 @@ PrefabInstance:
     - target: {fileID: 4171572517201484091, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6028194122336709508, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: timeDelayShooting
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6028194122336709508, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: enemyDectionRadius
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7212503373301146210, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7212503373301146210, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7212503373301146210, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7212503373301146210, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

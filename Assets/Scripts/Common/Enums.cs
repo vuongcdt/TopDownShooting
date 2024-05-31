@@ -12,6 +12,13 @@
             HealthPotionCollectable,
             LifeCollectable,
             Bullet
+        } 
+        public enum GameState
+        {
+            Playing,
+            Over,
+            Pause,
+            NewGame
         }
     }
 }

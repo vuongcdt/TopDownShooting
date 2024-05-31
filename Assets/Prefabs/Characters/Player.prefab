@@ -29,7 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4171572517201484091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -231,7 +231,6 @@ MonoBehaviour:
     m_Bits: 512
   collectableDectionRadius: 0.5
   playerStats: {fileID: 11400000, guid: 24db51dcc6ef096478742006beca8823, type: 2}
-  hpCurrent: 10
 --- !u!1001 &5678156947051985877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381,6 +380,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36d90ee15514c989dd9a216b864b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAutoDespawn: 0
+  delayTimeDespawn: 0
+  stats: {fileID: 0}
   timeShooting: 0.1
 --- !u!4 &5817232899808389910 stripped
 Transform:

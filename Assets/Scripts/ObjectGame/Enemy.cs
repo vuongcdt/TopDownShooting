@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System;
+using Common;
 using UnityEngine;
 
 namespace Scritps
@@ -11,13 +12,11 @@ namespace Scritps
         [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
         [SerializeField] private GameObject bloodHit;
-        // [SerializeField] private float timeHitPlayer = 0.2f;
         [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
-        [SerializeField] private ActorStats enemyStats;
 
         private Rigidbody2D _rigidbody2DEnemy;
-        private bool _isDeath;
         private GameObject _player;
+        private bool _isDeath;
         private float _hpEnemy;
 
         private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
@@ -28,13 +27,6 @@ namespace Scritps
             OnInit();
         }
 
-        // private void Start()
-        // {
-        //     _hpEnemy = hpEnemy;
-        //     _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
-        //     _player = GameManage.Ins.Player;
-        //     bloodHit.SetActive(false);
-        // }
         private void OnInit()
         {
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
@@ -53,8 +45,9 @@ namespace Scritps
             }
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             if (_isDeath)
             {
                 return;
@@ -65,6 +58,7 @@ namespace Scritps
 
         private void MoveToPlayer()
         {
+            Debug.Log(_player+"//////");
             var positionPlayer = _player.transform.position;
             var positionEnemy = this.transform.position;
 
@@ -90,8 +84,8 @@ namespace Scritps
 
         private void HitPlayer(Collider2D col)
         {
-            var player = col.GetComponent<Player>();
-            player.TakeDamage(enemyStats.damage);
+            // var player = col.GetComponent<Player>();
+            // player.TakeDamage(enemyStats.damage);
             Debug.Log("111 player va cham enemy " + gameObject.name);
 
             //TODO Monsters collide with players

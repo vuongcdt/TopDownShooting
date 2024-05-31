@@ -1,10 +1,11 @@
 ﻿using System;
+using Common;
 using UnityEngine;
 
 namespace Scritps
 {
-    [CreateAssetMenu(fileName = "Weapon Stats")]
-    public class WeaponStats : StatsBase
+    [CreateAssetMenu(fileName = "Bullet Stats")]
+    public class BulletStats : StatsBase
     {
         [Header("Base Stats:")] public int bullets;
         public float damage;
@@ -22,20 +23,20 @@ namespace Scritps
 
         public override void Save()
         {
-            Prefs.PlayerData = JsonUtility.ToJson(this);
+            // Prefs.PlayerData = JsonUtility.ToJson(this);
         }
 
         public override void Load()
         {
-            if (!string.IsNullOrEmpty(Prefs.PlayerData))
-            {
-                JsonUtility.FromJsonOverwrite(Prefs.PlayerData, this);
-            }
+            // if (!string.IsNullOrEmpty(Prefs.PlayerData))
+            // {
+            //     JsonUtility.FromJsonOverwrite(Prefs.PlayerData, this);
+            // }
         }
 
         public override void Upgrade(Action OnSuccess = null, Action OnFailed = null)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public override bool IsMaxLevel()

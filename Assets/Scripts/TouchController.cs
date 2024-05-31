@@ -54,7 +54,6 @@ namespace Scritps
 
             var velocity = Utils.GetVelocity(worldPosition, positionAnimator, velocityLimit);
 
-            // Utils.SetFlipAmation(_animatorPlayer.transform,velocity);
             _animatorPlayer.transform.rotation = Utils.GetFlipAmation(velocity);
             _rigidbody2DPlayer.velocity = velocity;
         }

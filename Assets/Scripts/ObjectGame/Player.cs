@@ -1,3 +1,4 @@
+using System;
 using Scritps;
 using UnityEngine;
 
@@ -5,17 +6,33 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private LayerMask layerCollectable;
     [SerializeField] private float collectableDectionRadius = 1;
-    [SerializeField] private ActorStats playerStats;
-    [SerializeField] private float hpCurrent;
+    [SerializeField] private PlayerStats playerStats;
     
     public void TakeDamage(float damage)
     {
         playerStats.hp -= damage;
     }
-    private void FixedUpdate()
+    
+    private void Awake()
     {
+        GetPositionPlayer();
+    }
+
+    private void GetPositionPlayer()
+    {
+        // if (GameManage.Ins.isClearData)
+        // {
+        //     Prefs.ClearData();
+        // }
+
+        transform.position = playerStats.position;
+        // transform.position = GameManage.Ins.isClearData ? Vector3.zero : playerStats.position;
+    }
+
+    private void FixedUpdate()
+    { 
+        playerStats.position = transform.position;
         FindCollectable();
-        hpCurrent = playerStats.hp;
     }
 
     private void FindCollectable()

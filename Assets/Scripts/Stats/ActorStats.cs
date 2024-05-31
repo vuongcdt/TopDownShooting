@@ -1,14 +1,15 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scritps
 {
     public class ActorStats : StatsBase
     {
         [field: Header("Base Stats")] 
-        public float hp ;
-        public float damage ;
-        public float moveSpeed ;
+        public float hp;
+        public float damage;
+        public float moveSpeed;
 
         public override void Save()
         {

@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAutoDespawn: 1
   delayTimeDespawn: 2
+  stats: {fileID: 11400000, guid: 50cfa710e5052584eade49db402071d9, type: 2}
   speedBullet: 30
 --- !u!50 &5945005063621138565
 Rigidbody2D:

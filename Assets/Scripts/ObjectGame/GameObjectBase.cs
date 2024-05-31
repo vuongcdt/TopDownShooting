@@ -5,18 +5,31 @@ using UnityEngine;
 
 namespace Scritps
 {
+    [Serializable]
     public abstract class GameObjectBase : MonoBehaviour
     {
-        [Header("Base Settings")] 
-        [SerializeField] private bool isAutoDespawn;
-        [SerializeField] 
-        [ShowIf(ActionOnConditionFail.JustDisable, ConditionOperator.And, nameof(isAutoDespawn))]
+        [Header("Base Settings")] [SerializeField]
+        private bool isAutoDespawn;
+
+        [ShowIf(ActionOnConditionFail.JustDisable, ConditionOperator.And, nameof(isAutoDespawn))] [SerializeField]
         protected float delayTimeDespawn;
+
+        [SerializeField] public StatsBase stats;
 
         public virtual void OnEnable()
         {
+            // if (stats)
+            // {
+            //     transform.position = stats.position;
+            // }
+
             AutoDespawn();
-        } 
+        }
+
+        protected virtual void FixedUpdate()
+        {
+
+        }
 
         private void AutoDespawn()
         {
@@ -39,7 +52,7 @@ namespace Scritps
         {
             if (delayTime > 0)
             {
-                StartCoroutine(IEDelayDespawn(()=> Utils.OnDespawn(this),delayTime));
+                StartCoroutine(IEDelayDespawn(() => Utils.OnDespawn(this), delayTime));
             }
             else
             {
@@ -47,7 +60,7 @@ namespace Scritps
             }
         }
 
-        private static IEnumerator IEDelayDespawn(Action action,float delayTime)
+        private static IEnumerator IEDelayDespawn(Action action, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
             action();

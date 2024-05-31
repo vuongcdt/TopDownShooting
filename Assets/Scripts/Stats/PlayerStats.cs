@@ -8,6 +8,8 @@ namespace Scritps
     [Serializable]
     public class PlayerStats : ActorStats
     {
+        public Vector3 position;
+
         [field: Header("Level Up Base:")] 
         public int level = 1;
         public int maxLevel = 100;
@@ -20,33 +22,33 @@ namespace Scritps
 
         public override void Save()
         {
-            Prefs.PlayerData = JsonUtility.ToJson(this);
+            // Prefs.PlayerData = JsonUtility.ToJson(this);
         }
 
         public override void Load()
         {
-            if (!string.IsNullOrEmpty(Prefs.PlayerData))
-            {
-                JsonUtility.FromJsonOverwrite(Prefs.PlayerData, this);
-            }
+            // if (!string.IsNullOrEmpty(Prefs.PlayerData))
+            // {
+            //     JsonUtility.FromJsonOverwrite(Prefs.PlayerData, this);
+            // }
         }
 
         public override void Upgrade(Action OnSuccess = null, Action OnFailed = null)
         {
-            while (xp >= levelUpXpRequire && !IsMaxLevel())
-            {
-                level++;
-                xp -= levelUpXpRequire;
-                hp += hpUp * Utils.GetUpgradeFormula(level);
-                levelUpXpRequire += levelUpXpRequireUp * Utils.GetUpgradeFormula(level);
-                Save();
-                OnSuccess?.Invoke();
-            }
-
-            if (xp <= levelUpXpRequire || IsMaxLevel())
-            {
-                OnFailed?.Invoke();
-            }
+            // while (xp >= levelUpXpRequire && !IsMaxLevel())
+            // {
+            //     level++;
+            //     xp -= levelUpXpRequire;
+            //     hp += hpUp * Utils.GetUpgradeFormula(level);
+            //     levelUpXpRequire += levelUpXpRequireUp * Utils.GetUpgradeFormula(level);
+            //     Save();
+            //     OnSuccess?.Invoke();
+            // }
+            //
+            // if (xp <= levelUpXpRequire || IsMaxLevel())
+            // {
+            //     OnFailed?.Invoke();
+            // }
         }
 
         public override bool IsMaxLevel()

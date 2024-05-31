@@ -185,4 +185,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAutoDespawn: 1
   delayTimeDespawn: 10
+  stats: {fileID: 11400000, guid: ca394f2f950c9a4468e9c0845def4668, type: 2}
   endTimeDespawn: 5
