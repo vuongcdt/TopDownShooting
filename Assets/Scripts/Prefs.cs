@@ -36,7 +36,6 @@ namespace Scritps
         }       
         public static void ClearData()
         {
-            Debug.Log("del all");
             PlayerPrefs.DeleteAll();
         }
         

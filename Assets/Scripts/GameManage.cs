@@ -73,11 +73,6 @@ namespace Scritps
         {
             JsonHelper jsonHelper = new(new List<GameData>());
             JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
-
-            jsonHelper.gameDatas.ForEach(e =>
-            {
-                Debug.Log(e.type);
-            });
             
             jsonHelper.gameDatas.ForEach(e =>
             {
@@ -88,13 +83,19 @@ namespace Scritps
                         objectIns = enemy;
                         break;
                     case Enums.ObjectType.CoinCollectable:
+                        objectIns = coinCollectable;
                         break;
                     case Enums.ObjectType.DiamondCollectable:
+                        objectIns = diamondCollectable;
                         break;
                     case Enums.ObjectType.HealthPotionCollectable:
+                        objectIns = healthCollectable;
                         break;
                     case Enums.ObjectType.LifeCollectable:
+                        objectIns = lifeCollectable;
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
                 Instantiate(objectIns, e.position, Quaternion.identity);
