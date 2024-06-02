@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scritps
 {
@@ -15,19 +16,31 @@ namespace Scritps
         [SerializeField] private GameObject diamondCollectable;
         [SerializeField] private GameObject healthCollectable;
         [SerializeField] private GameObject lifeCollectable;
+
+
         [SerializeField] private float timeSave = 1;
-        
+
         public GameObject spawnWrap;
-        public Enums.GameState gameState;
         public bool isClearData;
         public GameObject Player => player;
 
         private float _timeCount;
+        private bool _isSave;
+
+        public void PauseGame()
+        {
+            Time.timeScale = 0;
+        }
+
+        public void ResumeGame()
+        {
+            Time.timeScale = 1;
+        }
 
         protected override void Awake()
         {
             MakeSingleton(false);
-            
+
             if (isClearData)
             {
                 Prefs.ClearData();
@@ -40,25 +53,37 @@ namespace Scritps
 
         private void FixedUpdate()
         {
-            SaveGame();
-            CheckGameState();
+            // SaveGame();
         }
 
-        private void CheckGameState()
+        private void OnApplicationQuit()
         {
-            var isPauseGame = gameState is Enums.GameState.Pause or Enums.GameState.Over;
-            Time.timeScale = isPauseGame ? 0 : 1;
+            Debug.Log("OnApplicationQuit");
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            Debug.Log("OnApplicationPause " + pauseStatus);
+            if (!_isSave && pauseStatus)
+            {
+                SaveGame();
+            }
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            Debug.Log("OnApplicationFocus: " + hasFocus);
+            if (!_isSave && !hasFocus)
+            {
+                SaveGame();
+            }
         }
 
         private void SaveGame()
         {
-            _timeCount += Time.fixedDeltaTime;
-            if (_timeCount < timeSave)
-            {
-                return;
-            }
+            _isSave = true;
 
-            _timeCount = 0;
+            Debug.Log("Save Game");
             var gameDatas = Utils.GameObjectsStore
                 .Where(e => e.enabled && e.stats is not { type: Enums.ObjectType.Bullet })
                 .Select(e => new GameData(e.transform.position, e.stats.type))
@@ -73,7 +98,7 @@ namespace Scritps
         {
             JsonHelper jsonHelper = new(new List<GameData>());
             JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
-            
+
             jsonHelper.gameDatas.ForEach(e =>
             {
                 GameObject objectIns = new();
@@ -94,6 +119,11 @@ namespace Scritps
                     case Enums.ObjectType.LifeCollectable:
                         objectIns = lifeCollectable;
                         break;
+                    // case Enums.ObjectType.None:
+                    // case Enums.ObjectType.Player:
+                    // case Enums.ObjectType.Bullet:
+                    //     objectIns = bullet;
+                    //     break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

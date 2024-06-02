@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System;
+using Common;
 using UnityEngine;
 
 namespace Scritps
@@ -28,9 +29,17 @@ namespace Scritps
             _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        // private void OnTriggerEnter2D(Collider2D col)
+        // {
+        //     if (col.CompareTag(Constants.TagsConsts.ENEMY))
+        //     {
+        //         this.OnDespawn(0f);
+        //     }
+        // }
+
+        private void OnCollisionEnter2D(Collision2D collision2D)
         {
-            if (col.CompareTag(Constants.TagsConsts.ENEMY))
+            if (collision2D.gameObject.CompareTag(Constants.TagsConsts.ENEMY))
             {
                 this.OnDespawn(0f);
             }

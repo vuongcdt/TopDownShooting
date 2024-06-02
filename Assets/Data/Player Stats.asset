@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5c870ed66745b9bede302d077eb58b, type: 3}
   m_Name: Player Stats
   m_EditorClassIdentifier: 
-  position: {x: 2.9970646, y: 1.5754652, z: 0}
   type: 1
   hp: 10
   damage: 2
   moveSpeed: 0
-  level: 0
+  position: {x: -1.0899711, y: 2.3394392, z: 0}
+  level: 1
   maxLevel: 0
   xp: 0
   levelUpXpRequire: 0

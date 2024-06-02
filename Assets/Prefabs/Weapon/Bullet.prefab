@@ -102,7 +102,7 @@ MonoBehaviour:
   isAutoDespawn: 1
   delayTimeDespawn: 2
   stats: {fileID: 11400000, guid: 50cfa710e5052584eade49db402071d9, type: 2}
-  speedBullet: 30
+  speedBullet: 50
 --- !u!50 &5945005063621138565
 Rigidbody2D:
   serializedVersion: 4
@@ -128,7 +128,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &517608242375507567
 BoxCollider2D:
@@ -159,7 +159,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.11409995, y: -0.00046683848}

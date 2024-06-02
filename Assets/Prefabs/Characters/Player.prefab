@@ -241,19 +241,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1556895560167847655, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.458
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 1556895560167847655, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.006
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.039
+      value: 0.052
       objectReference: {fileID: 0}
     - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.081
+      value: -0.224
       objectReference: {fileID: 0}
     - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -305,15 +305,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3591803506357901072, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.009
       objectReference: {fileID: 0}
     - target: {fileID: 3591803506357901072, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.017
       objectReference: {fileID: 0}
     - target: {fileID: 3591803506357901072, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366560966493795451, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.442
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366560966493795451, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 6964328925319545139, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_Name
@@ -358,7 +366,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 7865796559198252504}
   bullet: {fileID: 8102338804337959184, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
   shootingPoint: {fileID: 6581986579707645234}
-  timeDelayShooting: 1
+  timeDelayShooting: 0.6
   layerEnemy:
     serializedVersion: 2
     m_Bits: 256

@@ -8,16 +8,16 @@ namespace Scritps
     {
         [Header("Enemy Settings")]
         [SerializeField] private float velocityLimit = 1.5f;
-        [SerializeField] private float hpEnemy = 10f;
         [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
         [SerializeField] private GameObject bloodHit;
         [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
+        [SerializeField] public EnemyStats enemyStats;
 
         private Rigidbody2D _rigidbody2DEnemy;
         private GameObject _player;
         private bool _isDeath;
-        private float _hpEnemy;
+        private float _hp;
 
         private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
 
@@ -31,8 +31,8 @@ namespace Scritps
         {
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
-            _hpEnemy = hpEnemy;
             _isDeath = false;
+            _hp = enemyStats.hp;
             
             if (bloodHit)
             {
@@ -58,7 +58,6 @@ namespace Scritps
 
         private void MoveToPlayer()
         {
-            Debug.Log(_player+"//////");
             var positionPlayer = _player.transform.position;
             var positionEnemy = this.transform.position;
 
@@ -73,7 +72,8 @@ namespace Scritps
         {
             if (col.CompareTag(Constants.TagsConsts.BULLET))
             {
-                ShootEnemy();
+                Debug.Log("OnTriggerEnter2D");
+                // ShootEnemy();
             }
 
             if (col.CompareTag(Constants.TagsConsts.PLAYER))
@@ -81,21 +81,31 @@ namespace Scritps
                 HitPlayer(col);
             }
         }
-
+        
         private void HitPlayer(Collider2D col)
         {
             // var player = col.GetComponent<Player>();
             // player.TakeDamage(enemyStats.damage);
-            Debug.Log("111 player va cham enemy " + gameObject.name);
 
             //TODO Monsters collide with players
+        }
+        
+        private void OnCollisionEnter2D(Collision2D collision2D)
+        {
+            if (collision2D.gameObject.CompareTag(Constants.TagsConsts.BULLET))
+            {
+                Debug.Log("OnCollisionEnter2D");
+                ShootEnemy();
+            }
         }
 
         private void ShootEnemy()
         {
-            _hpEnemy -= damageBullet;
+            // enemyStats.hp -= damageBullet;
+            // if (enemyStats.hp > 0)
 
-            if (_hpEnemy > 0)
+            _hp -= damageBullet;
+            if (_hp > 0)
             {
                 if (bloodHit) bloodHit.SetActive(true);
                 return;
