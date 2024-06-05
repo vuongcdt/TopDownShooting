@@ -1,19 +1,22 @@
 ﻿using System;
 using Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scritps
 {
     public class Enemy : GameObjectBase
     {
-        [Header("Enemy Settings")]
-        [SerializeField] private float velocityLimit = 1.5f;
+        [Header("Enemy Settings")] [SerializeField]
+        private float velocityLimit = 1.5f;
+
         [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
         [SerializeField] private GameObject bloodHit;
         [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
-        [SerializeField] public EnemyStats enemyStats;
+        [SerializeField] public EnemyStats enemyStatsDefault;
 
+        private EnemyStats _enemyStats;
         private Rigidbody2D _rigidbody2DEnemy;
         private GameObject _player;
         private bool _isDeath;
@@ -29,16 +32,22 @@ namespace Scritps
 
         private void OnInit()
         {
+            _enemyStats = ScriptableObject.CreateInstance<EnemyStats>();
+            _enemyStats.SetValue(enemyStatsDefault);
+            
+            Debug.Log("enemyStats.hp: " + enemyStatsDefault.hp);
+            Debug.Log("_enemyStats.hp: " + _enemyStats.hp);
+
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
             _isDeath = false;
-            _hp = enemyStats.hp;
-            
+            _hp = enemyStatsDefault.hp;
+
             if (bloodHit)
             {
                 bloodHit.SetActive(false);
             }
-            
+
             if (gameObject.layer == LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER))
             {
                 gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.ENEMY_LAYER);
@@ -81,7 +90,7 @@ namespace Scritps
                 HitPlayer(col);
             }
         }
-        
+
         private void HitPlayer(Collider2D col)
         {
             // var player = col.GetComponent<Player>();
@@ -89,12 +98,11 @@ namespace Scritps
 
             //TODO Monsters collide with players
         }
-        
+
         private void OnCollisionEnter2D(Collision2D collision2D)
         {
             if (collision2D.gameObject.CompareTag(Constants.TagsConsts.BULLET))
             {
-                Debug.Log("OnCollisionEnter2D");
                 ShootEnemy();
             }
         }

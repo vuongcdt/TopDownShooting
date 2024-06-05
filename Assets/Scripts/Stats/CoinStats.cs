@@ -6,6 +6,11 @@ namespace Scritps
     [CreateAssetMenu(fileName = "Coin Stats")]
     public class CoinStats:StatsBase
     {
+        public override void SetValue(StatsBase statsBase)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Save()
         {
             throw new NotImplementedException();

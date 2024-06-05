@@ -10,6 +10,7 @@ namespace Scritps
     {
         public Enums.ObjectType type;
 
+        public abstract void SetValue(StatsBase statsBase);
         public abstract void Save();
         public abstract void Load();
         

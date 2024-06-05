@@ -16,7 +16,6 @@ MonoBehaviour:
   hp: 10
   damage: 2
   moveSpeed: 0
-  minXpBonus: 0
-  maxXpBonus: 0
-  damageUp: 0
-  hpUp: 0
+  level: 4
+  xpBonus: 0
+  countEnemyPerLevel: 2

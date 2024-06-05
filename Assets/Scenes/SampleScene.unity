@@ -722,16 +722,9 @@ MonoBehaviour:
   diamondCollectable: {fileID: 8047962909517913075, guid: 125df93d770bc164f92f7cc294cdd5e4, type: 3}
   healthCollectable: {fileID: 8047962909517913075, guid: 70c09cb2b899138408c97a431e619d5c, type: 3}
   lifeCollectable: {fileID: 8047962909517913075, guid: bfe0eb93342e578438a0641fa7103a4d, type: 3}
-  playerStats: {fileID: 0}
-  enemyStats: {fileID: 0}
-  bulletStats: {fileID: 0}
-  coinStats: {fileID: 0}
-  diamondStats: {fileID: 0}
-  healthStats: {fileID: 0}
-  lifeStats: {fileID: 0}
   timeSave: 1
   spawnWrap: {fileID: 1982917292}
-  isClearData: 0
+  isClearData: 1
 --- !u!4 &906897252
 Transform:
   m_ObjectHideFlags: 0
@@ -1125,11 +1118,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4171572517201484091, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.07
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4171572517201484091, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4171572517201484091, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_LocalPosition.z

@@ -11,7 +11,6 @@ namespace Scritps
         public Vector3 position;
 
         [field: Header("Level Up Base:")] 
-        public int level = 1;
         public int maxLevel = 100;
         public float xp = 0;
         public float levelUpXpRequire = 10;

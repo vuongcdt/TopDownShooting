@@ -248,6 +248,18 @@ PrefabInstance:
       value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.052
       objectReference: {fileID: 0}
@@ -287,6 +299,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2194989323067609283, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2490957834554194432, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: layerEnemy.m_Bits
       value: 256
@@ -313,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3591803506357901072, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6366560966493795451, guid: 7ff03e57a1dcfcd47b616fc77272174d, type: 3}
       propertyPath: m_LocalPosition.x

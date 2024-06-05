@@ -16,16 +16,19 @@ namespace Scritps
         [SerializeField] private GameObject diamondCollectable;
         [SerializeField] private GameObject healthCollectable;
         [SerializeField] private GameObject lifeCollectable;
+        [SerializeField] private bool isClearData;
 
+        public int CountEnemy
+        {
+            get => _countEnemy;
+            set => _countEnemy = value;
+        }
 
-        [SerializeField] private float timeSave = 1;
-
-        public GameObject spawnWrap;
-        public bool isClearData;
         public GameObject Player => player;
 
         private float _timeCount;
         private bool _isSave;
+        private int _countEnemy;
 
         public void PauseGame()
         {
@@ -51,42 +54,50 @@ namespace Scritps
             }
         }
 
-        private void FixedUpdate()
-        {
-            // SaveGame();
-        }
-
         private void OnApplicationQuit()
         {
-            Debug.Log("OnApplicationQuit");
+            SaveGame();
         }
 
         private void OnApplicationPause(bool pauseStatus)
         {
-            Debug.Log("OnApplicationPause " + pauseStatus);
-            if (!_isSave && pauseStatus)
+            if (pauseStatus)
             {
                 SaveGame();
+            }
+
+            if (!pauseStatus)
+            {
+                _isSave = false;
             }
         }
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            Debug.Log("OnApplicationFocus: " + hasFocus);
-            if (!_isSave && !hasFocus)
+            if (!hasFocus)
             {
                 SaveGame();
+            }
+
+            if (hasFocus)
+            {
+                _isSave = false;
             }
         }
 
         private void SaveGame()
         {
+            if (_isSave) return;
             _isSave = true;
 
-            Debug.Log("Save Game");
+            Utils.GameObjectsStore.ForEach(e =>
+            {
+                Debug.Log("stats: " + JsonUtility.ToJson(e.stats));
+            });
+            
             var gameDatas = Utils.GameObjectsStore
                 .Where(e => e.enabled && e.stats is not { type: Enums.ObjectType.Bullet })
-                .Select(e => new GameData(e.transform.position, e.stats.type))
+                .Select(e => new GameData(e.transform.position, e.stats.type, JsonUtility.ToJson(e.stats)))
                 .ToList();
 
             var jsonHelper = new JsonHelper(gameDatas);

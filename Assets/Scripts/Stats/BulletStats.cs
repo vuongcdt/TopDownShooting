@@ -21,6 +21,11 @@ namespace Scritps
         public int upgradePrice;
         public int upgradePriceUp;
 
+        public override void SetValue(StatsBase statsBase)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Save()
         {
             // Prefs.PlayerData = JsonUtility.ToJson(this);

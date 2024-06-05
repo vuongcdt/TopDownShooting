@@ -6,6 +6,11 @@ namespace Scritps
     [CreateAssetMenu(fileName = "Life Stats")]
     public class LifeStats:StatsBase
     {
+        public override void SetValue(StatsBase statsBase)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Save()
         {
             throw new NotImplementedException();
