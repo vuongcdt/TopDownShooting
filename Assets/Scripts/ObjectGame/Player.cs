@@ -1,48 +1,50 @@
 using System;
+using Common;
 using Scritps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private LayerMask layerCollectable;
-    [SerializeField] private float collectableDectionRadius = 1;
-    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private PlayerStats playerStatsDefault;
     
-    public void TakeDamage(float damage)
+    private PlayerStats _playerStats;
+    private float _hpTest;
+
+    public PlayerStats PlayerStats
     {
-        playerStats.hp -= damage;
+        get => _playerStats;
+        set => _playerStats = value;
     }
-    
+
     private void Awake()
     {
+        _playerStats = ScriptableObject.CreateInstance<PlayerStats>();
+        _playerStats.OnInit(playerStatsDefault);
         GetPositionPlayer();
     }
 
     private void GetPositionPlayer()
     {
-        // if (GameManage.Ins.isClearData)
-        // {
-        //     Prefs.ClearData();
-        // }
-
-        transform.position = playerStats.position;
-        // transform.position = GameManage.Ins.isClearData ? Vector3.zero : playerStats.position;
+        transform.position = _playerStats.position;
     }
 
     private void FixedUpdate()
     { 
-        playerStats.position = transform.position;
-        FindCollectable();
+        _playerStats.position = transform.position;
+        _hpTest = _playerStats.hp;
+        
+        if (_playerStats.hp < 0)
+        {
+            Time.timeScale = 0;
+            Debug.Log("Game over");
+        }
     }
 
-    private void FindCollectable()
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        var positionPlayer = gameObject.transform.position;
-        var col2DCollectables = Physics2D.OverlapCircleAll(positionPlayer, collectableDectionRadius, layerCollectable);
-
-        foreach (var collider2d in col2DCollectables)
+        if (col.CompareTag(Constants.TagsConsts.COLLECTABLE))
         {
-            Collectable.MoveToPlayer(positionPlayer,collider2d);       
+            Debug.Log("collectable");
         }
     }
 }

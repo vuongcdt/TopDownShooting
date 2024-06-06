@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Scritps;
 using UnityEngine;
 
 namespace Common
@@ -19,14 +20,14 @@ namespace Common
     {
         public Vector3 position;
         public Enums.ObjectType type;
-        public string stats;
+        public StatsBase stats;
 
         public GameData(Vector3 position, Enums.ObjectType type)
         {
             this.position = position;
             this.type = type;
         }
-        public GameData(Vector3 position, Enums.ObjectType type, string stats)
+        public GameData(Vector3 position, Enums.ObjectType type, StatsBase stats)
         {
             this.position = position;
             this.type = type;

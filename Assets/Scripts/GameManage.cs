@@ -10,6 +10,7 @@ namespace Scritps
     public class GameManage : Singleton<GameManage>
     {
         [SerializeField] private GameObject player;
+        [SerializeField] private Player playerScript;
         [SerializeField] private GameObject enemy;
         [SerializeField] private GameObject bullet;
         [SerializeField] private GameObject coinCollectable;
@@ -18,17 +19,23 @@ namespace Scritps
         [SerializeField] private GameObject lifeCollectable;
         [SerializeField] private bool isClearData;
 
-        public int CountEnemy
+        public int EnemyCount
         {
-            get => _countEnemy;
-            set => _countEnemy = value;
+            get => _enemyCount;
+            set => _enemyCount = value;
         }
 
         public GameObject Player => player;
+        
+        public Player PlayerScript
+        {
+            get => playerScript;
+            set => playerScript = value;
+        }
 
         private float _timeCount;
         private bool _isSave;
-        private int _countEnemy;
+        private int _enemyCount;
 
         public void PauseGame()
         {
@@ -93,7 +100,7 @@ namespace Scritps
             var gameDatas = Utils.GameObjectsStore
                 .Where(e => e.enabled && e.stats is not { type: Enums.ObjectType.Bullet })
                 // .Select(e => new GameData(e.transform.position, e.stats.type))
-                .Select(e => new GameData(e.transform.position, e.stats.type, JsonUtility.ToJson(e.stats)))
+                .Select(e => new GameData(e.transform.position, e.stats.type, e.stats))
                 .ToList();
 
             var jsonHelper = new JsonHelper(gameDatas);
@@ -103,42 +110,28 @@ namespace Scritps
 
         private void LoadMap()
         {
-            Debug.Log("LoadMap");
             JsonHelper jsonHelper = new(new List<GameData>());
             JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
 
-            // Debug.Log("1111111111: " + jsonHelper.gameDatas.Count);
-            // jsonHelper.gameDatas.ForEach(e =>
-            // {
-            //     Debug.Log(e.stats);
-            // });
-            
-            GameObject objectIns = new();
-            string str = null;
+            GameObject objectIns;
             jsonHelper.gameDatas.ForEach(e =>
             {
                 switch (e.type)
                 {
                     case Enums.ObjectType.Enemy:
                         objectIns = enemy;
-                        str = e.stats;
-                        JsonUtility.FromJsonOverwrite(e.stats,objectIns.GetComponent<Enemy>().stats);
                         break;
                     case Enums.ObjectType.CoinCollectable:
                         objectIns = coinCollectable;
-                        // JsonUtility.FromJsonOverwrite(e.stats, (CoinStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     case Enums.ObjectType.DiamondCollectable:
                         objectIns = diamondCollectable;
-                        // JsonUtility.FromJsonOverwrite(e.stats, (DiamondStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     case Enums.ObjectType.HealthPotionCollectable:
                         objectIns = healthCollectable;
-                        // JsonUtility.FromJsonOverwrite(e.stats, (HealthStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     case Enums.ObjectType.LifeCollectable:
                         objectIns = lifeCollectable;
-                        // JsonUtility.FromJsonOverwrite(e.stats, (LifeStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     // case Enums.ObjectType.None:
                     // case Enums.ObjectType.Player:
@@ -151,7 +144,6 @@ namespace Scritps
 
                 Instantiate(objectIns, e.position, Quaternion.identity);
             });
-            Debug.Log( "}}}}}}}}}" + str);
         }
     }
 }

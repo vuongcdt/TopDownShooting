@@ -1,21 +1,19 @@
 ﻿using System;
 using Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scritps
 {
     public class ActorStats : StatsBase
     {
-        [field: Header("Base Stats")] 
+        [Header("Base Stats")] 
         public float hp;
         public float damage;
         public float moveSpeed;
-        public int level = 1;
 
-        public override void SetValue(StatsBase statsBase)
+        public override void OnInit(StatsBase statsBase)
         {
-            var actorStats =  ((ActorStats)statsBase);
+            var actorStats =  (ActorStats)statsBase;
             var upgradeFormula = Utils.GetUpgradeFormula(actorStats.level);
             
             this.hp = actorStats.hp * upgradeFormula;

@@ -9,9 +9,8 @@ namespace Scritps
         [SerializeField] private MuzzleFlash muzzleFlash;
         [SerializeField] private Bullet bullet;
         [SerializeField] private Transform shootingPoint;
-        [SerializeField] private float timeDelayShooting = 1f;
         [SerializeField] private LayerMask layerEnemy;
-        [SerializeField] private float enemyDectionRadius = 5;
+        [SerializeField] private GunStats gunStats;
 
         private float _timeDelayShooting;
         private Component _enemyNearest;
@@ -24,21 +23,21 @@ namespace Scritps
                 this.transform.rotation = Quaternion.identity;
                 return;
             }
-            TargetAiming();
+            AimingTarget();
             Shooting();
         }
 
         private void FindEnemy()
         {
             var positionWeapon = this.transform.position;
-            var findEnemys = Physics2D.OverlapCircleAll(positionWeapon, enemyDectionRadius, layerEnemy);
+            var findEnemys = Physics2D.OverlapCircleAll(positionWeapon, gunStats.enemyDectionRadius, layerEnemy);
 
             _enemyNearest = findEnemys.AsEnumerable()
                 .OrderBy(e => Vector2.Distance(positionWeapon, e.transform.position))
-                .FirstOrDefault(e => Vector2.Distance(positionWeapon, e.transform.position) < enemyDectionRadius);
+                .FirstOrDefault(e => Vector2.Distance(positionWeapon, e.transform.position) < gunStats.enemyDectionRadius);
         }
 
-        private void TargetAiming()
+        private void AimingTarget()
         {
             var positionWeapon = this.transform.position;
             var velocity = Utils.GetVelocity(_enemyNearest.transform.position, positionWeapon, 1);
@@ -62,7 +61,7 @@ namespace Scritps
 
             _timeDelayShooting += Time.deltaTime;
 
-            if (_timeDelayShooting > timeDelayShooting)
+            if (_timeDelayShooting > gunStats.timeShooting)
             {
                 _timeDelayShooting = 0;
             }
@@ -71,7 +70,7 @@ namespace Scritps
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(4, 4, 4, 0.1f);
-            Gizmos.DrawSphere(this.transform.position, enemyDectionRadius);
+            Gizmos.DrawSphere(this.transform.position, gunStats.enemyDectionRadius);
         }
     }
 }

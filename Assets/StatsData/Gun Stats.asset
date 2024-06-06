@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c5c870ed66745b9bede302d077eb58b, type: 3}
-  m_Name: Player Stats
+  m_Script: {fileID: 11500000, guid: 738f6bfb7c62444fb70b7df5b49489d0, type: 3}
+  m_Name: Gun Stats
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   level: 1
-  hp: 10
-  damage: 2
-  moveSpeed: 2
-  position: {x: -1.0899711, y: 2.3394392, z: 0}
-  maxLevel: 0
-  xp: 0
+  bullets: 1
+  timeShooting: 1
+  enemyDectionRadius: 3

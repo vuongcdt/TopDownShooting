@@ -1,27 +1,21 @@
-﻿using System;
-using Common;
+﻿using Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scritps
 {
     public class Enemy : GameObjectBase
     {
-        [Header("Enemy Settings")] [SerializeField]
-        private float velocityLimit = 1.5f;
-
-        [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
         [SerializeField] private GameObject bloodHit;
-        [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
+        [SerializeField] private float timeDespawnEnemy = 0.5f;
         [SerializeField] public EnemyStats enemyStatsDefault;
-        
-        // public new EnemyStats stats;
 
         private Rigidbody2D _rigidbody2DEnemy;
         private GameObject _player;
         private bool _isDeath;
         private float _hp;
+        private float _takeDameCount;
+        private bool _isTakeDame;
 
         private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
 
@@ -34,15 +28,12 @@ namespace Scritps
         private void OnInit()
         {
             stats = ScriptableObject.CreateInstance<EnemyStats>();
-            stats.SetValue(enemyStatsDefault);
-            
-            Debug.Log("enemyStats.hp: " + enemyStatsDefault.hp);
-            Debug.Log("stats.hp: " + ((EnemyStats)stats).hp);
+            stats.OnInit(enemyStatsDefault);
 
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
             _isDeath = false;
-            _hp = enemyStatsDefault.hp;
+            _hp = ((EnemyStats)stats).hp;
 
             if (bloodHit)
             {
@@ -64,6 +55,17 @@ namespace Scritps
             }
 
             MoveToPlayer();
+            SetTimeTakeDamage();
+        }
+
+        private void SetTimeTakeDamage()
+        {
+            _takeDameCount += Time.fixedDeltaTime;
+            if (_takeDameCount > ((EnemyStats)stats).timeTakeDamge)
+            {
+                GameManage.Ins.PlayerScript.PlayerStats.hp -= ((EnemyStats)stats).damage;
+                _takeDameCount = 0;
+            }
         }
 
         private void MoveToPlayer()
@@ -71,52 +73,45 @@ namespace Scritps
             var positionPlayer = _player.transform.position;
             var positionEnemy = this.transform.position;
 
-            var velocity = Utils.GetVelocity(positionPlayer, positionEnemy, velocityLimit);
+            var velocity = Utils.GetVelocity(positionPlayer, positionEnemy, ((EnemyStats)stats).moveSpeed);
 
             this.transform.rotation = Utils.GetFlipAmation(velocity);
 
             _rigidbody2DEnemy.velocity = velocity;
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        private void OnTriggerStay2D(Collider2D col2D)
         {
-            if (col.CompareTag(Constants.TagsConsts.BULLET))
+            if (col2D.CompareTag(Constants.TagsConsts.PLAYER))
             {
-                Debug.Log("OnTriggerEnter2D");
-                // ShootEnemy();
-            }
-
-            if (col.CompareTag(Constants.TagsConsts.PLAYER))
-            {
-                HitPlayer(col);
+                _isTakeDame = true;
             }
         }
 
-        private void HitPlayer(Collider2D col)
+        private void OnTriggerExit2D(Collider2D col2D)
         {
-            // var player = col.GetComponent<Player>();
-            // player.TakeDamage(enemyStats.damage);
-
-            //TODO Monsters collide with players
+            if (col2D.CompareTag(Constants.TagsConsts.PLAYER))
+            {
+                _isTakeDame = false;
+                _takeDameCount = 0;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D collision2D)
         {
             if (collision2D.gameObject.CompareTag(Constants.TagsConsts.BULLET))
             {
-                ShootEnemy();
+                var statsBullet = (BulletStats)collision2D.gameObject.GetComponent<Bullet>().stats;
+                ShootEnemy(statsBullet.damage);
             }
         }
 
-        private void ShootEnemy()
+        private void ShootEnemy(float damageBullet)
         {
-            // enemyStats.hp -= damageBullet;
-            // if (enemyStats.hp > 0)
-
             _hp -= damageBullet;
             if (_hp > 0)
             {
-                if (bloodHit) bloodHit.SetActive(true);
+                bloodHit.SetActive(true);
                 return;
             }
 
@@ -126,10 +121,8 @@ namespace Scritps
 
             CollectableManage.Ins.OnSpawn(transform.position);
 
-            //TODO
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
-            // HiddenGameObjectWaitForSeconds(timeDelayHiddenObject);
-            this.OnDespawn(timeHiddenBodyEnemy);
+            this.OnDespawn(timeDespawnEnemy);
         }
     }
 }

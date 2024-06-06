@@ -10,22 +10,24 @@ namespace Scritps
         [Header("Xp Bonus:")] 
         public float xpBonus ;
         public int countEnemyPerLevel = 2;
+        public float timeTakeDamge = 0.2f;
 
-        public override void SetValue(StatsBase statsBase)
+        public override void OnInit(StatsBase statsBase)
         {
             var enemyStats = (EnemyStats)statsBase;
-            GameManage.Ins.CountEnemy++;
+            GameManage.Ins.EnemyCount++;
 
-            enemyStats.level = GetLevelEnemy();
-            base.SetValue(statsBase);
+            enemyStats.level = GetLevelEnemy(GameManage.Ins.EnemyCount);
+            base.OnInit(statsBase);
 
+            this.timeTakeDamge = enemyStats.timeTakeDamge;
             this.xpBonus = enemyStats.xpBonus;
             this.type = Enums.ObjectType.Enemy;
         }
 
-        private int GetLevelEnemy()
+        private int GetLevelEnemy(int enemyCount)
         {
-           return GameManage.Ins.CountEnemy / countEnemyPerLevel + 1;
+           return enemyCount / countEnemyPerLevel + 1;
         }
 
         public override void Save()

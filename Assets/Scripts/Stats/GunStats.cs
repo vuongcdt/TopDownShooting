@@ -3,9 +3,14 @@ using UnityEngine;
 
 namespace Scritps
 {
-    [CreateAssetMenu(fileName = "Coin Stats")]
-    public class CoinStats:StatsBase
+    [CreateAssetMenu(menuName = "Gun Stats")]
+    public class GunStats:StatsBase
     {
+        [Header("Gun Setting:")]
+        public int bullets = 1;
+        public float timeShooting = 1;
+        public float enemyDectionRadius = 3;
+        
         public override void OnInit(StatsBase statsBase)
         {
             throw new NotImplementedException();

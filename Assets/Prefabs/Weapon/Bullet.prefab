@@ -101,8 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAutoDespawn: 1
   delayTimeDespawn: 2
-  stats: {fileID: 11400000, guid: 50cfa710e5052584eade49db402071d9, type: 2}
-  speedBullet: 50
+  stats: {fileID: 0}
+  bulletStats: {fileID: 11400000, guid: 50cfa710e5052584eade49db402071d9, type: 2}
 --- !u!50 &5945005063621138565
 Rigidbody2D:
   serializedVersion: 4
@@ -165,7 +165,7 @@ BoxCollider2D:
   m_Offset: {x: 0.11409995, y: -0.00046683848}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.27707747, y: 0.50359106}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.4, y: 0.13}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5

@@ -10,14 +10,19 @@ namespace Scritps
     {
         public Vector3 position;
 
-        [field: Header("Level Up Base:")] 
+        [ Header("Level Up Base:")] 
         public int maxLevel = 100;
         public float xp = 0;
-        public float levelUpXpRequire = 10;
 
-        [field: Header("Level Up:")] 
-        public float levelUpXpRequireUp = 10;
-        public float hpUp = 10;
+        public override void OnInit(StatsBase statsBase)
+        {
+            var playerStats = (PlayerStats)statsBase;
+            base.OnInit(playerStats);
+
+            this.position = playerStats.position;
+            this.maxLevel = playerStats.maxLevel;
+            this.xp = playerStats.xp;
+        }
 
         public override void Save()
         {

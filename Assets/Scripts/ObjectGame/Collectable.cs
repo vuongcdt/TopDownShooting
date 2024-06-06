@@ -19,17 +19,16 @@ namespace Scritps
             base.OnEnable();
             OnInit();
         }
-
-        public static void MoveToPlayer(Vector2 positionPlayer, Collider2D collider)
-        {
-            var positionCollectable = collider.transform.position;
-
-            // var velocity = Utils.GetVelocity(positionPlayer, positionCollectable, SPEED_COLLECTABLE);
-
-            // collider.attachedRigidbody.velocity = velocity;
-            collider.transform.position = Vector3
-                .MoveTowards(positionCollectable, positionPlayer, SPEED_COLLECTABLE * Time.fixedTime);
-        }
+        // public static void MoveToPlayer(Vector2 positionPlayer, Collider2D collider)
+        // {
+        //     var positionCollectable = collider.transform.position;
+        //
+        //     // var velocity = Utils.GetVelocity(positionPlayer, positionCollectable, SPEED_COLLECTABLE);
+        //
+        //     // collider.attachedRigidbody.velocity = velocity;
+        //     collider.transform.position = Vector3
+        //         .MoveTowards(positionCollectable, positionPlayer, SPEED_COLLECTABLE * Time.fixedTime);
+        // }
 
         private void OnInit()
         {
@@ -48,20 +47,11 @@ namespace Scritps
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!col.CompareTag(Constants.TagsConsts.PLAYER))
+            if (col.CompareTag(Constants.TagsConsts.PLAYER))
             {
-                return;
+                this.OnDespawn(0f);
+                _rigidbody2D.velocity = Vector2.zero;
             }
-
-            this.OnDespawn(0f);
-            _rigidbody2D.velocity = Vector2.zero;
-            SetPointPlayer();
-        }
-
-        private void SetPointPlayer()
-        {
-            //TODO
-            // Prefs.PlayerData;
         }
     }
 }

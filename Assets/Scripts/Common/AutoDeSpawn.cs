@@ -2,16 +2,16 @@
 
 namespace Common
 {
-    public class AutoHidden : MonoBehaviour
+    public class AutoDeSpawn : MonoBehaviour
     {
         public float delay;
 
         private void OnEnable()
         {
-            Invoke(nameof(HiddenObjectGame), delay);
+            Invoke(nameof(DeSpawn), delay);
         }
 
-        private void HiddenObjectGame()
+        private void DeSpawn()
         {
             gameObject.SetActive(false);
         }

@@ -7,14 +7,17 @@ namespace Scritps
     public class Bullet : GameObjectBase
     {
         [Header("Bullet Settings")]
-        [SerializeField] private float speedBullet = 30;
+        [SerializeField] private BulletStats bulletStats;
 
         private Rigidbody2D _rigidbody2D;
 
         public void OnInit(Vector2 positionTarget)
         {
+            stats = ScriptableObject.CreateInstance<BulletStats>();
+            stats.OnInit(bulletStats);
+            
             var positionBullet = this.transform.position;
-            var velocity = Utils.GetVelocity(positionTarget, positionBullet, speedBullet);
+            var velocity = Utils.GetVelocity(positionTarget, positionBullet, bulletStats.speedBullet);
 
             Quaternion transformRotation = MathHelpers.Vector2ToQuaternion(velocity);
             this.transform.rotation = transformRotation;
@@ -28,14 +31,6 @@ namespace Scritps
             this.OnDespawn(2f);
             _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         }
-
-        // private void OnTriggerEnter2D(Collider2D col)
-        // {
-        //     if (col.CompareTag(Constants.TagsConsts.ENEMY))
-        //     {
-        //         this.OnDespawn(0f);
-        //     }
-        // }
 
         private void OnCollisionEnter2D(Collision2D collision2D)
         {

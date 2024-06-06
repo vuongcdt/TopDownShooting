@@ -6,7 +6,7 @@ namespace Scritps
     [CreateAssetMenu(fileName = "Diamon Stats")]
     public class DiamondStats : StatsBase
     {
-        public override void SetValue(StatsBase statsBase)
+        public override void OnInit(StatsBase statsBase)
         {
             throw new NotImplementedException();
         }
