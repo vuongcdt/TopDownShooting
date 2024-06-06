@@ -14,7 +14,7 @@ namespace Scritps
         [ShowIf(ActionOnConditionFail.JustDisable, ConditionOperator.And, nameof(isAutoDespawn))] [SerializeField]
         protected float delayTimeDespawn;
 
-        [SerializeField] public StatsBase stats;
+        public StatsBase stats;
 
         public virtual void OnEnable()
         {

@@ -15,8 +15,9 @@ namespace Scritps
         [SerializeField] private GameObject bloodHit;
         [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
         [SerializeField] public EnemyStats enemyStatsDefault;
+        
+        // public new EnemyStats stats;
 
-        private EnemyStats _enemyStats;
         private Rigidbody2D _rigidbody2DEnemy;
         private GameObject _player;
         private bool _isDeath;
@@ -32,11 +33,11 @@ namespace Scritps
 
         private void OnInit()
         {
-            _enemyStats = ScriptableObject.CreateInstance<EnemyStats>();
-            _enemyStats.SetValue(enemyStatsDefault);
+            stats = ScriptableObject.CreateInstance<EnemyStats>();
+            stats.SetValue(enemyStatsDefault);
             
             Debug.Log("enemyStats.hp: " + enemyStatsDefault.hp);
-            Debug.Log("_enemyStats.hp: " + _enemyStats.hp);
+            Debug.Log("stats.hp: " + ((EnemyStats)stats).hp);
 
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;

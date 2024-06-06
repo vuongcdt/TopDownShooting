@@ -20,6 +20,7 @@ namespace Scritps
             base.SetValue(statsBase);
 
             this.xpBonus = enemyStats.xpBonus;
+            this.type = Enums.ObjectType.Enemy;
         }
 
         private int GetLevelEnemy()

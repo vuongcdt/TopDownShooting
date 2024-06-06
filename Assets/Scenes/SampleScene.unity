@@ -722,9 +722,7 @@ MonoBehaviour:
   diamondCollectable: {fileID: 8047962909517913075, guid: 125df93d770bc164f92f7cc294cdd5e4, type: 3}
   healthCollectable: {fileID: 8047962909517913075, guid: 70c09cb2b899138408c97a431e619d5c, type: 3}
   lifeCollectable: {fileID: 8047962909517913075, guid: bfe0eb93342e578438a0641fa7103a4d, type: 3}
-  timeSave: 1
-  spawnWrap: {fileID: 1982917292}
-  isClearData: 1
+  isClearData: 0
 --- !u!4 &906897252
 Transform:
   m_ObjectHideFlags: 0

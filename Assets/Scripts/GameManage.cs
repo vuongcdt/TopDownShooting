@@ -90,13 +90,9 @@ namespace Scritps
             if (_isSave) return;
             _isSave = true;
 
-            Utils.GameObjectsStore.ForEach(e =>
-            {
-                Debug.Log("stats: " + JsonUtility.ToJson(e.stats));
-            });
-            
             var gameDatas = Utils.GameObjectsStore
                 .Where(e => e.enabled && e.stats is not { type: Enums.ObjectType.Bullet })
+                // .Select(e => new GameData(e.transform.position, e.stats.type))
                 .Select(e => new GameData(e.transform.position, e.stats.type, JsonUtility.ToJson(e.stats)))
                 .ToList();
 
@@ -107,28 +103,42 @@ namespace Scritps
 
         private void LoadMap()
         {
+            Debug.Log("LoadMap");
             JsonHelper jsonHelper = new(new List<GameData>());
             JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
 
+            // Debug.Log("1111111111: " + jsonHelper.gameDatas.Count);
+            // jsonHelper.gameDatas.ForEach(e =>
+            // {
+            //     Debug.Log(e.stats);
+            // });
+            
+            GameObject objectIns = new();
+            string str = null;
             jsonHelper.gameDatas.ForEach(e =>
             {
-                GameObject objectIns = new();
                 switch (e.type)
                 {
                     case Enums.ObjectType.Enemy:
                         objectIns = enemy;
+                        str = e.stats;
+                        JsonUtility.FromJsonOverwrite(e.stats,objectIns.GetComponent<Enemy>().stats);
                         break;
                     case Enums.ObjectType.CoinCollectable:
                         objectIns = coinCollectable;
+                        // JsonUtility.FromJsonOverwrite(e.stats, (CoinStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     case Enums.ObjectType.DiamondCollectable:
                         objectIns = diamondCollectable;
+                        // JsonUtility.FromJsonOverwrite(e.stats, (DiamondStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     case Enums.ObjectType.HealthPotionCollectable:
                         objectIns = healthCollectable;
+                        // JsonUtility.FromJsonOverwrite(e.stats, (HealthStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     case Enums.ObjectType.LifeCollectable:
                         objectIns = lifeCollectable;
+                        // JsonUtility.FromJsonOverwrite(e.stats, (LifeStats)objectIns.GetComponent<Collectable>().stats);
                         break;
                     // case Enums.ObjectType.None:
                     // case Enums.ObjectType.Player:
@@ -141,6 +151,7 @@ namespace Scritps
 
                 Instantiate(objectIns, e.position, Quaternion.identity);
             });
+            Debug.Log( "}}}}}}}}}" + str);
         }
     }
 }

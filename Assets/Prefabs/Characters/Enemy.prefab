@@ -200,13 +200,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAutoDespawn: 0
   delayTimeDespawn: 0
-  stats: {fileID: 11400000, guid: a76fbb73c95299145a841205d4f22a02, type: 2}
+  stats: {fileID: 0}
   velocityLimit: 1
   damageBullet: 5
   animatorEnemy: {fileID: 4292609321954057593}
   bloodHit: {fileID: 1676495797548180, guid: 751aa64f85a0ab94a9171678307499c5, type: 3}
   timeHiddenBodyEnemy: 0.5
   enemyStatsDefault: {fileID: 11400000, guid: a76fbb73c95299145a841205d4f22a02, type: 2}
+  stats: {fileID: 11400000, guid: a76fbb73c95299145a841205d4f22a02, type: 2}
 --- !u!50 &4457999973714636173
 Rigidbody2D:
   serializedVersion: 4
