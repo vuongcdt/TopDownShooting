@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Enemy Stats
   m_EditorClassIdentifier: 
   type: 2
-  level: 3
+  level: 5
   hp: 10
   damage: 2
-  moveSpeed: 1.5
-  xpBonus: 0
+  moveSpeed: 1
+  xpBonus: 10
   countEnemyPerLevel: 10
-  timeTakeDamge: 0.5
+  timeTakeDamage: 0.5

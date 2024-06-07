@@ -12,6 +12,7 @@ namespace Scritps
 
         private Rigidbody2D _rigidbody2DEnemy;
         private GameObject _player;
+        private PlayerStats _playerStats;
         private bool _isDeath;
         private float _hp;
         private float _takeDameCount;
@@ -32,6 +33,7 @@ namespace Scritps
 
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
+            _playerStats = _player.GetComponent<Player>().PlayerStats;
             _isDeath = false;
             _hp = ((EnemyStats)stats).hp;
 
@@ -60,10 +62,13 @@ namespace Scritps
 
         private void SetTimeTakeDamage()
         {
+            if(!_isTakeDame) return;
+            
             _takeDameCount += Time.fixedDeltaTime;
-            if (_takeDameCount > ((EnemyStats)stats).timeTakeDamge)
+            if (_takeDameCount > ((EnemyStats)stats).timeTakeDamage)
             {
-                GameManage.Ins.PlayerScript.PlayerStats.hp -= ((EnemyStats)stats).damage;
+                // GameManage.Ins.PlayerScript.PlayerStats.hp -= ((EnemyStats)stats).damage;
+                _playerStats.hp -= ((EnemyStats)stats).damage;
                 _takeDameCount = 0;
             }
         }
@@ -123,6 +128,13 @@ namespace Scritps
 
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
             this.OnDespawn(timeDespawnEnemy);
+            AddXpToPlayer(((EnemyStats)stats).xpBonus);
+        }
+
+        private void AddXpToPlayer(float xpBonus)
+        {
+            //TODO
+            _playerStats.hp += xpBonus;
         }
     }
 }
