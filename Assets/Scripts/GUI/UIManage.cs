@@ -45,8 +45,8 @@ namespace Scritps.GUI
             coinTotal.text = _coinTotal.ToString("0");
             gunUpgradeText.SetActive(true);
 
-            // Time.timeScale = 0;
-            // startGameDialog.SetActive(true);
+            Time.timeScale = 0;
+            startGameDialog.SetActive(true);
         }
 
         public void OnTriggerGameObjectClick(GameObject gameObj)

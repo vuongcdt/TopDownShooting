@@ -7,7 +7,6 @@ namespace Scritps
     public class GunStats:StatsBase
     {
         [Header("Gun Setting:")]
-        public int bullets = 1;
         public float timeShooting = 1;
         public float enemyDectionRadius = 3;
         
