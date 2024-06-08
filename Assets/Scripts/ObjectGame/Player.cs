@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _playerStats = ScriptableObject.CreateInstance<PlayerStats>();
-        _playerStats.OnInit(playerStatsDefault);
+        _playerStats.Init(playerStatsDefault);
         GetPositionPlayer();
     }
 

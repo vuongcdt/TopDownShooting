@@ -13,7 +13,7 @@ namespace Scritps
         public float reloadTime;
         public float speedBullet = 30;
         
-        public override void OnInit(StatsBase statsBase)
+        public override void Init(StatsBase statsBase)
         {
             var bulletStats = (BulletStats)statsBase;
             var upgradeFormula = Utils.GetUpgradeFormula(bulletStats.level);

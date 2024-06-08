@@ -13,14 +13,14 @@ namespace Scritps
         public int countEnemyPerLevel = 2;
         public float timeTakeDamage = 0.5f;
 
-        public override void OnInit(StatsBase statsBase)
+        public override void Init(StatsBase statsBase)
         {
             var enemyStats = (EnemyStats)statsBase;
             GameManage.Ins.EnemyCount++;
             var upgradeFormula = Utils.GetUpgradeFormula(this.level);
             
             enemyStats.level = GetLevelEnemy(GameManage.Ins.EnemyCount);
-            base.OnInit(statsBase);
+            base.Init(statsBase);
 
             this.timeTakeDamage = enemyStats.timeTakeDamage;
             this.xpBonus = enemyStats.xpBonus * upgradeFormula;

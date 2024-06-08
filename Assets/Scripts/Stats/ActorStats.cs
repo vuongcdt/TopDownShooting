@@ -11,7 +11,7 @@ namespace Scritps
         public float damage;
         public float moveSpeed;
 
-        public override void OnInit(StatsBase statsBase)
+        public override void Init(StatsBase statsBase)
         {
             var actorStats =  (ActorStats)statsBase;
             var upgradeFormula = Utils.GetUpgradeFormula(actorStats.level);

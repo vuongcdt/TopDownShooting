@@ -10,7 +10,7 @@ namespace Scritps
         public float timeShooting = 1;
         public float enemyDectionRadius = 3;
         
-        public override void OnInit(StatsBase statsBase)
+        public override void Init(StatsBase statsBase)
         {
             throw new NotImplementedException();
         }

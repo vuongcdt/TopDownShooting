@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Scritps.GUI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scritps
 {
@@ -19,33 +19,22 @@ namespace Scritps
         [SerializeField] private GameObject lifeCollectable;
         [SerializeField] private bool isClearData;
 
+        public GameObject Player => player;
         public int EnemyCount
         {
             get => _enemyCount;
             set => _enemyCount = value;
         }
-
-        public GameObject Player => player;
-        
         public Player PlayerScript
         {
             get => playerScript;
             set => playerScript = value;
         }
 
+        private PlayerStats _playerStats;
         private float _timeCount;
         private bool _isSave;
         private int _enemyCount;
-
-        public void PauseGame()
-        {
-            Time.timeScale = 0;
-        }
-
-        public void ResumeGame()
-        {
-            Time.timeScale = 1;
-        }
 
         protected override void Awake()
         {
@@ -59,6 +48,14 @@ namespace Scritps
             {
                 LoadMap();
             }
+        }
+
+        private void Start()
+        {
+            _playerStats = ScriptableObject.CreateInstance<PlayerStats>();
+            _playerStats.Init(playerScript.PlayerStats);
+            
+            UIManage.Ins.SetValueText(_playerStats,playerScript.PlayerStats);
         }
 
         private void OnApplicationQuit()
@@ -144,6 +141,17 @@ namespace Scritps
 
                 Instantiate(objectIns, e.position, Quaternion.identity);
             });
+        }
+        
+        
+        public void PauseGame()
+        {
+            Time.timeScale = 0;
+        }
+
+        public void ResumeGame()
+        {
+            Time.timeScale = 1;
         }
     }
 }

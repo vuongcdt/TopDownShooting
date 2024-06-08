@@ -198,6 +198,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51065042}
   m_CullTransparentMesh: 1
+--- !u!1 &123100254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123100255}
+  - component: {fileID: 123100256}
+  m_Layer: 0
+  m_Name: UpgradeGun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &123100255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123100254}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1075184815}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &123100256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123100254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d09589f4294514a4a0d79aa68ca132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletStats: {fileID: 0}
+  titleText: {fileID: 1918062976}
+  dialog: {fileID: 2000884625}
+  currentReloadTimeText: {fileID: 1905534620}
+  reloadTimeUpText: {fileID: 1429166290}
+  currentDamageText: {fileID: 985914262}
+  damageUpText: {fileID: 1603927566}
+  currentRangeText: {fileID: 1202999660}
+  rangeUpText: {fileID: 1196016040}
 --- !u!1 &272273748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,7 +2397,7 @@ GameObject:
   - component: {fileID: 985914263}
   - component: {fileID: 985914262}
   m_Layer: 5
-  m_Name: CurrentValueText
+  m_Name: CurrentDamageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2603,7 +2656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2753,6 +2806,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 607120553}
+  - {fileID: 123100255}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1083655966
@@ -3038,7 +3092,7 @@ GameObject:
   - component: {fileID: 1196016041}
   - component: {fileID: 1196016040}
   m_Layer: 5
-  m_Name: UpgradeValueText
+  m_Name: UpgradeRangeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3250,7 +3304,7 @@ GameObject:
   - component: {fileID: 1202999661}
   - component: {fileID: 1202999660}
   m_Layer: 5
-  m_Name: CurrentValueText
+  m_Name: CurrentRangeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3836,7 +3890,7 @@ GameObject:
   - component: {fileID: 1429166291}
   - component: {fileID: 1429166290}
   m_Layer: 5
-  m_Name: UpgradeValueText
+  m_Name: UpgradeReloadText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4459,7 +4513,7 @@ GameObject:
   - component: {fileID: 1603927567}
   - component: {fileID: 1603927566}
   m_Layer: 5
-  m_Name: UpgradeValueText
+  m_Name: UpgradeDamageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4662,7 +4716,7 @@ GameObject:
   - component: {fileID: 1688417439}
   - component: {fileID: 1688417438}
   m_Layer: 5
-  m_Name: Cancel
+  m_Name: CancelBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4732,13 +4786,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 607120554}
-        m_TargetAssemblyTypeName: Scritps.GUI.UIManage, Assembly-CSharp
-        m_MethodName: OnTriggerGameObjectClick
-        m_Mode: 2
+      - m_Target: {fileID: 123100256}
+        m_TargetAssemblyTypeName: Scritps.GUI.UpgradeGunDialogManage, Assembly-CSharp
+        m_MethodName: OnTriggerActive
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2000884625}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5235,7 +5289,7 @@ GameObject:
   - component: {fileID: 1905534621}
   - component: {fileID: 1905534620}
   m_Layer: 5
-  m_Name: CurrentValueText
+  m_Name: CurrentReloadText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6075,7 +6129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6353,13 +6407,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 607120554}
-        m_TargetAssemblyTypeName: Scritps.GUI.UIManage, Assembly-CSharp
-        m_MethodName: OnTriggerGameObjectClick
-        m_Mode: 2
+      - m_Target: {fileID: 123100256}
+        m_TargetAssemblyTypeName: Scritps.GUI.UpgradeGunDialogManage, Assembly-CSharp
+        m_MethodName: OnTriggerActive
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2000884625}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

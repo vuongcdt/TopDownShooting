@@ -9,19 +9,23 @@ namespace Scritps
     public class PlayerStats : ActorStats
     {
         public Vector3 position;
+        public int lifeCount = 4;
+        public int coinCount;
 
         [ Header("Level Up Base:")] 
         public int maxLevel = 100;
-        public float xp = 0;
+        public int xp = 0;
 
-        public override void OnInit(StatsBase statsBase)
+        public override void Init(StatsBase statsBase)
         {
             var playerStats = (PlayerStats)statsBase;
-            base.OnInit(playerStats);
+            base.Init(playerStats);
 
             this.position = playerStats.position;
             this.maxLevel = playerStats.maxLevel;
             this.xp = playerStats.xp;
+            this.lifeCount = playerStats.lifeCount;
+            this.coinCount = playerStats.coinCount;
         }
 
         public override void Save()

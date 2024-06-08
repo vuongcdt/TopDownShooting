@@ -11,7 +11,7 @@ namespace Scritps
         public Enums.ObjectType type;
         public int level = 1;
 
-        public abstract void OnInit(StatsBase statsBase);
+        public abstract void Init(StatsBase statsBase);
         public abstract void Save();
         public abstract void Load();
         

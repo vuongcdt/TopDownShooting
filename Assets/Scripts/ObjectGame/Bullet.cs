@@ -14,7 +14,7 @@ namespace Scritps
         public void OnInit(Vector2 positionTarget)
         {
             stats = ScriptableObject.CreateInstance<BulletStats>();
-            stats.OnInit(bulletStats);
+            stats.Init(bulletStats);
             
             var positionBullet = this.transform.position;
             var velocity = Utils.GetVelocity(positionTarget, positionBullet, bulletStats.speedBullet);

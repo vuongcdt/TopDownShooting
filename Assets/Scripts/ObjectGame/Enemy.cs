@@ -29,7 +29,7 @@ namespace Scritps
         private void OnInit()
         {
             stats = ScriptableObject.CreateInstance<EnemyStats>();
-            stats.OnInit(enemyStatsDefault);
+            stats.Init(enemyStatsDefault);
 
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
