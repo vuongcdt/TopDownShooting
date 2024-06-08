@@ -1,0 +1,35 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://assetstore.unity.com/packages/tools/sprite-management/texturepacker-importer-16641
+#
+# created with Free texture packer v0.6.7
+# http://free-tex-packer.com
+#
+:format=40300
+:texture=texture.png
+:size=256x128
+:pivotpoints=enabled
+:borders=disabled
+
+0.png;0;95;31;33; 0.5;0.5; 0;0;0;0
+3.png;31;95;30;33; 0.5;0.5; 0;0;0;0
+5.png;0;62;31;33; 0.5;0.5; 0;0;0;0
+6.png;61;97;33;31; 0.5;0.5; 0;0;0;0
+cr (1).png;31;62;27;33; 0.5;0.5; 0;0;0;0
+sGun.png;61;83;33;14; 0.5;0.5; 0;0;0;0
+1.png;0;31;32;31; 0.5;0.5; 0;0;0;0
+4.png;58;51;27;32; 0.5;0.5; 0;0;0;0
+2.png;94;97;30;31; 0.5;0.5; 0;0;0;0
+sEnemyDead.png;85;60;31;23; 0.5;0.5; 0;0;0;0
+c (1).png;32;32;23;30; 0.5;0.5; 0;0;0;0
+cr (5).png;85;31;24;29; 0.5;0.5; 0;0;0;0
+cr (6).png;0;2;25;29; 0.5;0.5; 0;0;0;0
+cr (7).png;25;3;28;28; 0.5;0.5; 0;0;0;0
+c (2).png;53;4;25;27; 0.5;0.5; 0;0;0;0
+c (3).png;78;4;26;27; 0.5;0.5; 0;0;0;0
+cr (2).png;124;101;26;27; 0.5;0.5; 0;0;0;0
+cr (3).png;104;5;27;26; 0.5;0.5; 0;0;0;0
+cr (4).png;109;33;24;27; 0.5;0.5; 0;0;0;0
+c (4).png;53;4;25;27; 0.5;0.5; 0;0;0;0

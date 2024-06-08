@@ -1,24 +1,50 @@
+using System;
+using Common;
 using Scritps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private LayerMask layerCollectable;
-    [SerializeField] private float collectableDectionRadius = 1;
+    [SerializeField] private PlayerStats playerStatsDefault;
+    
+    private PlayerStats _playerStats;
+    private float _hpTest;
 
-    private void Update()
+    public PlayerStats PlayerStats
     {
-        FindCollectable();
+        get => _playerStats;
+        set => _playerStats = value;
     }
 
-    private void FindCollectable()
+    private void Awake()
     {
-        var positionPlayer = gameObject.transform.position;
-        var col2DCollectables = Physics2D.OverlapCircleAll(positionPlayer, collectableDectionRadius, layerCollectable);
+        _playerStats = ScriptableObject.CreateInstance<PlayerStats>();
+        _playerStats.Init(playerStatsDefault);
+        GetPositionPlayer();
+    }
 
-        foreach (var collider2d in col2DCollectables)
+    private void GetPositionPlayer()
+    {
+        transform.position = _playerStats.position;
+    }
+
+    private void FixedUpdate()
+    { 
+        _playerStats.position = transform.position;
+        _hpTest = _playerStats.hp;
+        
+        if (_playerStats.hp < 0)
         {
-            Collectable.MoveToPlayer(positionPlayer,collider2d);       
+            Time.timeScale = 0;
+            Debug.Log("Game over");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag(Constants.TagsConsts.COLLECTABLE))
+        {
+            Debug.Log("collectable");
         }
     }
 }

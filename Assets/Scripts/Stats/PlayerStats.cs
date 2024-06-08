@@ -5,47 +5,58 @@ using UnityEngine;
 namespace Scritps
 {
     [CreateAssetMenu(fileName = "Player Stats")]
+    [Serializable]
     public class PlayerStats : ActorStats
     {
-        [field: Header("Level Up Base:")] 
-        public int level = 1;
-        public int maxLevel = 100;
-        public float xp = 0;
-        public float levelUpXpRequire = 10;
+        public Vector3 position;
+        public int lifeCount = 4;
+        public int coinCount;
 
-        [field: Header("Level Up:")] 
-        public float levelUpXpRequireUp = 10;
-        public float hpUp = 10;
+        [ Header("Level Up Base:")] 
+        public int maxLevel = 100;
+        public int xp = 0;
+
+        public override void Init(StatsBase statsBase)
+        {
+            var playerStats = (PlayerStats)statsBase;
+            base.Init(playerStats);
+
+            this.position = playerStats.position;
+            this.maxLevel = playerStats.maxLevel;
+            this.xp = playerStats.xp;
+            this.lifeCount = playerStats.lifeCount;
+            this.coinCount = playerStats.coinCount;
+        }
 
         public override void Save()
         {
-            Prefs.PlayerData = JsonUtility.ToJson(this);
+            // Prefs.PlayerData = JsonUtility.ToJson(this);
         }
 
         public override void Load()
         {
-            if (!string.IsNullOrEmpty(Prefs.PlayerData))
-            {
-                JsonUtility.FromJsonOverwrite(Prefs.PlayerData, this);
-            }
+            // if (!string.IsNullOrEmpty(Prefs.PlayerData))
+            // {
+            //     JsonUtility.FromJsonOverwrite(Prefs.PlayerData, this);
+            // }
         }
 
         public override void Upgrade(Action OnSuccess = null, Action OnFailed = null)
         {
-            while (xp >= levelUpXpRequire && !IsMaxLevel())
-            {
-                level++;
-                xp -= levelUpXpRequire;
-                hp += hpUp * Utils.GetUpgradeFormula(level);
-                levelUpXpRequire += levelUpXpRequireUp * Utils.GetUpgradeFormula(level);
-                Save();
-                OnSuccess?.Invoke();
-            }
-
-            if (xp <= levelUpXpRequire || IsMaxLevel())
-            {
-                OnFailed?.Invoke();
-            }
+            // while (xp >= levelUpXpRequire && !IsMaxLevel())
+            // {
+            //     level++;
+            //     xp -= levelUpXpRequire;
+            //     hp += hpUp * Utils.GetUpgradeFormula(level);
+            //     levelUpXpRequire += levelUpXpRequireUp * Utils.GetUpgradeFormula(level);
+            //     Save();
+            //     OnSuccess?.Invoke();
+            // }
+            //
+            // if (xp <= levelUpXpRequire || IsMaxLevel())
+            // {
+            //     OnFailed?.Invoke();
+            // }
         }
 
         public override bool IsMaxLevel()

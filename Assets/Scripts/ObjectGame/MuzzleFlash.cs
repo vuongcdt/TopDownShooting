@@ -1,21 +1,22 @@
-﻿using System.Collections;
+﻿using System;
 using UnityEngine;
 
 namespace Scritps
 {
-    public class MuzzleFlash : MyMonoBehaviour
+    public class MuzzleFlash : GameObjectBase
     {
+        [Header("MuzzleFlash Settings")]
         [SerializeField] private float timeShooting = 0.1f;
 
         public void Show()
         {
             gameObject.SetActive(true);
-            HiddenGameObjectWaitForSeconds(timeShooting);
+            this.OnDespawn(timeShooting);
         }
 
         private void Start()
         {
-            HiddenGameObjectWaitForSeconds(timeShooting);
+            gameObject.SetActive(false);
         }
     }
 }

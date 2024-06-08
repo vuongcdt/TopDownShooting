@@ -1,104 +1,122 @@
 ﻿using Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scritps
 {
-    public class Enemy : MyMonoBehaviour
+    public class Enemy : GameObjectBase
     {
-        [SerializeField] private float velocityLimit = 1.5f;
-        [SerializeField] private float hpEnemy = 10f;
-        [SerializeField] private float damageBullet = 4f;
         [SerializeField] private Animator animatorEnemy;
         [SerializeField] private GameObject bloodHit;
-        [SerializeField] private float timeHitPlayer = 0.2f;
-        [SerializeField] private float timeHiddenBodyEnemy = 0.5f;
+        [SerializeField] private float timeDespawnEnemy = 0.5f;
+        [SerializeField] public EnemyStats enemyStatsDefault;
 
         private Rigidbody2D _rigidbody2DEnemy;
-        private bool _isDeath;
         private GameObject _player;
-        private float _hpEnemy;
+        private PlayerStats _playerStats;
+        private bool _isDeath;
+        private float _hp;
+        private float _takeDameCount;
+        private bool _isTakeDame;
 
         private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
 
-        public void AutoHiddenByTime()
+        public override void OnEnable()
         {
+            base.OnEnable();
+            OnInit();
+        }
+
+        private void OnInit()
+        {
+            stats = ScriptableObject.CreateInstance<EnemyStats>();
+            stats.Init(enemyStatsDefault);
+
+            _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
+            _player = GameManage.Ins.Player;
+            _playerStats = _player.GetComponent<Player>().PlayerStats;
             _isDeath = false;
-            _hpEnemy = hpEnemy;
-            
+            _hp = ((EnemyStats)stats).hp;
+
             if (bloodHit)
             {
                 bloodHit.SetActive(false);
             }
-            
+
             if (gameObject.layer == LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER))
             {
                 gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.ENEMY_LAYER);
             }
         }
 
-        private void Start()
+        protected override void FixedUpdate()
         {
-            _hpEnemy = hpEnemy;
-            _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
-            _player = GameManage.Ins.Player;
-            bloodHit.SetActive(false);
-        }
-
-        private void Update()
-        {
+            base.FixedUpdate();
             if (_isDeath)
             {
                 return;
             }
 
             MoveToPlayer();
+            SetTimeTakeDamage();
+        }
+
+        private void SetTimeTakeDamage()
+        {
+            if(!_isTakeDame) return;
+            
+            _takeDameCount += Time.fixedDeltaTime;
+            if (_takeDameCount > ((EnemyStats)stats).timeTakeDamage)
+            {
+                // GameManage.Ins.PlayerScript.PlayerStats.hp -= ((EnemyStats)stats).damage;
+                _playerStats.hp -= ((EnemyStats)stats).damage;
+                _takeDameCount = 0;
+            }
         }
 
         private void MoveToPlayer()
         {
             var positionPlayer = _player.transform.position;
-            var positionEnemy = gameObject.transform.position;
+            var positionEnemy = this.transform.position;
 
-            var velocity = Utils.GetVelocity(positionPlayer, positionEnemy, velocityLimit);
+            var velocity = Utils.GetVelocity(positionPlayer, positionEnemy, ((EnemyStats)stats).moveSpeed);
 
-            gameObject.transform.localScale = Utils.SetFlipAmation(velocity);
+            this.transform.rotation = Utils.GetFlipAmation(velocity);
 
             _rigidbody2DEnemy.velocity = velocity;
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        private void OnTriggerStay2D(Collider2D col2D)
         {
-            if (col.CompareTag(Constants.TagsConsts.BULLET))
+            if (col2D.CompareTag(Constants.TagsConsts.PLAYER))
             {
-                ShootEnemy();
-            }
-
-            if (col.CompareTag(Constants.TagsConsts.PLAYER))
-            {
-                //TODO
-
-                // ActionWaitForSeconds(HitPlayer, timeHitPlayer);
-                HitPlayer();
+                _isTakeDame = true;
             }
         }
 
-        private void HitPlayer()
+        private void OnTriggerExit2D(Collider2D col2D)
         {
-            Debug.Log("111 player va cham enemy " + gameObject.name);
-
-            //TODO Monsters collide with players
+            if (col2D.CompareTag(Constants.TagsConsts.PLAYER))
+            {
+                _isTakeDame = false;
+                _takeDameCount = 0;
+            }
         }
 
-        private void ShootEnemy()
+        private void OnCollisionEnter2D(Collision2D collision2D)
         {
-            _hpEnemy -= damageBullet;
-
-            if (_hpEnemy > 0)
+            if (collision2D.gameObject.CompareTag(Constants.TagsConsts.BULLET))
             {
-                if (bloodHit) bloodHit.SetActive(true);
-                // HiddenBloodHit();
-                // Invoke(nameof(HiddenBloodHit), timeHiddenBloodHit);
+                var statsBullet = (BulletStats)collision2D.gameObject.GetComponent<Bullet>().stats;
+                ShootEnemy(statsBullet.damage);
+            }
+        }
+
+        private void ShootEnemy(float damageBullet)
+        {
+            _hp -= damageBullet;
+            if (_hp > 0)
+            {
+                bloodHit.SetActive(true);
                 return;
             }
 
@@ -106,15 +124,17 @@ namespace Scritps
             _isDeath = true;
             _rigidbody2DEnemy.velocity = new Vector2();
 
-            CollectableManage.Ins.Spawn(transform.position);
+            CollectableManage.Ins.OnSpawn(transform.position);
 
-            //TODO
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
-            HiddenGameObjectWaitForSeconds(timeHiddenBodyEnemy);
+            this.OnDespawn(timeDespawnEnemy);
+            AddXpToPlayer(((EnemyStats)stats).xpBonus);
         }
 
-        // public override void ReBorn()
-        // {
-        // }
+        private void AddXpToPlayer(float xpBonus)
+        {
+            //TODO
+            _playerStats.hp += xpBonus;
+        }
     }
 }

@@ -4,12 +4,21 @@
     {
         public enum ObjectType
         {
-            Player = 1,
+            None,
+            Player,
             Enemy ,
             CoinCollectable,
             DiamondCollectable,
             HealthPotionCollectable,
-            LifeCollectable
+            LifeCollectable,
+            Bullet
+        } 
+        public enum GameState
+        {
+            Playing,
+            Over,
+            Pause,
+            NewGame
         }
     }
 }

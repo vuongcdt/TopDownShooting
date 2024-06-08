@@ -7,6 +7,7 @@
             public const string ENEMY = "Enemy";
             public const string PLAYER = "Player";
             public const string BULLET = "Bullet";
+            public const string COLLECTABLE = "Collectable";
         }  
         public class AnimatorConsts
         {
@@ -21,7 +22,8 @@
             public const string COIN_DATA_KEY = "CoinData";
             public const string PLAYER_DATA_KEY = "PlayerData";
             public const string ENEMY_DATA_KEY = "EnemyData";
-            public const string WEAPON_DATA_KEY = "WeaponData";
+            public const string BULLET_DATA_KEY = "WeaponData";
+            public const string MAP_DATA_KEY = "MapData";
         }
         public class LayerConsts
         {
