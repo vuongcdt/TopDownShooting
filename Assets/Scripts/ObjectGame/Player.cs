@@ -1,39 +1,50 @@
 using System;
 using Common;
 using Scritps;
+using Scritps.GUI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerStats playerStatsDefault;
-    
-    private PlayerStats _playerStats;
-    private float _hpTest;
+    [SerializeField] private PlayerStats playerStats;
+
+    public void AddXp(int value)
+    {
+        playerStats.xp += value;
+        UIManage.Ins.SetLevelBar(playerStats);
+    }
+
+    public void AddHp(int value)
+    {
+        playerStats.hp += value;
+    }
+    public void TakeDamage(float damage)
+    {
+        playerStats.hp -= damage;
+        UIManage.Ins.SetHpBar(playerStats);
+    }
 
     public PlayerStats PlayerStats
     {
-        get => _playerStats;
-        set => _playerStats = value;
+        get => playerStats;
+        set => playerStats = value;
     }
 
     private void Awake()
     {
-        _playerStats = ScriptableObject.CreateInstance<PlayerStats>();
-        _playerStats.Init(playerStatsDefault);
         GetPositionPlayer();
     }
 
     private void GetPositionPlayer()
     {
-        transform.position = _playerStats.position;
+        transform.position = !GameManage.Ins.isClearData ? playerStats.position : Vector3.zero;
     }
 
     private void FixedUpdate()
-    { 
-        _playerStats.position = transform.position;
-        _hpTest = _playerStats.hp;
-        
-        if (_playerStats.hp < 0)
+    {
+        playerStats.position = transform.position;
+
+        if (playerStats.hp < 0)
         {
             Time.timeScale = 0;
             Debug.Log("Game over");

@@ -17,7 +17,7 @@ namespace Scritps
         [SerializeField] private GameObject diamondCollectable;
         [SerializeField] private GameObject healthCollectable;
         [SerializeField] private GameObject lifeCollectable;
-        [SerializeField] private bool isClearData;
+        public bool isClearData;
 
         public GameObject Player => player;
         public int EnemyCount
@@ -31,31 +31,57 @@ namespace Scritps
             set => playerScript = value;
         }
 
-        private PlayerStats _playerStats;
         private float _timeCount;
         private bool _isSave;
         private int _enemyCount;
 
-        protected override void Awake()
+        private void Start()
         {
-            MakeSingleton(false);
-
             if (isClearData)
             {
-                Prefs.ClearData();
+                Prefs.ClearData(); 
+                playerScript.PlayerStats = ScriptableObject.CreateInstance<PlayerStats>();
+                playerScript.PlayerStats.Init(GameStats.Ins.PlayerStats);
+                
+                UIManage.Ins.SetValueTextUI(playerScript.PlayerStats);
             }
             else
             {
-                LoadMap();
+                LoadData();
             }
         }
 
-        private void Start()
+        private void LoadData()
         {
-            _playerStats = ScriptableObject.CreateInstance<PlayerStats>();
-            _playerStats.Init(playerScript.PlayerStats);
-            
-            UIManage.Ins.SetValueText(_playerStats,playerScript.PlayerStats);
+            JsonHelper jsonHelper = new(new List<GameData>());
+            JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
+
+            GameObject objectIns;
+            jsonHelper.gameDatas.ForEach(e =>
+            {
+                switch (e.type)
+                {
+                    case Enums.ObjectType.Enemy:
+                        objectIns = enemy;
+                        break;
+                    case Enums.ObjectType.CoinCollectable:
+                        objectIns = coinCollectable;
+                        break;
+                    case Enums.ObjectType.DiamondCollectable:
+                        objectIns = diamondCollectable;
+                        break;
+                    case Enums.ObjectType.HealthPotionCollectable:
+                        objectIns = healthCollectable;
+                        break;
+                    case Enums.ObjectType.LifeCollectable:
+                        objectIns = lifeCollectable;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                Instantiate(objectIns, e.position, Quaternion.identity);
+            });
         }
 
         private void OnApplicationQuit()
@@ -96,62 +122,12 @@ namespace Scritps
 
             var gameDatas = Utils.GameObjectsStore
                 .Where(e => e.enabled && e.stats is not { type: Enums.ObjectType.Bullet })
-                // .Select(e => new GameData(e.transform.position, e.stats.type))
                 .Select(e => new GameData(e.transform.position, e.stats.type, e.stats))
                 .ToList();
 
             var jsonHelper = new JsonHelper(gameDatas);
 
             Prefs.MapData = JsonUtility.ToJson(jsonHelper);
-        }
-
-        private void LoadMap()
-        {
-            JsonHelper jsonHelper = new(new List<GameData>());
-            JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
-
-            GameObject objectIns;
-            jsonHelper.gameDatas.ForEach(e =>
-            {
-                switch (e.type)
-                {
-                    case Enums.ObjectType.Enemy:
-                        objectIns = enemy;
-                        break;
-                    case Enums.ObjectType.CoinCollectable:
-                        objectIns = coinCollectable;
-                        break;
-                    case Enums.ObjectType.DiamondCollectable:
-                        objectIns = diamondCollectable;
-                        break;
-                    case Enums.ObjectType.HealthPotionCollectable:
-                        objectIns = healthCollectable;
-                        break;
-                    case Enums.ObjectType.LifeCollectable:
-                        objectIns = lifeCollectable;
-                        break;
-                    // case Enums.ObjectType.None:
-                    // case Enums.ObjectType.Player:
-                    // case Enums.ObjectType.Bullet:
-                    //     objectIns = bullet;
-                    //     break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                Instantiate(objectIns, e.position, Quaternion.identity);
-            });
-        }
-        
-        
-        public void PauseGame()
-        {
-            Time.timeScale = 0;
-        }
-
-        public void ResumeGame()
-        {
-            Time.timeScale = 1;
         }
     }
 }

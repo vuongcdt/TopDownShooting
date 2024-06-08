@@ -1,6 +1,7 @@
 ﻿using System;
 using Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scritps
 {
@@ -12,9 +13,9 @@ namespace Scritps
         public int lifeCount = 4;
         public int coinCount;
 
-        [ Header("Level Up Base:")] 
-        public int maxLevel = 100;
+        [Header("Level Up Base:")] public int maxLevel = 100;
         public int xp = 0;
+        [FormerlySerializedAs("xpLevelFirst")] public int xpFirstLevel = 10;
 
         public override void Init(StatsBase statsBase)
         {
@@ -26,6 +27,16 @@ namespace Scritps
             this.xp = playerStats.xp;
             this.lifeCount = playerStats.lifeCount;
             this.coinCount = playerStats.coinCount;
+        }
+
+        public float GetMaxHp(int levelCurrent)
+        {
+            return this.hp * Utils.GetUpgradeFormula(levelCurrent);
+        }
+
+        public float GetXpUp(int levelValue)
+        {
+            return this.xpFirstLevel * levelValue * Utils.GetUpgradeFormula(levelValue);
         }
 
         public override void Save()

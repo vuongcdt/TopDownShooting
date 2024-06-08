@@ -6,30 +6,28 @@ using UnityEngine.Serialization;
 namespace Scritps
 {
     [CreateAssetMenu(fileName = "Enemy Stats")]
-    public class EnemyStats: ActorStats
+    public class EnemyStats : ActorStats
     {
-        [Header("Enemy Stats:")] 
-        public float xpBonus ;
-        public int countEnemyPerLevel = 2;
+        [Header("Enemy Stats:")] public int xpBonus;
+        public int countEnemyPerLevel = 10;
         public float timeTakeDamage = 0.5f;
 
         public override void Init(StatsBase statsBase)
         {
             var enemyStats = (EnemyStats)statsBase;
             GameManage.Ins.EnemyCount++;
-            var upgradeFormula = Utils.GetUpgradeFormula(this.level);
-            
+
             enemyStats.level = GetLevelEnemy(GameManage.Ins.EnemyCount);
             base.Init(statsBase);
 
             this.timeTakeDamage = enemyStats.timeTakeDamage;
-            this.xpBonus = enemyStats.xpBonus * upgradeFormula;
+            this.xpBonus = Mathf.CeilToInt(enemyStats.xpBonus);
             this.type = Enums.ObjectType.Enemy;
         }
 
         private int GetLevelEnemy(int enemyCount)
         {
-           return enemyCount / countEnemyPerLevel + 1;
+            return enemyCount / countEnemyPerLevel + 1;
         }
 
         public override void Save()

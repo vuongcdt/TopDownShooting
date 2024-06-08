@@ -17,6 +17,9 @@ MonoBehaviour:
   hp: 10
   damage: 2
   moveSpeed: 2
-  position: {x: -1.0899711, y: 2.3394392, z: 0}
+  position: {x: -2.290446, y: -1.1775808, z: 0}
+  lifeCount: 4
+  coinCount: 0
   maxLevel: 0
   xp: 0
+  xpFirstLevel: 10

@@ -251,6 +251,58 @@ MonoBehaviour:
   damageUpText: {fileID: 1603927566}
   currentRangeText: {fileID: 1202999660}
   rangeUpText: {fileID: 1196016040}
+--- !u!1 &258677612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 258677614}
+  - component: {fileID: 258677613}
+  m_Layer: 0
+  m_Name: GameStats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &258677613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258677612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1301458e2ab541e89684c0b474e42f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 11400000, guid: 24db51dcc6ef096478742006beca8823, type: 2}
+  enemyStats: {fileID: 11400000, guid: a76fbb73c95299145a841205d4f22a02, type: 2}
+  bulletStats: {fileID: 11400000, guid: 50cfa710e5052584eade49db402071d9, type: 2}
+  coinStats: {fileID: 11400000, guid: ca394f2f950c9a4468e9c0845def4668, type: 2}
+  diamondStats: {fileID: 11400000, guid: d43dc6f69e1fe5e4aae10fca537f3fbb, type: 2}
+  healthStats: {fileID: 11400000, guid: 85075eba1c0248f48af7e24a31f4595f, type: 2}
+  lifeStats: {fileID: 11400000, guid: e0c754cf2996c22418a866e6a01fb6f2, type: 2}
+  gunStats: {fileID: 11400000, guid: 38bd40a4a03cd784f94bd04bcee7a545, type: 2}
+--- !u!4 &258677614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258677612}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1010486, y: 2.181852, z: -0.014580693}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &272273748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,9 +1398,7 @@ MonoBehaviour:
   hpImage: {fileID: 438859134}
   progressHealthText: {fileID: 2033004853}
   coinTotal: {fileID: 1355586980}
-  gunUpgradeText: {fileID: 957721288}
   startGameDialog: {fileID: 1032455896}
-  gunUpgradeDialog: {fileID: 2000884625}
 --- !u!1 &659290410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2941,7 +2991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7364166208661071090, guid: b878ca4d4273fb5448d49516b0425d6f, type: 3}
       propertyPath: timeSpawn
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7364166208661071090, guid: b878ca4d4273fb5448d49516b0425d6f, type: 3}
       propertyPath: speedSpawn
@@ -6643,7 +6693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7390520089818003316, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7390520089818003316, guid: 6697a70178a3cc940ac67739303ee2b9, type: 3}
       propertyPath: m_SortingOrder
@@ -6699,6 +6749,7 @@ SceneRoots:
   - {fileID: 809414602}
   - {fileID: 999517855}
   - {fileID: 906897252}
+  - {fileID: 258677614}
   - {fileID: 1162853146}
   - {fileID: 1738652265}
   - {fileID: 1075184815}

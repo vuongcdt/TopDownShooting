@@ -6,19 +6,17 @@ namespace Scritps
 {
     public class ActorStats : StatsBase
     {
-        [Header("Base Stats")] 
-        public float hp;
+        [Header("Base Stats")] public float hp;
         public float damage;
         public float moveSpeed;
 
         public override void Init(StatsBase statsBase)
         {
-            var actorStats =  (ActorStats)statsBase;
-            var upgradeFormula = Utils.GetUpgradeFormula(actorStats.level);
-            
-            this.hp = actorStats.hp * upgradeFormula;
-            this.damage = actorStats.damage* upgradeFormula;
-            this.moveSpeed = actorStats.moveSpeed* upgradeFormula;
+            var actorStats = (ActorStats)statsBase;
+
+            this.hp = actorStats.hp;
+            this.damage = actorStats.damage;
+            this.moveSpeed = actorStats.moveSpeed;
             this.level = actorStats.level;
         }
 

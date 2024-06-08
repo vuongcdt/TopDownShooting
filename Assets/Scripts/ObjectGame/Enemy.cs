@@ -1,4 +1,5 @@
 ﻿using Common;
+using Scritps.GUI;
 using UnityEngine;
 
 namespace Scritps
@@ -12,13 +13,13 @@ namespace Scritps
 
         private Rigidbody2D _rigidbody2DEnemy;
         private GameObject _player;
-        private PlayerStats _playerStats;
+        private Player _playerScript;
         private bool _isDeath;
         private float _hp;
         private float _takeDameCount;
         private bool _isTakeDame;
 
-        private static readonly int DEATH = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
+        private static readonly int DEATH_ANIM = Animator.StringToHash(Constants.AnimatorConsts.DEATH);
 
         public override void OnEnable()
         {
@@ -33,7 +34,7 @@ namespace Scritps
 
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
             _player = GameManage.Ins.Player;
-            _playerStats = _player.GetComponent<Player>().PlayerStats;
+            _playerScript = _player.GetComponent<Player>();
             _isDeath = false;
             _hp = ((EnemyStats)stats).hp;
 
@@ -62,13 +63,13 @@ namespace Scritps
 
         private void SetTimeTakeDamage()
         {
-            if(!_isTakeDame) return;
-            
+            if (!_isTakeDame) return;
+
             _takeDameCount += Time.fixedDeltaTime;
-            if (_takeDameCount > ((EnemyStats)stats).timeTakeDamage)
+            var enemyStats = (EnemyStats)stats;
+            if (_takeDameCount > enemyStats.timeTakeDamage)
             {
-                // GameManage.Ins.PlayerScript.PlayerStats.hp -= ((EnemyStats)stats).damage;
-                _playerStats.hp -= ((EnemyStats)stats).damage;
+                _playerScript.TakeDamage(enemyStats.damage);
                 _takeDameCount = 0;
             }
         }
@@ -120,7 +121,7 @@ namespace Scritps
                 return;
             }
 
-            animatorEnemy.SetTrigger(DEATH);
+            animatorEnemy.SetTrigger(DEATH_ANIM);
             _isDeath = true;
             _rigidbody2DEnemy.velocity = new Vector2();
 
@@ -128,13 +129,15 @@ namespace Scritps
 
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
             this.OnDespawn(timeDespawnEnemy);
-            AddXpToPlayer(((EnemyStats)stats).xpBonus);
+            AddXpToPlayer();
         }
 
-        private void AddXpToPlayer(float xpBonus)
+        private void AddXpToPlayer()
         {
-            //TODO
-            _playerStats.hp += xpBonus;
+            var enemyStats = (EnemyStats)stats;
+
+            var xpBonus = enemyStats.xpBonus;
+            _playerScript.AddXp(xpBonus);
         }
     }
 }

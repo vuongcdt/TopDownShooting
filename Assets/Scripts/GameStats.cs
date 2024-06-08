@@ -12,6 +12,7 @@ namespace Scritps
         [SerializeField] private DiamondStats diamondStats;
         [SerializeField] private HealthStats healthStats;
         [SerializeField] private LifeStats lifeStats;
+        [SerializeField] private GunStats gunStats;
 
         public PlayerStats PlayerStats
         {
@@ -53,6 +54,12 @@ namespace Scritps
         {
             get => lifeStats;
             set => lifeStats = value;
+        }
+
+        public GunStats GunStats
+        {
+            get => gunStats;
+            set => gunStats = value;
         }
     }
 }

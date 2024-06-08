@@ -55,7 +55,7 @@ namespace Common
 
         public static float GetUpgradeFormula(int level)
         {
-            return (level - 1) / 4f + 1;
+            return level / 4f + 1;
         }
     }
 }
