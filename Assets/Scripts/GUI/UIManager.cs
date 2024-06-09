@@ -19,6 +19,8 @@ namespace GUI
         private PlayerStats _playerStats;
         private const string LEVEL_TEXT_FORMAT = "LEVEL {0}";
         private const string PROGRESS_TEXT_FORMAT = "{0}/{1}";
+        private const string NUMBER_FORMAT = "0";
+
         private readonly Color _colorLifeHide = new(0.43f, 0.66f, 0.61f, 1);
 
         protected override void Awake()
@@ -35,7 +37,7 @@ namespace GUI
 
         public void SetCoinCount(int value)
         {
-            coinTotal.text = value.ToString("0");
+            coinTotal.text = value.ToString(NUMBER_FORMAT);
         }
 
         public void SetLifeBar(int value)
@@ -58,7 +60,7 @@ namespace GUI
             var xpMin = playerStats.GetXpUp(playerStats.level - 1);
 
             levelText.text = string.Format(LEVEL_TEXT_FORMAT, playerStats.level);
-            progressLevelText.text = string.Format(PROGRESS_TEXT_FORMAT, playerStats.xp, xpMax.ToString("0"));
+            progressLevelText.text = string.Format(PROGRESS_TEXT_FORMAT, playerStats.xp, xpMax.ToString(NUMBER_FORMAT));
             levelImage.fillAmount = (playerStats.xp - xpMin) / ( xpMax - xpMin);
         }
     }
