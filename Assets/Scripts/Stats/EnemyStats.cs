@@ -15,9 +15,9 @@ namespace Scritps
         public override void Init(StatsBase statsBase)
         {
             var enemyStats = (EnemyStats)statsBase;
-            GameManage.Ins.EnemyCount++;
+            GameManager.Ins.EnemyCount++;
 
-            enemyStats.level = GetLevelEnemy(GameManage.Ins.EnemyCount);
+            enemyStats.level = GetLevelEnemy(GameManager.Ins.EnemyCount);
             base.Init(statsBase);
 
             this.timeTakeDamage = enemyStats.timeTakeDamage;

@@ -11,17 +11,18 @@ public class Player : MonoBehaviour
     public void AddXp(int value)
     {
         playerStats.xp += value;
-        UIManage.Ins.SetLevelBar(playerStats);
+        UIManager.Ins.SetLevelBar(playerStats);
     }
 
     public void AddHp(int value)
     {
         playerStats.hp += value;
     }
+    
     public void TakeDamage(float damage)
     {
         playerStats.hp -= damage;
-        UIManage.Ins.SetHpBar(playerStats);
+        UIManager.Ins.SetHpBar(playerStats);
     }
 
     public PlayerStats PlayerStats
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour
 
     private void GetPositionPlayer()
     {
-        transform.position = !GameManage.Ins.isClearData ? playerStats.position : Vector3.zero;
+        transform.position = !GameManager.Ins.isClearData ? playerStats.position : Vector3.zero;
     }
 
     private void FixedUpdate()

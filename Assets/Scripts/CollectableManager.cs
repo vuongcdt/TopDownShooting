@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class CollectableManage : Singleton<CollectableManage>
+    public class CollectableManager : Singleton<CollectableManager>
     {
         [SerializeField] private CollectableItem[] collectableItems;
         public void OnSpawn(Vector2 position)

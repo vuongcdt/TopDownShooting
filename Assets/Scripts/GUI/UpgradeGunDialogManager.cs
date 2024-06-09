@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Scritps.GUI
 {
-    public class UpgradeGunDialogManage : Singleton<UpgradeGunDialogManage>
+    public class UpgradeGunDialogManager : Singleton<UpgradeGunDialogManager>
     {
         [SerializeField] private BulletStats bulletStats;
         [SerializeField] private Text titleText;

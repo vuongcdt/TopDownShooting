@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Scritps
 {
-    public class GameManage : Singleton<GameManage>
+    public class GameManager : Singleton<GameManager>
     {
         [SerializeField] private GameObject player;
         [SerializeField] private Player playerScript;
@@ -43,7 +43,7 @@ namespace Scritps
                 playerScript.PlayerStats = ScriptableObject.CreateInstance<PlayerStats>();
                 playerScript.PlayerStats.Init(GameStats.Ins.PlayerStats);
                 
-                UIManage.Ins.SetValueTextUI(playerScript.PlayerStats);
+                UIManager.Ins.SetValueTextUI(playerScript.PlayerStats);
             }
             else
             {

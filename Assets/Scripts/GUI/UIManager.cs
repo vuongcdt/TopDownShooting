@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Scritps.GUI
 {
-    public class UIManage : Singleton<UIManage>
+    public class UIManager : Singleton<UIManager>
     {
         [SerializeField] private Image[] lifeImages;
         [SerializeField] private Text levelText;

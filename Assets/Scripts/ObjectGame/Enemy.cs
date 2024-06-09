@@ -33,7 +33,7 @@ namespace Scritps
             stats.Init(enemyStatsDefault);
 
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
-            _player = GameManage.Ins.Player;
+            _player = GameManager.Ins.Player;
             _playerScript = _player.GetComponent<Player>();
             _isDeath = false;
             _hp = ((EnemyStats)stats).hp;
@@ -125,7 +125,7 @@ namespace Scritps
             _isDeath = true;
             _rigidbody2DEnemy.velocity = new Vector2();
 
-            CollectableManage.Ins.OnSpawn(transform.position);
+            CollectableManager.Ins.OnSpawn(transform.position);
 
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
             this.OnDespawn(timeDespawnEnemy);
