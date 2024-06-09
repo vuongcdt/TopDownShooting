@@ -1,8 +1,8 @@
-﻿using Common;
+﻿using Stats;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scritps.GUI
+namespace GUI
 {
     public class UIManager : Singleton<UIManager>
     {
@@ -33,17 +33,6 @@ namespace Scritps.GUI
             gameObj.SetActive(!gameObj.activeSelf);
         }
 
-        public void SetValueTextUI(PlayerStats playerStatsCurrent)
-        {
-            SetLevelBar(playerStatsCurrent);
-
-            SetHpBar(playerStatsCurrent);
-
-            SetLifeBar(playerStatsCurrent.lifeCount);
-
-            SetCoinCount(playerStatsCurrent.coinCount);
-        }
-
         public void SetCoinCount(int value)
         {
             coinTotal.text = value.ToString("0");
@@ -57,29 +46,20 @@ namespace Scritps.GUI
             }
         }
 
-        public void SetHpBar(PlayerStats playerStatsCurrent)
+        public void SetHpBar(float hpCurrent,float hpMax)
         {
-            var maxHp = GameStats.Ins.PlayerStats.GetMaxHp(playerStatsCurrent.level);
-
-            progressHealthText.text = string.Format(PROGRESS_TEXT_FORMAT, playerStatsCurrent.hp, maxHp.ToString("0"));
-            hpImage.fillAmount = playerStatsCurrent.hp / maxHp;
+            progressHealthText.text = string.Format(PROGRESS_TEXT_FORMAT, hpCurrent, hpMax);
+            hpImage.fillAmount =  hpCurrent/hpMax;
         }
 
-        public void SetLevelBar(PlayerStats playerStatsCurrent)
+        public void SetLevelBar(PlayerStats playerStats)
         {
-            var xpMax = playerStatsCurrent.GetXpUp(playerStatsCurrent.level);
+            var xpMax = playerStats.GetXpUp(playerStats.level);
+            var xpMin = playerStats.GetXpUp(playerStats.level - 1);
 
-            while (playerStatsCurrent.xp >= xpMax)
-            {
-                playerStatsCurrent.level++;
-                xpMax = playerStatsCurrent.GetXpUp(playerStatsCurrent.level);
-            }
-
-            var xpMin = playerStatsCurrent.GetXpUp(playerStatsCurrent.level - 1);
-
-            levelText.text = string.Format(LEVEL_TEXT_FORMAT, playerStatsCurrent.level);
-            progressLevelText.text = string.Format(PROGRESS_TEXT_FORMAT, playerStatsCurrent.xp, xpMax.ToString("0"));
-            levelImage.fillAmount = (playerStatsCurrent.xp - xpMin) / ( xpMax - xpMin);
+            levelText.text = string.Format(LEVEL_TEXT_FORMAT, playerStats.level);
+            progressLevelText.text = string.Format(PROGRESS_TEXT_FORMAT, playerStats.xp, xpMax.ToString("0"));
+            levelImage.fillAmount = (playerStats.xp - xpMin) / ( xpMax - xpMin);
         }
     }
 }

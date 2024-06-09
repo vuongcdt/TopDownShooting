@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using Common;
+using Stats;
 using UnityEngine;
 
-namespace Scritps
+namespace ObjectGame
 {
     [Serializable]
     public abstract class GameObjectBase : MonoBehaviour
@@ -25,11 +26,11 @@ namespace Scritps
 
             AutoDespawn();
         }
-
-        protected virtual void FixedUpdate()
-        {
-
-        }
+        //
+        // protected virtual void FixedUpdate()
+        // {
+        //     
+        // }
 
         private void AutoDespawn()
         {

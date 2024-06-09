@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scritps
+namespace Stats
 {
     [CreateAssetMenu(fileName = "Health Stats")]
     public class HealthStats:StatsBase
     {
+        public float healthStartLevel = 10;
+
         public override void Init(StatsBase statsBase)
         {
             throw new NotImplementedException();

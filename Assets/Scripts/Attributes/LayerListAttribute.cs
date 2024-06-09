@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UDEV
+namespace Attributes
 {
     public class LayerListAttribute : PropertyAttribute
     {

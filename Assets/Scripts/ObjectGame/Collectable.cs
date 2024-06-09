@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Common;
+using Stats;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Scritps
+namespace ObjectGame
 {
     public class Collectable : GameObjectBase
     {
@@ -12,7 +13,12 @@ namespace Scritps
 
         private Animator _animatorCollectable;
         private Rigidbody2D _rigidbody2D;
-        private static readonly int SPEED_COLLECTABLE = 5;
+        private GameManager _gameManager;
+
+        private void Start()
+        {
+            _gameManager = GameManager.Ins;
+        }
 
         public override void OnEnable()
         {
@@ -28,7 +34,6 @@ namespace Scritps
             StartCoroutine(EndTimeHiddenCollectable());
         }
 
-
         private IEnumerator EndTimeHiddenCollectable()
         {
             yield return new WaitForSeconds(delayTimeDespawn - endTimeDespawn);
@@ -41,6 +46,38 @@ namespace Scritps
             {
                 this.OnDespawn(0f);
                 _rigidbody2D.velocity = Vector2.zero;
+
+                var upgradeFormula = Utils.GetUpgradeFormula(stats.level);
+
+                switch (stats.type)
+                {
+                    case Enums.ObjectType.CoinCollectable:
+                    {
+                        var coinStats = (CoinStats)stats;
+                        var coinBonus = Mathf.CeilToInt(coinStats.coinStartLevel * upgradeFormula);
+                        _gameManager.AddCoin(coinBonus);
+                        break;
+                    }
+                    case Enums.ObjectType.HealthPotionCollectable:
+                    {
+                        var healthStats = (HealthStats)stats;
+                        var hpBonus = Mathf.CeilToInt(healthStats.healthStartLevel * upgradeFormula);
+                        _gameManager.AddHp(hpBonus);
+                        break;
+                    }
+                    case Enums.ObjectType.LifeCollectable:
+                        _gameManager.AddLife();
+                        break;
+                    case Enums.ObjectType.DiamondCollectable:
+                    {
+                        var diamondStats = (DiamondStats)stats;
+                        var diamondBonus = Mathf.CeilToInt(diamondStats.lifeStartLevel * upgradeFormula);
+                        _gameManager.AddCoin(diamondBonus);
+                        break;
+                    }
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
     }

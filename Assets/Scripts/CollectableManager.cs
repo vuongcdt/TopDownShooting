@@ -1,27 +1,25 @@
 ﻿using Common;
+using ObjectGame;
 using UnityEngine;
 
-namespace Scritps
+public class CollectableManager : Singleton<CollectableManager>
 {
-    public class CollectableManager : Singleton<CollectableManager>
+    [SerializeField] private CollectableItem[] collectableItems;
+    public void OnSpawn(Vector2 position,int levelEnemy)
     {
-        [SerializeField] private CollectableItem[] collectableItems;
-        public void OnSpawn(Vector2 position)
-        {
-            var randomValue = Random.value;
+        var randomValue = Random.value;
 
-            foreach (var collectable in collectableItems)
+        foreach (var collectable in collectableItems)
+        {
+            if(collectable.spawnRate < randomValue)
             {
-                if(collectable.spawnRate < randomValue)
-                {
-                    continue;
-                }
-                
-                // Utils.Instantiate(collectable.CollectablePrefab, position, _collectables);
-                var collectableGameObject = Utils.Instantiate(collectable.collectablePrefab, position);
-                // collectableGameObject.ReBorn();
-                return;
+                continue;
             }
+            
+            collectable.collectablePrefab.stats.level = levelEnemy;
+            Utils.Instantiate(collectable.collectablePrefab, position);
+            
+            return;
         }
     }
 }

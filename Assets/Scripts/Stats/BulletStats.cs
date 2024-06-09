@@ -2,7 +2,7 @@
 using Common;
 using UnityEngine;
 
-namespace Scritps
+namespace Stats
 {
     [CreateAssetMenu(fileName = "Bullet Stats")]
     public class BulletStats : StatsBase
@@ -10,7 +10,7 @@ namespace Scritps
         [Header("Base Stats:")] 
         public float damage;
     
-        public float reloadTime;
+        // public float reloadTime;
         public float speedBullet = 30;
         
         public override void Init(StatsBase statsBase)
@@ -19,7 +19,7 @@ namespace Scritps
             var upgradeFormula = Utils.GetUpgradeFormula(bulletStats.level);
             
             this.damage = bulletStats.damage * upgradeFormula;
-            this.reloadTime =  GetReloadTime(bulletStats.reloadTime);
+            // this.reloadTime =  GetReloadTime(bulletStats.reloadTime);
         }
 
         private float GetReloadTime(float bulletStatsReloadTime)

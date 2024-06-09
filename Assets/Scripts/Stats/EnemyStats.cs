@@ -1,9 +1,8 @@
 ﻿using System;
 using Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Scritps
+namespace Stats
 {
     [CreateAssetMenu(fileName = "Enemy Stats")]
     public class EnemyStats : ActorStats

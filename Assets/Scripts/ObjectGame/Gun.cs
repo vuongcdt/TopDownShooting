@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using Common;
+using Stats;
 using UnityEngine;
 
-namespace Scritps
+namespace ObjectGame
 {
     public class Gun : MonoBehaviour
     {

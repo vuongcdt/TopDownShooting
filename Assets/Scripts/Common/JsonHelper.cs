@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Scritps;
+using Stats;
 using UnityEngine;
 
 namespace Common

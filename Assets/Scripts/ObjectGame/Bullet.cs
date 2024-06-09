@@ -1,8 +1,8 @@
-﻿using System;
-using Common;
+﻿using Common;
+using Stats;
 using UnityEngine;
 
-namespace Scritps
+namespace ObjectGame
 {
     public class Bullet : GameObjectBase
     {

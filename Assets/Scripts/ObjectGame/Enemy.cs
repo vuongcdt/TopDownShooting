@@ -1,8 +1,8 @@
 ﻿using Common;
-using Scritps.GUI;
+using Stats;
 using UnityEngine;
 
-namespace Scritps
+namespace ObjectGame
 {
     public class Enemy : GameObjectBase
     {
@@ -12,8 +12,7 @@ namespace Scritps
         [SerializeField] public EnemyStats enemyStatsDefault;
 
         private Rigidbody2D _rigidbody2DEnemy;
-        private GameObject _player;
-        private Player _playerScript;
+        private GameManager _gameManager;
         private bool _isDeath;
         private float _hp;
         private float _takeDameCount;
@@ -33,8 +32,7 @@ namespace Scritps
             stats.Init(enemyStatsDefault);
 
             _rigidbody2DEnemy = gameObject.GetComponent<Rigidbody2D>();
-            _player = GameManager.Ins.Player;
-            _playerScript = _player.GetComponent<Player>();
+            _gameManager = GameManager.Ins;
             _isDeath = false;
             _hp = ((EnemyStats)stats).hp;
 
@@ -49,9 +47,8 @@ namespace Scritps
             }
         }
 
-        protected override void FixedUpdate()
+        protected void FixedUpdate()
         {
-            base.FixedUpdate();
             if (_isDeath)
             {
                 return;
@@ -69,14 +66,14 @@ namespace Scritps
             var enemyStats = (EnemyStats)stats;
             if (_takeDameCount > enemyStats.timeTakeDamage)
             {
-                _playerScript.TakeDamage(enemyStats.damage);
+                _gameManager.TakeDamage(enemyStats.damage);
                 _takeDameCount = 0;
             }
         }
 
         private void MoveToPlayer()
         {
-            var positionPlayer = _player.transform.position;
+            var positionPlayer = _gameManager.Player.transform.position;
             var positionEnemy = this.transform.position;
 
             var velocity = Utils.GetVelocity(positionPlayer, positionEnemy, ((EnemyStats)stats).moveSpeed);
@@ -125,10 +122,11 @@ namespace Scritps
             _isDeath = true;
             _rigidbody2DEnemy.velocity = new Vector2();
 
-            CollectableManager.Ins.OnSpawn(transform.position);
+            CollectableManager.Ins.OnSpawn(transform.position,stats.level);
 
             gameObject.layer = LayerMask.NameToLayer(Constants.LayerConsts.DEFAULT_LAYER);
             this.OnDespawn(timeDespawnEnemy);
+            
             AddXpToPlayer();
         }
 
@@ -136,8 +134,8 @@ namespace Scritps
         {
             var enemyStats = (EnemyStats)stats;
 
-            var xpBonus = enemyStats.xpBonus;
-            _playerScript.AddXp(xpBonus);
+            var xpBonus = enemyStats.xpBonus * Utils.GetUpgradeFormula(enemyStats.level);
+            _gameManager.AddXp(Mathf.CeilToInt(xpBonus));
         }
     }
 }

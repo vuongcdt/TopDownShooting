@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d2dd3aa9a04a009d54e4dd94557bfa, type: 3}
   m_Name: Diamon Stats
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   type: 4
+  level: 5
+  lifeStartLevel: 100

@@ -1,13 +1,12 @@
 ﻿using System;
-using Common;
 using UnityEngine;
 
-namespace Scritps
+namespace Stats
 {
     public class ActorStats : StatsBase
     {
-        [Header("Base Stats")] public float hp;
-        public float damage;
+        [Header("Base Stats")] public int hp;
+        public int damage;
         public float moveSpeed;
 
         public override void Init(StatsBase statsBase)

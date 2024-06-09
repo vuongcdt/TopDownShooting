@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ece5bd36aff46389ec764f9414251c9, type: 3}
   m_Name: Coin Stats
   m_EditorClassIdentifier: 
-  position: {x: -3.5563633, y: -1.4191067, z: 0}
   type: 3
+  level: 4
+  coinStartLevel: 10

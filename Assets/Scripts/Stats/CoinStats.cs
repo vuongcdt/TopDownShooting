@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scritps
+namespace Stats
 {
     [CreateAssetMenu(fileName = "Coin Stats")]
     public class CoinStats:StatsBase
     {
+        public int coinStartLevel = 4;
+        
         public override void Init(StatsBase statsBase)
         {
             throw new NotImplementedException();

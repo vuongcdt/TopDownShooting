@@ -2312,7 +2312,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 953773227}
-  playerScript: {fileID: 953773229}
   enemy: {fileID: 7223232785844985073, guid: d147e6bde8e2a4845a2a0f4b3700b90f, type: 3}
   bullet: {fileID: 7584997470391568916, guid: 1b49e2e5f3276d04ea1a68eda72232f7, type: 3}
   coinCollectable: {fileID: 8047962909517913075, guid: c32bf78b286e5ea4bb1653fbbb1d20c1, type: 3}
@@ -2991,7 +2990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7364166208661071090, guid: b878ca4d4273fb5448d49516b0425d6f, type: 3}
       propertyPath: timeSpawn
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7364166208661071090, guid: b878ca4d4273fb5448d49516b0425d6f, type: 3}
       propertyPath: speedSpawn

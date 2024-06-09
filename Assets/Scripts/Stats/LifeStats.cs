@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scritps
+namespace Stats
 {
     [CreateAssetMenu(fileName = "Life Stats")]
     public class LifeStats:StatsBase

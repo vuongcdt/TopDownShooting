@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scritps
+namespace ObjectGame
 {
     [System.Serializable]
     public class CollectableItem

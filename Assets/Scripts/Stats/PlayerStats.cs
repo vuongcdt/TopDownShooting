@@ -3,7 +3,7 @@ using Common;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scritps
+namespace Stats
 {
     [CreateAssetMenu(fileName = "Player Stats")]
     [Serializable]
@@ -31,7 +31,7 @@ namespace Scritps
 
         public float GetMaxHp(int levelCurrent)
         {
-            return this.hp * Utils.GetUpgradeFormula(levelCurrent);
+            return this.hp * Utils.GetUpgradeFormula(levelCurrent - 1);
         }
 
         public float GetXpUp(int levelValue)

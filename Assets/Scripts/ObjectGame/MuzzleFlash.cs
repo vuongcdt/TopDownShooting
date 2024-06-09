@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Scritps
+namespace ObjectGame
 {
     public class MuzzleFlash : GameObjectBase
     {

@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Stats;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scritps.GUI
+namespace GUI
 {
     public class UpgradeGunDialogManager : Singleton<UpgradeGunDialogManager>
     {

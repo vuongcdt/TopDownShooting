@@ -2,132 +2,185 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
-using Scritps.GUI;
+using GUI;
+using ObjectGame;
+using Stats;
 using UnityEngine;
 
-namespace Scritps
+public class GameManager : Singleton<GameManager>
 {
-    public class GameManager : Singleton<GameManager>
+    [SerializeField]
+    private GameObject player, enemy, bullet, coinCollectable, diamondCollectable, healthCollectable, lifeCollectable;
+
+    public bool isClearData;
+
+    private float _timeCountDown;
+    private bool _isSave;
+    private int _enemyCount;
+    private PlayerStats _playerStats;
+    private PlayerStats _playerStatsDefault;
+    private UIManager _uiManager;
+
+    public GameObject Player => player;
+
+    public int EnemyCount
     {
-        [SerializeField] private GameObject player;
-        [SerializeField] private Player playerScript;
-        [SerializeField] private GameObject enemy;
-        [SerializeField] private GameObject bullet;
-        [SerializeField] private GameObject coinCollectable;
-        [SerializeField] private GameObject diamondCollectable;
-        [SerializeField] private GameObject healthCollectable;
-        [SerializeField] private GameObject lifeCollectable;
-        public bool isClearData;
+        get => _enemyCount;
+        set => _enemyCount = value;
+    }
 
-        public GameObject Player => player;
-        public int EnemyCount
+    public void AddCoin(int value)
+    {
+        _playerStats.coinCount += value;
+        _uiManager.SetCoinCount(_playerStats.coinCount);
+    }
+    
+    public void AddXp(int value)
+    {
+        _playerStats.xp += value;
+        var xpMax = _playerStats.GetXpUp(_playerStats.level);
+            
+        while (_playerStats.xp >= xpMax)
         {
-            get => _enemyCount;
-            set => _enemyCount = value;
+            _playerStats.level++;
+            xpMax = _playerStats.GetXpUp(_playerStats.level);
         }
-        public Player PlayerScript
+        
+        _uiManager.SetLevelBar(_playerStats);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        AddHp(-damage);
+    }
+
+    public void AddHp(int hpBonus)
+    {
+        _playerStats.hp += hpBonus;
+        
+        var maxHp = _playerStatsDefault.GetMaxHp(_playerStats.level);
+        _uiManager.SetHpBar(_playerStats.hp, maxHp);
+    }
+    
+    public void AddLife()
+    {
+        _playerStats.lifeCount ++;
+        _uiManager.SetLifeBar(_playerStats.lifeCount);
+    }
+    private void Start()
+    {
+        _playerStatsDefault = GameStats.Ins.PlayerStats;
+        _uiManager = UIManager.Ins;
+        _playerStats = player.GetComponent<Player>().PlayerStats;
+        LoadData();
+        SetValueTextUI();
+    }
+
+    private void LoadData()
+    {
+        if (isClearData)
         {
-            get => playerScript;
-            set => playerScript = value;
+            Prefs.ClearData();
+            _playerStats = ScriptableObject.CreateInstance<PlayerStats>();
+            _playerStats.Init(_playerStatsDefault);
+            
+            Debug.Log(_playerStats.xp);
+            Debug.Log(_playerStats.xp);
         }
-
-        private float _timeCount;
-        private bool _isSave;
-        private int _enemyCount;
-
-        private void Start()
+        else
         {
-            if (isClearData)
+            LoadDataFromPrefs();
+        }
+    }
+
+
+    private void SetValueTextUI()
+    {
+        _uiManager.SetLevelBar(_playerStats);
+
+        var maxHp = _playerStatsDefault.GetMaxHp(_playerStats.level);
+
+        _uiManager.SetHpBar(_playerStats.hp, maxHp);
+
+        _uiManager.SetLifeBar(_playerStats.lifeCount);
+
+        _uiManager.SetCoinCount(_playerStats.coinCount);
+    }
+
+    private void LoadDataFromPrefs()
+    {
+        JsonHelper jsonHelper = new(new List<GameData>());
+        JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
+
+        GameObject objectIns;
+        jsonHelper.gameDatas.ForEach(e =>
+        {
+            switch (e.type)
             {
-                Prefs.ClearData(); 
-                playerScript.PlayerStats = ScriptableObject.CreateInstance<PlayerStats>();
-                playerScript.PlayerStats.Init(GameStats.Ins.PlayerStats);
-                
-                UIManager.Ins.SetValueTextUI(playerScript.PlayerStats);
+                case Enums.ObjectType.Enemy:
+                    objectIns = enemy;
+                    break;
+                case Enums.ObjectType.CoinCollectable:
+                    objectIns = coinCollectable;
+                    break;
+                case Enums.ObjectType.DiamondCollectable:
+                    objectIns = diamondCollectable;
+                    break;
+                case Enums.ObjectType.HealthPotionCollectable:
+                    objectIns = healthCollectable;
+                    break;
+                case Enums.ObjectType.LifeCollectable:
+                    objectIns = lifeCollectable;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            else
-            {
-                LoadData();
-            }
-        }
 
-        private void LoadData()
-        {
-            JsonHelper jsonHelper = new(new List<GameData>());
-            JsonUtility.FromJsonOverwrite(Prefs.MapData, jsonHelper);
+            Instantiate(objectIns, e.position, Quaternion.identity);
+        });
+    }
 
-            GameObject objectIns;
-            jsonHelper.gameDatas.ForEach(e =>
-            {
-                switch (e.type)
-                {
-                    case Enums.ObjectType.Enemy:
-                        objectIns = enemy;
-                        break;
-                    case Enums.ObjectType.CoinCollectable:
-                        objectIns = coinCollectable;
-                        break;
-                    case Enums.ObjectType.DiamondCollectable:
-                        objectIns = diamondCollectable;
-                        break;
-                    case Enums.ObjectType.HealthPotionCollectable:
-                        objectIns = healthCollectable;
-                        break;
-                    case Enums.ObjectType.LifeCollectable:
-                        objectIns = lifeCollectable;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
 
-                Instantiate(objectIns, e.position, Quaternion.identity);
-            });
-        }
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        CheckSaveGame(pauseStatus);
+    }
 
-        private void OnApplicationQuit()
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        CheckSaveGame(!hasFocus);
+    }
+
+    private void CheckSaveGame(bool isPause)
+    {
+        if (isPause)
         {
             SaveGame();
         }
 
-        private void OnApplicationPause(bool pauseStatus)
+        if (!isPause)
         {
-            if (pauseStatus)
-            {
-                SaveGame();
-            }
-
-            if (!pauseStatus)
-            {
-                _isSave = false;
-            }
-        }
-
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            if (!hasFocus)
-            {
-                SaveGame();
-            }
-
-            if (hasFocus)
-            {
-                _isSave = false;
-            }
-        }
-
-        private void SaveGame()
-        {
-            if (_isSave) return;
-            _isSave = true;
-
-            var gameDatas = Utils.GameObjectsStore
-                .Where(e => e.enabled && e.stats is not { type: Enums.ObjectType.Bullet })
-                .Select(e => new GameData(e.transform.position, e.stats.type, e.stats))
-                .ToList();
-
-            var jsonHelper = new JsonHelper(gameDatas);
-
-            Prefs.MapData = JsonUtility.ToJson(jsonHelper);
+            _isSave = false;
         }
     }
+
+    private void SaveGame()
+    {
+        if (_isSave) return;
+        _isSave = true;
+
+        var gameDatas = Utils.GameObjectsStore
+            .Where(e => e.enabled && e.stats is not { type: Enums.ObjectType.Bullet })
+            .Select(e => new GameData(e.transform.position, e.stats.type, e.stats))
+            .ToList();
+
+        var jsonHelper = new JsonHelper(gameDatas);
+
+        Prefs.MapData = JsonUtility.ToJson(jsonHelper);
+    }
+
 }

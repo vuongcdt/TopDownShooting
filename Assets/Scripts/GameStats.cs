@@ -1,65 +1,30 @@
-﻿using Common;
+﻿using Stats;
 using UnityEngine;
 
-namespace Scritps
+public class GameStats:Singleton<GameStats>
 {
-    public class GameStats:Singleton<GameStats>
-    {
-        [SerializeField] private PlayerStats playerStats;
-        [SerializeField] private EnemyStats enemyStats;
-        [SerializeField] private BulletStats bulletStats;
-        [SerializeField] private CoinStats coinStats;
-        [SerializeField] private DiamondStats diamondStats;
-        [SerializeField] private HealthStats healthStats;
-        [SerializeField] private LifeStats lifeStats;
-        [SerializeField] private GunStats gunStats;
+    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private EnemyStats enemyStats;
+    [SerializeField] private BulletStats bulletStats;
+    [SerializeField] private CoinStats coinStats;
+    [SerializeField] private DiamondStats diamondStats;
+    [SerializeField] private HealthStats healthStats;
+    [SerializeField] private LifeStats lifeStats;
+    [SerializeField] private GunStats gunStats;
 
-        public PlayerStats PlayerStats
-        {
-            get => playerStats;
-            set => playerStats = value;
-        }
+    public PlayerStats PlayerStats => playerStats;
 
-        public EnemyStats EnemyStats
-        {
-            get => enemyStats;
-            set => enemyStats = value;
-        }
+    public EnemyStats EnemyStats => enemyStats;
 
-        public BulletStats BulletStats
-        {
-            get => bulletStats;
-            set => bulletStats = value;
-        }
+    public BulletStats BulletStats => bulletStats;
 
-        public CoinStats CoinStats
-        {
-            get => coinStats;
-            set => coinStats = value;
-        }
+    public CoinStats CoinStats => coinStats;
 
-        public DiamondStats DiamondStats
-        {
-            get => diamondStats;
-            set => diamondStats = value;
-        }
+    public DiamondStats DiamondStats => diamondStats;
 
-        public HealthStats HealthStats
-        {
-            get => healthStats;
-            set => healthStats = value;
-        }
+    public HealthStats HealthStats => healthStats;
 
-        public LifeStats LifeStats
-        {
-            get => lifeStats;
-            set => lifeStats = value;
-        }
+    public LifeStats LifeStats => lifeStats;
 
-        public GunStats GunStats
-        {
-            get => gunStats;
-            set => gunStats = value;
-        }
-    }
+    public GunStats GunStats => gunStats;
 }

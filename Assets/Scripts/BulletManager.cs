@@ -1,7 +1,4 @@
-﻿namespace Scritps
+﻿public class BulletManager : Singleton<BulletManager>
 {
-    public class BulletManager : Singleton<BulletManager>
-    {
         
-    }
 }

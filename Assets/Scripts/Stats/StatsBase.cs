@@ -1,10 +1,8 @@
 ﻿using System;
 using Common;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Scritps
+namespace Stats
 {
     public abstract class StatsBase : ScriptableObject
     {
